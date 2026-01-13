@@ -1,12 +1,15 @@
 FROM node:20-alpine AS base
 WORKDIR /var/www/html
+
+RUN apk add --no-cache bash curl git
+
 EXPOSE 3000
 
 # --- Stage DEV ---
 FROM base AS dev
 ENV NODE_ENV=development
 # En dev, on lance npm install et nuxt dev
-CMD sh -c "npm install && npx nuxt dev --host 0.0.0.0"
+CMD bash -c "npm install && npx nuxt dev --host 0.0.0.0"
 
 # --- Stage BUILD (pour la prod) ---
 FROM base AS build
