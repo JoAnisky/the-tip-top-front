@@ -16,20 +16,20 @@ pipeline {
                 checkout scm
             }
         }
-
-        // vérifier la syntaxe sans builder l'image
-        stage('Lint & Type Check') {
-			agent {
-				docker {
-					image 'node:20-alpine'
-					args '-v $HOME/.npm:/root/.npm'
-				}
-			}
-			steps {
-				sh 'npm install'
-				sh 'npx nuxi prepare'
-				sh 'npx nuxi typecheck'
-			}
+        // vérifier la syntaxe sans builder l'image : On utilise un pod qui contient contient Node pour lancer les cdes
+		stage('Lint & Type Check') {
+		   agent {
+			   kubernetes {
+				   yamlFile 'k8s/jenkins/pod-node.yaml'
+			   }
+		   }
+		   steps {
+			   container('node') {
+				   sh 'npm install'
+				   sh 'npx nuxi prepare'
+				   sh 'npx nuxi typecheck'
+			   }
+		   }
 		}
         stage('Build & Push Docker') {
             steps {
