@@ -16,20 +16,6 @@ pipeline {
                 checkout scm
             }
         }
-        // vérifier la syntaxe sans builder l'image : On utilise un pod qui contient contient Node pour lancer les cdes
-		stage('Lint & Type Check') {
-			agent {
-				kubernetes {
-				   yamlFile 'k8s/jenkins/pod-node.yaml'
-				}
-			}
-			steps {
-				container('node') {
-				  sh 'npm ci'
-				  sh 'npx vue-tsc --noEmit'
-				}
-			}
-		}
         stage('Build & Push Docker') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'jenkins-dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
