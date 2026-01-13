@@ -1,0 +1,29 @@
+services:
+    ttt-front:
+        build:
+            context: .
+            dockerfile: .docker/Dockerfile
+            target: ${APP_ENV:-dev}
+        container_name: ttt-front
+        environment:
+            APP_ENV: ${APP_ENV:-dev}
+            HOST: 0.0.0.0
+            PORT: 3000
+            # URL de l'API
+            NUXT_PUBLIC_API_BASE: ${API_URL}
+        volumes:
+            - "./:/var/www/html"
+            - "./traefik/config/traefik.${APP_ENV:-dev}.yml:/etc/traefik/traefik.yml:ro"
+            - "/var/www/html/node_modules"
+        networks:
+            - web
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.ttt-front.rule=Host(`${DOMAIN:-localhost}`)"
+            - "traefik.http.services.ttt-front.loadbalancer.server.port=3000"
+
+networks:
+    web:
+        external: true
+    mysql_network:
+        external: true
