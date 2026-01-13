@@ -19,11 +19,18 @@ pipeline {
 
         // vérifier la syntaxe sans builder l'image
         stage('Lint & Type Check') {
-            steps {
-                sh 'npm install && npx nuxi typecheck'
-            }
-        }
-
+			agent {
+				docker {
+					image 'node:20-alpine'
+					args '-v $HOME/.npm:/root/.npm'
+				}
+			}
+			steps {
+				sh 'npm install'
+				sh 'npx nuxi prepare'
+				sh 'npx nuxi typecheck'
+			}
+		}
         stage('Build & Push Docker') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'jenkins-dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
