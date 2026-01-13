@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nuxt-front-ingress
+  namespace: the-tip-top-front
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+spec:
+  tls:
+    - hosts:
+        - the-tip-top.jonathanlore.fr
+      secretName: front-the-tip-top-tls
+  rules:
+    - host: the-tip-top.jonathanlore.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nuxt-front-service
+                port:
+                  number: 80
