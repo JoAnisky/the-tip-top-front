@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
     future: {compatibilityVersion: 4},
-    modules: ['@nuxtjs/tailwindcss'],
+    modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts'],
     vite: {
       server: {
           allowedHosts: [
