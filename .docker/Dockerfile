@@ -8,6 +8,11 @@ EXPOSE 3000
 # --- Stage DEV ---
 FROM base AS dev
 ENV NODE_ENV=development
+
+RUN mkdir -p /var/www/html/node_modules && chown -R node:node /var/www/html
+
+# On bascule sur l'utilisateur node
+USER node
 # En dev, on lance npm install et nuxt dev
 CMD bash -c "npm install && npx nuxt dev --host 0.0.0.0"
 

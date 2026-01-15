@@ -1,5 +1,6 @@
 services:
     ttt-front:
+        user: "${UID:-1000}:${GID:-1000}"
         build:
             context: .
             dockerfile: .docker/Dockerfile
