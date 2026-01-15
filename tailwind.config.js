@@ -14,6 +14,11 @@ export default {
             "ttt-green-dark" : "#4F7A16",
             "ttt-orange" : "#DD6835",
         },
+        fontFamily: {
+            'open': ['Open Sans', 'sans-serif'],
+            'lato': ['Lato', 'sans-serif'],
+            'cream': ['CreamCake', 'cursive'],
+        }
     },
   },
   plugins: [],
