@@ -1,9 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  srcDir: 'app/',
-  devtools: { enabled: true },
-
-  vite: {
+    devtools: { enabled: true },
+    future: {compatibilityVersion: 4},
+    modules: ['@nuxtjs/tailwindcss'],
+    vite: {
       server: {
           allowedHosts: [
               process.env.DOMAIN || 'localhost',
@@ -11,7 +11,5 @@ export default defineNuxtConfig({
               '.local'
           ]
       }
-  },
-
-  modules: ['@nuxtjs/tailwindcss']
+    },
 })
