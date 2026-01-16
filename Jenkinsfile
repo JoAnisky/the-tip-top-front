@@ -49,10 +49,16 @@ pipeline {
                         kubectl apply -k k8s/ -n ${KUBE_NAMESPACE}
 
                         # Mettre à jour l'image
+                        echo "** Updating Front image to ${DOCKER_IMAGE}:${DOCKER_TAG} **"
                         kubectl set image deployment/${KUBE_DEPLOYMENT} web=${DOCKER_IMAGE}:${DOCKER_TAG} -n ${KUBE_NAMESPACE}
 
+						# 4. Force rollout (vider le cache et forcer le pull) : annotation qui change à chaque build, forçant K8s à recréer les pods
+						TIMESTAMP=$(date +%s)
+						kubectl patch deployment ${KUBE_DEPLOYMENT} -n ${KUBE_NAMESPACE} \
+							-p "{\\"spec\\":{\\"template\\":{\\"metadata\\":{\\"annotations\\":{\\"redeploy-timestamp\\":\\"$TIMESTAMP\\"}}}}}"
+
                         # vérifier le statut
-                        kubectl rollout status deployment/${KUBE_DEPLOYMENT} -n ${KUBE_NAMESPACE}
+                        kubectl rollout status deployment/${KUBE_DEPLOYMENT} -n ${KUBE_NAMESPACE} --timeout=300s
                     '''
                 }
             }
