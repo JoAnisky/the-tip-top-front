@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl font-cream">Grand jeu concours Thé Tip Top</h1>
-    <p>Bienvenue dans l'univers Thé Tip Top !</p>
-  </div>
+  <header>
+    <h1 class="main-title">Grand jeu concours Thé Tip Top</h1>
+    <p>Gagnez un an de thé bio premium d’une valeur de 360€ et de nombreux cadeaux !</p>
+    <button>Jouer</button>
+    <p>Pour fêter l’<strong>ouverture de notre 10<sup>e</sup> boutique Thé Tip Top à Nice</strong>, nous lançons un jeu concours unique ou chaque participation est 100% gagnante !</p>
+  </header>
 </template>
+<script setup lang="ts">
+</script>
