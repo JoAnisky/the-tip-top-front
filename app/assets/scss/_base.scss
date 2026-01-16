@@ -1,4 +1,13 @@
 @layer base {
+  :root {
+    --site-gutter: 5.625rem;
+  }
+  @media (max-width: 768px) {
+    :root {
+      --site-gutter: 1.5rem;
+    }
+  }
+
   body {
     @apply font-open bg-ttt-dark-grey text-ttt-white antialiased;
   }
