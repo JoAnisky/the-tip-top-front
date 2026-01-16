@@ -1,0 +1,13 @@
+@layer base {
+  body {
+    @apply font-open bg-ttt-dark-grey text-ttt-white antialiased;
+  }
+  h1 {
+    &.main-title{
+      @apply font-cream text-ttt-white tracking-[.02em] text-[7.5rem];
+    }
+  }
+  h2, h3 {
+    @apply font-lato text-ttt-white;
+  }
+}
