@@ -3,29 +3,37 @@ WORKDIR /var/www/html
 
 RUN apk add --no-cache bash curl git
 
-EXPOSE 3000
-
 # --- Stage DEV ---
 FROM base AS dev
 ENV NODE_ENV=development
 
-RUN mkdir -p /var/www/html/node_modules && chown -R node:node /var/www/html
+# on s'assure que l'utilisateur node est proprio du dossier html (sinon pas possible de RX un fichier)
+RUN mkdir -p /var/www/html/node_modules .nuxt && \
+    chown -R node:node /var/www/html
 
-# On bascule sur l'utilisateur node
 USER node
+
 # En dev, on lance npm install et nuxt dev
 CMD bash -c "npm install && npx nuxt dev --host 0.0.0.0"
 
-# --- Stage BUILD (pour la prod) ---
+# --- Stage BUILD (Prod) ---
 FROM base AS build
+# on copie SEULEMENT les fichiers de dépendances pour mettre en cache l'install
 COPY package*.json ./
-RUN npm install
+RUN npm install --frozen-lockfile
+
+# on copie le reste du code (le .dockerignore filtrera ici)
 COPY . .
 RUN npm run build
 
 # --- Stage PROD ---
 FROM base AS prod
 ENV NODE_ENV=production
-# On ne copie que l'output du build
-COPY --from=build /var/www/html/.output ./.output
+
+USER node
+
+# On récupère le build propre
+COPY --from=build --chown=node:node /var/www/html/.output ./.output
+
+EXPOSE 3000
 CMD ["node", ".output/server/index.mjs"]

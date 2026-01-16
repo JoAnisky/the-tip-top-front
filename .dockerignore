@@ -1,0 +1,24 @@
+# Dépendances (doivent être installées DANS le conteneur)
+node_modules/
+
+# Dossiers de build et de cache Nuxt (très important !)
+.nuxt/
+.output/
+dist/
+
+# Environnement et Logs
+.env
+.env.*
+!.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Git
+.git
+.gitignore
+
+# Divers
+README.md
+.vscode/
+.idea/
