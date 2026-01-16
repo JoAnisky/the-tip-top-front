@@ -3,8 +3,8 @@
 </script>
 
 <template>
-    <nav class="flex items-center justify-between px-[90px] h-20 bg-ttt-dark-grey">
-      <NuxtLink to="/" class="flex-shrink-0">
+  <nav class="absolute top-0 left-0 w-full z-50 flex items-center justify-between px-[var(--site-gutter)] h-20 bg-ttt-black/85 backdrop-blur-md">
+    <NuxtLink to="/" class="flex-shrink-0">
         <img
             src="/images/the_tip_top_logo_header.svg"
             alt="Logo Thé Tip Top"
@@ -14,7 +14,7 @@
 
       <ul class="flex items-center gap-8 font-lato text-ttt-white">
         <li><NuxtLink to="/" class="hover:text-ttt-orange transition">Accueil</NuxtLink></li>
-        <li><NuxtLink to="/#howto" class="hover:text-ttt-orange transition">Comment jouer ?</NuxtLink></li>
+        <li><NuxtLink to="/#howto" class="hover:text-ttt-orange transition">Comment jouer</NuxtLink></li>
         <li><NuxtLink to="/#faq" class="hover:text-ttt-orange transition">Foire aux questions</NuxtLink></li>
         <li><NuxtLink to="/about" class="hover:text-ttt-orange transition">Qui sommes nous ?</NuxtLink></li>
 
