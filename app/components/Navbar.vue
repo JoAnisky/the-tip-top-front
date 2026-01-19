@@ -3,13 +3,9 @@
 </script>
 
 <template>
-  <nav class="absolute top-0 left-0 w-full z-50 flex items-center justify-between px-[var(--site-gutter)] h-20 bg-ttt-black/85 backdrop-blur-md">
+  <nav class="absolute top-0 left-0 w-full z-50 flex items-center justify-between px-[var(--site-gutter)] h-20 bg-ttt-black/70 backdrop-blur-md">
     <NuxtLink to="/" class="flex-shrink-0">
-        <img
-            src="/images/the_tip_top_logo_header.svg"
-            alt="Logo Thé Tip Top"
-            class="w-[183px] h-[36px] object-contain"
-        >
+        <img src="/images/the_tip_top_logo_header.svg" alt="Logo Thé Tip Top" class="w-[183px] h-[36px] object-contain">
       </NuxtLink>
 
       <ul class="flex items-center gap-8 font-lato text-ttt-white">
