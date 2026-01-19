@@ -1,10 +1,26 @@
 @layer base {
+  /* Desktop */
+
   :root {
-    --site-gutter: 5.625rem;
+    /* Gouttière Navbar (Logo/Menu) */
+    --navbar-gutter: 5.625rem;
+    /* Gouttière Contenu (Header/Sections) */
+    --content-gutter: 15rem;
   }
+
+  /* tablette */
+  @media (max-width: 1024px) {
+    :root {
+      --content-gutter: 3rem;
+      --navbar-gutter: 3rem;
+    }
+  }
+
+  /* Mobile */
   @media (max-width: 768px) {
     :root {
-      --site-gutter: 1.5rem;
+      --content-gutter: 1.5rem;
+      --navbar-gutter: 1.5rem;
     }
   }
 
@@ -13,7 +29,7 @@
   }
   h1 {
     &.main-title{
-      @apply font-cream text-ttt-white tracking-[.02em] text-[7.5rem];
+      @apply font-cream text-ttt-white tracking-[.02em] text-[4rem] md:text-[7.5rem] leading-tight;
     }
   }
   h2, h3 {
