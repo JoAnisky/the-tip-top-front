@@ -11,4 +11,7 @@
   h2, h3 {
     @apply font-lato text-ttt-white;
   }
+  nav a {
+    @apply uppercase tracking-wider font-medium;
+  }
 }
