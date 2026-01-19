@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <button class="bg-ttt-orange text-ttt-white px-8 py-3 rounded-full font-bold hover:scale-105 transition">
+  <button class="btn-primary" type="button" aria-label="Participer au jeu concours Thé Tip Top">
     Jouer
   </button>
 </template>
