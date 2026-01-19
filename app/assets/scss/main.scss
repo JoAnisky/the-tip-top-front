@@ -1,8 +1,8 @@
-@import "variables";
+@use "variables";
+@use "base";
+@use "typography";
+@use "components";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "base";
-@import "typography";
-@import "components";
