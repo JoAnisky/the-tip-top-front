@@ -1,28 +1,4 @@
 @layer base {
-  /* Desktop */
-
-  :root {
-    /* Gouttière Navbar (Logo/Menu) */
-    --navbar-gutter: 5.625rem;
-    /* Gouttière Contenu (Header/Sections) */
-    --content-gutter: 15rem;
-  }
-
-  /* tablette */
-  @media (max-width: 1024px) {
-    :root {
-      --content-gutter: 3rem;
-      --navbar-gutter: 3rem;
-    }
-  }
-
-  /* Mobile */
-  @media (max-width: 768px) {
-    :root {
-      --content-gutter: 1.5rem;
-      --navbar-gutter: 1.5rem;
-    }
-  }
 
   body {
     @apply font-open bg-ttt-dark-grey text-ttt-white antialiased;
