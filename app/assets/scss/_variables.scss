@@ -1,23 +1,23 @@
-/* Desktop */
-:root {
-  /* Gouttière Navbar (Logo/Menu) */
-  --navbar-gutter: 5.625rem;
-  /* Gouttière Contenu (Header/Sections) */
-  --content-gutter: 15rem;
-}
+/* Breakpoints */
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1440px;
 
-/* tablette */
-@media (max-width: 1024px) {
-  :root {
+:root {
+  /* Mobile (par défaut) */
+  --content-gutter: 1.5rem;
+  --navbar-gutter: 1.5rem;
+
+  /* Tablette */
+  @media (min-width: #{$breakpoint-md}) {
     --content-gutter: 3rem;
     --navbar-gutter: 3rem;
   }
-}
 
-/* Mobile */
-@media (max-width: 768px) {
-  :root {
-    --content-gutter: 1.5rem;
-    --navbar-gutter: 1.5rem;
+  /* Desktop */
+  @media (min-width: #{$breakpoint-lg}) {
+    --content-gutter: 15rem;
+    --navbar-gutter: 5.625rem;
   }
 }

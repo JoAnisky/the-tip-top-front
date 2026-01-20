@@ -18,7 +18,14 @@ export default {
             'open': ['Open Sans', 'sans-serif'],
             'lato': ['Lato', 'sans-serif'],
             'cream': ['CreamCake', 'cursive'],
-        }
+        },
+        screens: {
+            // aligner les breakpoints Tailwind sur les variables SCSS
+            'md': 'var(--breakpoint-md)',
+            'lg': 'var(--breakpoint-lg)',
+            'xl': 'var(--breakpoint-xl)',
+            '2xl': 'var(--breakpoint-2xl)',
+        },
     },
   },
   plugins: [],
