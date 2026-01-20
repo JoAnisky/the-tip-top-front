@@ -2,7 +2,7 @@
 
 interface Gift {
   name: string;
-  images: string;
+  image: string;
 }
 
 const gifts: Gift[] = [
