@@ -19,7 +19,7 @@
       <div class="flex items-center justify-between max-w-6xl">
         <div class="max-w-4xl text-left">
           <h1 class="main-title mb-6">
-            Grand jeu concours <br> Thé Tip Top
+            Grand jeu concours <br/> Thé Tip Top
           </h1>
           <p class="text-xl md:text-2xl mb-8 font-lato leading-relaxed">
             Gagnez un an de thé bio premium d’une valeur de 360€ et de nombreux cadeaux !
@@ -28,7 +28,7 @@
           <Play />
 
           <p class="mt-12 text-base max-w-xl">
-            Pour fêter l’<strong>ouverture de notre 10<sup>e</sup> boutique Thé Tip Top à Nice</strong>,
+            Pour fêter l’<strong>ouverture de notre 10ᵉ boutique Thé Tip Top à Nice</strong>,
             nous lançons un jeu concours unique où chaque participation est 100% gagnante !
           </p>
         </div>
