@@ -11,4 +11,14 @@
   .ttt-container {
     @apply flex flex-col items-center justify-center;
   }
+
+  /* du gris sombre vers le clair */
+  .bg-gradient-ttt-dark {
+    @apply bg-gradient-to-b from-ttt-dark-grey via-ttt-dark-grey to-ttt-light-grey;
+  }
+
+  /* du gris clair vers le sombre */
+  .bg-gradient-ttt-dark-reverse {
+    @apply bg-gradient-to-b from-ttt-light-grey via-ttt-light-grey to-ttt-dark-grey;
+  }
 }

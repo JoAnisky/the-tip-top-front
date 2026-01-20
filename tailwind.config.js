@@ -7,6 +7,7 @@ export default {
             "ttt-black" : "#050505",
             "ttt-grey-placeholders" : "#B8B8B8",
             "ttt-dark-grey" : "#19191A",
+            "ttt-light-grey" : "#333333",
             "ttt-grey-stroke" : "#4C4C4C",
             "ttt-status-red" : "#C40000",
             "ttt-status-green" : "#0B6033",
@@ -21,10 +22,10 @@ export default {
         },
         screens: {
             // aligner les breakpoints Tailwind sur les variables SCSS
-            'md': 'var(--breakpoint-md)',
-            'lg': 'var(--breakpoint-lg)',
-            'xl': 'var(--breakpoint-xl)',
-            '2xl': 'var(--breakpoint-2xl)',
+            'md': '768px',
+            'lg': '1024px',
+            'xl': '1280px',
+            '2xl': '1440px'
         },
     },
   },

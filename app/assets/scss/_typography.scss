@@ -3,4 +3,7 @@
     @apply font-cream text-ttt-white tracking-[.02em] leading-tight;
     @apply text-[4rem] md:text-[6rem] lg:text-[7.5rem];
   }
+  .subtitle {
+    @apply font-semibold tracking-[1.3px] text-[1.2rem] leading-snug font-lato;
+  }
 }
