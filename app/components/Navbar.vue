@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  const { activeHash } = useActiveSection()
 
 </script>
 
@@ -9,10 +10,10 @@
       </NuxtLink>
 
       <ul class="flex items-center gap-8 font-lato text-ttt-white">
-        <li><NuxtLink to="/" class="hover:text-ttt-orange transition">Accueil</NuxtLink></li>
-        <li><NuxtLink to="/#howto" class="hover:text-ttt-orange transition">Comment jouer</NuxtLink></li>
-        <li><NuxtLink to="/#faq" class="hover:text-ttt-orange transition">Foire aux questions</NuxtLink></li>
-        <li><NuxtLink to="/about" class="hover:text-ttt-orange transition">Qui sommes nous ?</NuxtLink></li>
+        <li><NuxtLink to="/" class="nav-link">Accueil</NuxtLink></li>
+        <li><NuxtLink to="/#howto" class="nav-link" :class="{ 'is-active' : activeHash === '#howto' }">Comment jouer</NuxtLink></li>
+        <li><NuxtLink to="/#faq" class="nav-link" :class="{ 'is-active' : activeHash === '#faq' }">Foire aux questions</NuxtLink></li>
+        <li><NuxtLink to="/about" class="nav-link">Qui sommes nous ?</NuxtLink></li>
 
         <li class="ml-4">
           <NuxtLink to="/login">
@@ -34,3 +35,23 @@
       </ul>
     </nav>
 </template>
+
+<style lang="scss" scoped>
+.nav-link {
+  @apply transition relative py-1 hover:text-ttt-orange;
+
+  &.is-active {
+    @apply text-ttt-orange;
+
+    &::after {
+      content: '';
+      @apply absolute bottom-0 left-0 w-full h-0.5 bg-ttt-orange;
+    }
+  }
+
+  &:not([href*="#"]).router-link-exact-active {
+    @apply text-ttt-orange;
+    &::after { @apply absolute bottom-0 left-0 w-full h-0.5 bg-ttt-orange; }
+  }
+}
+</style>
