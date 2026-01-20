@@ -9,6 +9,6 @@
 
 @layer components {
   .ttt-container {
-    @apply flex flex-wrap justify-center;
+    @apply flex flex-col items-center justify-center;
   }
 }
