@@ -1,16 +1,15 @@
 <script setup lang="ts">
-  const { activeHash } = useActiveSection()
-
+  const activeHash  = useActiveSection()
 </script>
 
 <template>
-  <nav class="absolute top-0 left-0 w-full z-50 sticky flex items-center justify-between px-[var(--navbar-gutter)] h-20 bg-ttt-black/70 backdrop-blur-md">
-    <NuxtLink to="/" class="flex-shrink-0">
+  <nav class="sticky top-0 w-full z-50 flex items-center justify-between px-[var(--navbar-gutter)] h-20 bg-ttt-black/70 backdrop-blur-md">
+      <NuxtLink to="/" class="flex-shrink-0">
         <img src="/images/the_tip_top_logo_header.svg" alt="Logo Thé Tip Top" class="w-[183px] h-[36px] object-contain">
       </NuxtLink>
 
       <ul class="flex items-center gap-8 font-lato text-ttt-white">
-        <li><NuxtLink to="/" class="nav-link">Accueil</NuxtLink></li>
+        <li><NuxtLink to="/" class="nav-link" :class="{ 'is-active' : activeHash === '' || activeHash === '#' }">Accueil</NuxtLink></li>
         <li><NuxtLink to="/#howto" class="nav-link" :class="{ 'is-active' : activeHash === '#howto' }">Comment jouer</NuxtLink></li>
         <li><NuxtLink to="/#faq" class="nav-link" :class="{ 'is-active' : activeHash === '#faq' }">Foire aux questions</NuxtLink></li>
         <li><NuxtLink to="/about" class="nav-link">Qui sommes nous ?</NuxtLink></li>
@@ -38,20 +37,19 @@
 
 <style lang="scss" scoped>
 .nav-link {
-  @apply transition relative py-1 hover:text-ttt-orange;
+  @apply transition-all relative py-2 hover:text-ttt-orange;
 
-  &.is-active {
-    @apply text-ttt-orange;
-
-    &::after {
-      content: '';
-      @apply absolute bottom-0 left-0 w-full h-0.5 bg-ttt-orange;
-    }
+  &::after {
+    content: '';
+    @apply absolute bottom-[-4px] left-0 w-0 h-0.5 bg-ttt-orange transition-all duration-300;
   }
 
-  &:not([href*="#"]).router-link-exact-active {
+  &.is-active,
+  &.router-link-exact-active:not([href^="/#"]):not([href="/"]) {
     @apply text-ttt-orange;
-    &::after { @apply absolute bottom-0 left-0 w-full h-0.5 bg-ttt-orange; }
+    &::after {
+      @apply w-full;
+    }
   }
 }
 </style>

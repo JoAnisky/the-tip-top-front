@@ -5,19 +5,27 @@ import { ref, onMounted, onUnmounted } from 'vue';
  */
 export const useActiveSection = () => {
     const activeHash = ref('')
-
     let observer: IntersectionObserver | null = null
+
+    const handleScroll = () => {
+        if (window.scrollY < 100) {
+            activeHash.value = '' // Reset le hash pour allumer "Accueil"
+        }
+    }
 
     const initObserver = () => {
         const observerOptions: IntersectionObserverInit = {
-            rootMargin: '-10% 0px -80% 0px',
+            rootMargin: '-20% 0px -40% 0px',
             threshold: 0
         }
 
         observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
+                const id = '#' + entry.target.id
                 if (entry.isIntersecting) {
-                    activeHash.value = '#' + entry.target.id
+                    activeHash.value = id
+                } else if (activeHash.value === id) {
+                    activeHash.value = ''
                 }
             })
         }, observerOptions)
@@ -29,15 +37,21 @@ export const useActiveSection = () => {
     }
 
     onMounted(() => {
-        initObserver()
-        if (window.location.hash) {
-            activeHash.value = window.location.hash
-        }
+        setTimeout(() => {
+            initObserver()
+            // On écoute le scroll pour le haut de page
+            window.addEventListener('scroll', handleScroll)
+
+            if (window.location.hash) {
+                activeHash.value = window.location.hash
+            }
+        }, 200)
     })
 
     onUnmounted(() => {
         observer?.disconnect()
+        window.removeEventListener('scroll', handleScroll)
     })
-    console.log("active hash:", activeHash.value)
+
     return activeHash;
 }
