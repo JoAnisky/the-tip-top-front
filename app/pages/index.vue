@@ -27,8 +27,8 @@
       <div class="flex subtitle">
         <p class="subtitle">La participation à notre jeu concours Thé Tip Top Nice est un jeu d’enfant</p>
       </div>
-      <div class="flex flex-wrap justify-center gap-8 mb-10">
-
+      <div class="flex flex-wrap justify-center gap-8 my-10">
+        <StepsList/>
       </div>
       <PlayBtn/>
     </div>
