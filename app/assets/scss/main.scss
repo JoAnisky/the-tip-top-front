@@ -6,3 +6,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .ttt-container {
+    @apply flex flex-wrap justify-center;
+  }
+}

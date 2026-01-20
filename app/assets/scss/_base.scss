@@ -11,6 +11,9 @@
   h2, h3 {
     @apply font-lato text-ttt-white;
   }
+  h2 {
+    @apply text-4xl;
+  }
   nav a {
     @apply uppercase tracking-wider font-medium;
   }
