@@ -25,7 +25,7 @@
             Gagnez un an de thé bio premium d’une valeur de 360€ et de nombreux cadeaux !
           </p>
 
-          <Play />
+          <PlayBtn />
 
           <p class="mt-12 text-base max-w-xl">
             Pour fêter l’<strong>ouverture de notre 10ᵉ boutique Thé Tip Top à Nice</strong>,
