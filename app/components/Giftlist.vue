@@ -1,13 +1,8 @@
 <script setup lang="ts">
-interface ImageSources {
-  mobile: string;
-  tablet: string;
-  desktop: string;
-}
 
 interface Gift {
   name: string;
-  images: ImageSources;
+  images: string;
 }
 
 const gifts: Gift[] = [
