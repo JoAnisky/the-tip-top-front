@@ -16,7 +16,7 @@
 
         <li class="ml-4">
           <NuxtLink to="/login">
-            <button class="flex items-center hover:scale-105 transition-transform">
+            <button class="flex items-center hover:scale-105 transition-transform" aria-label="Accéder à mon compte">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="31" viewBox="0 0 30 31" fill="none">
                 <g clip-path="url(#clip0_132_363)">
                   <circle cx="15" cy="16" r="15" fill="#DD6835"/>
