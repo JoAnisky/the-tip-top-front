@@ -34,7 +34,7 @@
 </script>
 
 <template>
-  <div class="max-w-[69rem] mx-auto w-full flex flex-col space-y-4 px-4">
+  <div class="max-w-[69rem] mx-auto w-full flex flex-col space-y-4 px-4 pb-8">
     <div v-for="(faq, index) in faqs" :key="index" class="border-b border-ttt-white/80 transition-all">
       <button @click="toggleFaq(index)" class="w-full flex items-center justify-between py-6 text-left group">
         <span class="text-xl text-ttt-white tracking-wide group-hover:font-bold transition-colors">
