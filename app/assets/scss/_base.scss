@@ -1,5 +1,8 @@
 @layer base {
 
+  html{
+    @apply scroll-smooth;
+  }
   body {
     @apply font-open bg-ttt-dark-grey text-ttt-white antialiased;
   }
