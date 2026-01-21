@@ -60,5 +60,6 @@
       <Faqlist/>
     </div>
   </section>
+  <CookiesBtn/>
   <NavFooter/>
 </template>
