@@ -29,7 +29,7 @@
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-12 w-full px-4">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-[8rem] w-full px-4">
     <div v-for="step in steps" :key="step.stepId" class="flex flex-col items-center">
 
       <div class="bg-white rounded-[40px] shadow-xl flex flex-col items-center pb-10 w-full max-w-[320px]">
