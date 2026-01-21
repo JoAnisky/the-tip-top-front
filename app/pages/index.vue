@@ -60,4 +60,5 @@
       <Faqlist/>
     </div>
   </section>
+  <NavFooter/>
 </template>
