@@ -1,8 +1,14 @@
+<script setup lang="ts">
+  import CookiesModal from "~/components/modales/CookiesModal.vue";
+
+  const showModal = ref(false)
+</script>
+
 <template>
   <div class="fixed bottom-8 left-8 z-[100]">
     <button class="group flex items-center justify-center p-0 bg-transparent border-none transition-transform hover:scale-110 active:scale-95"
-        @click="openCookieModal"
-        aria-label="Gestion des cookies"
+        @click="showModal = true"
+        aria-label="Gérer les cookies"
     >
     <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" fill="none">
       <circle cx="28" cy="28" r="28" fill="white"/>
@@ -12,11 +18,6 @@
         Paramètres des cookies
       </span>
     </button>
+    <CookiesModal v-model="showModal" />
   </div>
 </template>
-
-<script setup lang="ts">
-const openCookieModal = () => {
-  console.log('Ouvrir la modale')
-}
-</script>
