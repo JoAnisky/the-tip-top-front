@@ -54,4 +54,10 @@
     </div>
     <img src="/images/univers-ttt-background.webp" alt="" aria-hidden="true" class="absolute bottom-0 right-0 w-full pointer-events-none" width="1441" height="164"/>
   </section>
+  <section id="faq" class="bg-ttt-green-light py-10">
+    <div class="ttt-container">
+      <h2>FAQ</h2>
+      <Faqlist/>
+    </div>
+  </section>
 </template>
