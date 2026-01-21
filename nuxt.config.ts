@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ['~/assets/scss/main.scss'],
-    modules: ['@nuxtjs/tailwindcss', '@nuxt/fonts'],
+    modules: ['@nuxt/fonts', '@nuxt/ui'],
     vite: {
       server: {
           allowedHosts: [
