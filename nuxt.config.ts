@@ -12,4 +12,12 @@ export default defineNuxtConfig({
           ]
       }
     },
+    app: {
+        head: {
+            title: 'Grand Jeu concours Thé Tip Top', // default fallback title
+            htmlAttrs: {
+                lang: 'fr',
+            },
+        },
+    },
 })
