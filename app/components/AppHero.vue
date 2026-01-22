@@ -1,15 +1,15 @@
 <template>
-  <header class="relative w-full py-20 min-h-[500px] flex items-center overflow-hidden">
+  <header class="relative w-full py-4 lg:py-10 min-h-[400px] lg:min-h-[500px] flex items-center overflow-hidden">
     <picture class="absolute inset-0">
       <source media="(min-width: 1024px)" srcset="/images/hero-bg-1920.webp">
       <source media="(min-width: 640px)" srcset="/images/hero-bg-1024.webp">
       <img
-          src="/images/hero-bg-640.webp"
-          alt=""
-          class="absolute inset-0 w-full h-full object-cover"
-          loading="eager"
-          fetchpriority="high"
-          aria-hidden="true"
+        src="/images/hero-bg-640.webp"
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        aria-hidden="true"
       />
     </picture>
 
