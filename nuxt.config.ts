@@ -6,8 +6,10 @@ export default defineNuxtConfig({
     vite: {
       server: {
           allowedHosts: [
-              process.env.NUXT_PUBLIC_SITE_URL ? new URL(process.env.NUXT_PUBLIC_SITE_URL).hostname : 'localhost',
-              'localhost'
+              ...(process.env.NUXT_PUBLIC_SITE_URL ? [new URL(process.env.NUXT_PUBLIC_SITE_URL).hostname] : []),
+              process.env.DOMAIN || 'localhost',
+              'localhost',
+              '.local'
           ]
       }
     },
