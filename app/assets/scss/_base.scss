@@ -1,22 +1,29 @@
-@layer base {
+@use "variables" as *;
+@use "mixins" as *;
 
-  html{
+@layer base {
+  html {
     @apply scroll-smooth;
   }
+
   body {
     @apply font-open bg-ttt-dark-grey text-ttt-white antialiased;
   }
+
+  // On lie le tag h1 à la classe main-title pour la cohérence
   h1 {
-    &.main-title{
-      @apply font-cream text-ttt-white tracking-[.02em] text-[4rem] md:text-[7.5rem] leading-tight;
-    }
+    @include main-title-styles;
   }
-  h2, h3 {
-    @apply font-lato text-ttt-white;
-  }
+
   h2 {
-    @apply text-4xl mb-10;
+    font-size: var(--h2-size);
+    @apply font-lato text-ttt-white mb-10 font-bold text-center;
   }
+
+  h3 {
+    @apply font-lato text-ttt-white font-bold;
+  }
+
   nav a {
     @apply uppercase tracking-wider font-medium;
   }

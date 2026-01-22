@@ -5,19 +5,33 @@ $breakpoint-xl: 1280px;
 $breakpoint-2xl: 1440px;
 
 :root {
-  /* Mobile (par défaut) */
+  /* Gutters */
   --content-gutter: 1.5rem;
   --navbar-gutter: 1.5rem;
 
-  /* Tablette */
+  /* Mobile First */
+  --h1-size: 4rem;
+  --h2-size: 1.469rem;
+  --sub-size: 1.063rem;
+  --p-size: 1rem;
+
   @media (min-width: #{$breakpoint-md}) {
     --content-gutter: 3rem;
     --navbar-gutter: 3rem;
+    /* Tablette */
+    --h1-size: 5rem;
+    --h2-size: 2.625rem;
+    --sub-size: 1.25rem;
+    --p-size: 1.25rem
   }
 
-  /* Desktop */
   @media (min-width: #{$breakpoint-lg}) {
     --content-gutter: 15rem;
     --navbar-gutter: 5.625rem;
+    /* Desktop */
+    --h1-size: 7.5rem;
+    --h2-size: 3rem;
+    --sub-size: 1.25rem;
+    --p-size: 1.375rem;
   }
 }

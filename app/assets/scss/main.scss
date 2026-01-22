@@ -1,6 +1,6 @@
 @use "variables";
-@use "base";
 @use "typography";
+@use "base";
 @use "components";
 
 @tailwind base;
@@ -9,7 +9,12 @@
 
 @layer components {
   .ttt-container {
-    @apply flex flex-col items-center justify-center;
+    // mobile et tablette par défaut
+    @apply flex flex-col items-center justify-center text-center;
+
+    @screen lg {
+      @apply text-left;
+    }
   }
 
   /* du gris sombre vers le clair */

@@ -1,0 +1,4 @@
+@mixin main-title-styles {
+  font-size: var(--h1-size);
+  @apply font-cream text-ttt-white tracking-[.02em] leading-tight;
+}

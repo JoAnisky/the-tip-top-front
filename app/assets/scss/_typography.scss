@@ -1,9 +1,18 @@
+@use "variables" as *;
+@use "mixins" as *;
+
 @layer base {
   .main-title {
-    @apply font-cream text-ttt-white tracking-[.02em] leading-tight;
-    @apply text-[4rem] md:text-[6rem] lg:text-[7.5rem];
+    @include main-title-styles;
   }
+
   .subtitle {
-    @apply font-semibold tracking-[1.3px] text-[1.2rem] leading-snug font-lato;
+    font-size: var(--sub-size);
+    @apply font-semibold tracking-[1.3px] leading-snug font-lato;
+  }
+
+  p {
+    font-size: var(--p-size);
+    @apply leading-relaxed font-lato;
   }
 }
