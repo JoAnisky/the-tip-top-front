@@ -24,7 +24,7 @@ useSeoMeta({
   </section>
 
   <section id="howto" class="bg-ttt-green-light">
-    <div class="ttt-container">
+    <div class="ttt-container p-0 pl-[0.6rem]">
       <div class="flex">
         <h2>Comment participer et gagner ? C’est simple !</h2>
       </div>
