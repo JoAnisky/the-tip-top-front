@@ -10,10 +10,10 @@
 @layer components {
   .ttt-container {
     // mobile et tablette par défaut
-    @apply flex flex-col items-center justify-center text-center;
+    @apply flex flex-col items-center justify-center text-center px-[var(--content-gutter)];
 
     @screen lg {
-      @apply text-left;
+      @apply text-left px-0;
     }
   }
 

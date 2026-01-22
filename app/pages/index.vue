@@ -16,8 +16,8 @@ useSeoMeta({
       <div class="flex flex-wrap justify-center gap-8 mb-10">
         <Giftlist/>
       </div>
-      <div class="flex subtitle">
-        <p>Tentez de remporter ces cadeaux uniques et transformez votre expérience du thé.</p>
+      <div class="flex subtitle relative z-10">
+        <h3>Tentez de remporter ces cadeaux uniques et transformez votre expérience du thé.</h3>
       </div>
     </div>
     <img src="/images/leaf.png" alt="" aria-hidden="true" class="absolute bottom-0 right-0 w-48 pointer-events-none"/>
@@ -29,7 +29,7 @@ useSeoMeta({
         <h2>Comment participer et gagner ? C’est simple !</h2>
       </div>
       <div class="flex subtitle">
-        <p class="subtitle">La participation à notre jeu concours Thé Tip Top Nice est un jeu d’enfant</p>
+        <h3>La participation à notre jeu concours Thé Tip Top Nice est un jeu d’enfant</h3>
       </div>
       <div class="flex flex-wrap justify-center gap-8 my-10">
         <StepsList/>
@@ -45,7 +45,7 @@ useSeoMeta({
         <img src="/images/the_tip_top_logo_header.svg" width="183" height="36" class="object-contain h-[2.6em] w-auto self-end" alt="Logo Thé Tip Top">
       </div>
       <div>
-        <p class="italic my-10">En participant, vous rejoignez une communauté d’amateurs de thé bio de qualité.</p>
+        <h3 class="italic my-10 font-normal">En participant, vous rejoignez une communauté d’amateurs de thé bio de qualité.</h3>
       </div>
       <div class="flex flex-wrap justify-center gap-12 my-10">
         <img src="/images/agriculture-bio.webp" alt="Logo Agriculture bio France" width="41" height="49"/>
