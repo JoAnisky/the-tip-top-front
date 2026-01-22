@@ -1,10 +1,15 @@
 <script setup lang="ts">
 const isOpen = defineModel<boolean>({ default: false })
-const analytics = ref<boolean>(false);
+const analytics = ref<boolean>(true);
 </script>
 
 <template>
-  <UModal v-model="isOpen">
+  <UModal v-model="isOpen"
+    :ui="{
+    container: 'flex min-h-full items-center justify-center text-center',
+    align: 'center'
+  }"
+  >
     <UCard :ui="{
       ring: '',
       divide: 'divide-y divide-ttt-black/10',
