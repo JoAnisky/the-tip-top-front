@@ -14,10 +14,11 @@ export default defineNuxtConfig({
     },
     app: {
         head: {
-            title: 'Grand Jeu concours Thé Tip Top', // default fallback title
+            title: 'Grand jeu concours Thé Tip Top Nice - Gagnez 1 an de thé bio premium', // default fallback title
             htmlAttrs: {
                 lang: 'fr',
             },
+            ogImage: '/images/og.jpg',
         },
     },
 })
