@@ -2,15 +2,17 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ['~/assets/scss/main.scss'],
-    modules: ['@nuxt/fonts', '@nuxt/ui'],
+    modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image'],
     vite: {
       server: {
           allowedHosts: [
-              process.env.DOMAIN || 'localhost',
-              'localhost',
-              '.local'
+              process.env.NUXT_PUBLIC_SITE_URL ? new URL(process.env.NUXT_PUBLIC_SITE_URL).hostname : 'localhost',
+              'localhost'
           ]
       }
+    },
+    site: {
+        url: 'https://the-tip-top.jonathanlore.fr',
     },
     app: {
         head: {
@@ -18,7 +20,6 @@ export default defineNuxtConfig({
             htmlAttrs: {
                 lang: 'fr',
             },
-            ogImage: '/images/og.jpg',
         },
     },
 })
