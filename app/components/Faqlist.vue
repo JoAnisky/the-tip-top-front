@@ -37,7 +37,7 @@
   <div class="max-w-[69rem] mx-auto w-full flex flex-col space-y-4 px-4 pb-8">
     <div v-for="(faq, index) in faqs" :key="index" class="border-b border-ttt-white/80 transition-all">
       <button @click="toggleFaq(index)" class="w-full flex items-center justify-between py-6 text-left group">
-        <span class="text-xl text-ttt-white tracking-wide group-hover:font-bold transition-colors">
+        <span class="text-lg text-ttt-white tracking-wide group-hover:font-bold transition-colors">
           {{ faq.question }}
         </span>
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transform transition-transform duration-300 text-ttt-orange" :class="{ 'rotate-180': openIndex === index }" fill="none" viewBox="0 0 24 24" stroke="#fff">
@@ -46,7 +46,7 @@
       </button>
 
       <div class="overflow-hidden transition-all duration-300 ease-in-out" :style="{ maxHeight: openIndex === index ? '200px' : '0px' }">
-        <div class="pb-6 text-ttt-white leading-relaxed italic">
+        <div class="pb-6 text-ttt-white leading-relaxed italic text-justify">
           {{ faq.answer }}
         </div>
       </div>

@@ -40,20 +40,20 @@ useSeoMeta({
 
   <section class="bg-gradient-ttt-dark-reverse relative">
     <div class="ttt-container">
-      <div class="flex flex-row items-baseline gap-4">
+      <div class="flex flex-col lg:flex-row lg:items-baseline gap-4">
         <h2 class="leading-7 mb-0">Découvrez l’univers</h2>
-        <img src="/images/the_tip_top_logo_header.svg" width="183" height="36" class="object-contain h-[2.6em] w-auto self-end" alt="Logo Thé Tip Top">
+        <img src="/images/the_tip_top_logo_header.svg" width="183" height="36" class="object-contain h-[2em] lg:h-[2.6em] w-auto self-center lg:self-end" alt="Logo Thé Tip Top">
       </div>
       <div>
-        <h3 class="italic my-10 font-normal">En participant, vous rejoignez une communauté d’amateurs de thé bio de qualité.</h3>
+        <h3 class="italic mt-5 lg:my-10 font-normal">En participant, vous rejoignez une communauté d’amateurs de thé bio de qualité.</h3>
       </div>
-      <div class="flex flex-wrap justify-center gap-12 my-10">
+      <div class="flex flex-wrap justify-center gap-6 lg:gap-12 my-8 lg:my-10">
         <img src="/images/agriculture-bio.webp" alt="Logo Agriculture bio France" width="41" height="49"/>
         <img src="/images/europe-bio.webp" alt="Logo Europe bio France" width="87" height="58"/>
         <img src="/images/rse.webp" alt="Logo responsabilité sociétale des entreprises" width="58" height="59"/>
       </div>
-      <div class="flex flex-wrap justify-center gap-8 mb-10 w-[60vw] pb-[12.5rem]">
-        <p class="text-center">Explorez nos collections de thés verts, noirs, rooibos et infusions, tous élaborés en France avec passion et respect des traditions artisanales. Nous sommes fiers de vous offrir des produits sains, éthiques, respectueux de l’environnement et délicieusement parfumés.</p>
+      <div class="flex flex-wrap justify-center gap-8 mb-10 w-[80vw] lg:w-[60vw] pb-5 lg:pb-[12.5rem]">
+        <p class="text-justify lg:text-center">Explorez nos collections de thés verts, noirs, rooibos et infusions, tous élaborés en France avec passion et respect des traditions artisanales. Nous sommes fiers de vous offrir des produits sains, éthiques, respectueux de l’environnement et délicieusement parfumés.</p>
       </div>
     </div>
     <img src="/images/univers-ttt-background.webp" alt="" aria-hidden="true" class="absolute bottom-0 right-0 w-full pointer-events-none" width="1441" height="164"/>
