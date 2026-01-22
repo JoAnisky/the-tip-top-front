@@ -27,4 +27,7 @@
   nav a {
     @apply uppercase tracking-wider font-medium;
   }
+  section {
+    @apply py-5 lg:py-10;
+  }
 }

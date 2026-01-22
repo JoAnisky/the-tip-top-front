@@ -8,12 +8,12 @@ useSeoMeta({
 
 <template>
   <AppHero/>
-  <section id="gift-list" class="gift-list relative overflow-hidden bg-gradient-ttt-dark py-10">
+  <section id="gift-list" class="gift-list relative overflow-hidden bg-gradient-ttt-dark">
     <div class="ttt-container">
       <div class="flex">
         <h2>Fêtez l’ouverture de notre 10ᵉ boutique en remportant des lots exclusifs !</h2>
       </div>
-      <div class="flex flex-wrap justify-center gap-8 mb-10">
+      <div class="flex flex-wrap justify-center gap-8 mb-10 mt-5">
         <Giftlist/>
       </div>
       <div class="flex subtitle relative z-10">
@@ -23,7 +23,7 @@ useSeoMeta({
     <img src="/images/leaf.png" alt="" aria-hidden="true" class="absolute bottom-0 right-0 w-48 pointer-events-none"/>
   </section>
 
-  <section id="howto" class="bg-ttt-green-light py-10">
+  <section id="howto" class="bg-ttt-green-light">
     <div class="ttt-container">
       <div class="flex">
         <h2>Comment participer et gagner ? C’est simple !</h2>
@@ -38,7 +38,7 @@ useSeoMeta({
     </div>
   </section>
 
-  <section class="bg-gradient-ttt-dark-reverse py-10 relative">
+  <section class="bg-gradient-ttt-dark-reverse relative">
     <div class="ttt-container">
       <div class="flex flex-row items-baseline gap-4">
         <h2 class="leading-7 mb-0">Découvrez l’univers</h2>
@@ -58,7 +58,7 @@ useSeoMeta({
     </div>
     <img src="/images/univers-ttt-background.webp" alt="" aria-hidden="true" class="absolute bottom-0 right-0 w-full pointer-events-none" width="1441" height="164"/>
   </section>
-  <section id="faq" class="bg-ttt-green-light py-10">
+  <section id="faq" class="bg-ttt-green-light">
     <div class="ttt-container">
       <h2>FAQ</h2>
       <Faqlist/>
