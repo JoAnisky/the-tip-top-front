@@ -65,5 +65,4 @@ useSeoMeta({
     </div>
   </section>
   <CookiesBtn/>
-  <NavFooter/>
 </template>

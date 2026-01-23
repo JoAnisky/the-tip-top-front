@@ -5,4 +5,7 @@
       <slot />
     </main>
   </div>
+  <NavFooter/>
 </template>
+<script setup lang="ts">
+</script>
