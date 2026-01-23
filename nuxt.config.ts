@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ['~/assets/scss/main.scss'],
-    modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image'],
+    modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image', 'nuxt-auth-utils'],
     vite: {
       server: {
           allowedHosts: [
