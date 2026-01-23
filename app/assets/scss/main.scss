@@ -26,4 +26,12 @@
   .bg-gradient-ttt-dark-reverse {
     @apply bg-gradient-to-b from-ttt-light-grey via-ttt-light-grey to-ttt-dark-grey;
   }
+  .bg-gradient-ttt-dark-reverse-subtle {
+    background: linear-gradient(
+                    to bottom,
+                    rgba(77, 77, 77, 0.2) 0%,
+                    rgba(51, 51, 51, 0.3) 50%,
+                    rgba(26, 26, 26, 0.8) 100%
+    );
+  }
 }

@@ -12,7 +12,9 @@
 
   // On lie le tag h1 à la classe main-title pour la cohérence
   h1 {
-    @include main-title-styles;
+    &.main-title {
+      @include main-title-styles;
+    }
   }
 
   h2 {
