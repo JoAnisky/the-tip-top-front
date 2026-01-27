@@ -4,8 +4,7 @@
     <main class="flex-grow">
       <slot />
     </main>
+    <NavFooter/>
   </div>
-  <NavFooter/>
+
 </template>
-<script setup lang="ts">
-</script>
