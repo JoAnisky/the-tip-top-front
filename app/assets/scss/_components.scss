@@ -9,11 +9,10 @@
     justify-content: center;
     padding: 13px 25px;
     border-radius: 15px;
-
     background: linear-gradient(
-                    to bottom,
-                    #f05d23,
-                    #f08300
+        to bottom,
+        #f05d23,
+        #f08300
     );
 
     color: #ffffff;
@@ -46,39 +45,37 @@
 
   /* Style réutilisable pour les inputs sombres */
   .ttt-input-dark {
+    // 1. Style de base obligatoire pour contrer le "border-0" du DOM
     input {
-      // État de base (Sombre)
-      @apply bg-ttt-dark-grey border border-gray-700 text-white rounded-md transition-all;
-
-      // On retire les ombres et rings par défaut de Nuxt UI
+      @apply bg-ttt-dark-grey text-white rounded-md transition-all;
+      border: 1px solid #374151 !important; // gray-700
       outline: none !important;
       box-shadow: none !important;
-      --tw-ring-color: transparent !important;
 
-      &::placeholder {
-        @apply text-gray-500;
-      }
-
-      // ÉTAT FOCUS : On applique l'orange ici
-      &:focus,
-      &:focus-visible,
-      &:active {
-        @apply border-ttt-orange; // Changement de couleur de la bordure
-
-        // Optionnel : un léger halo orange (ring) pour plus de peps
-        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) #f05d23; // Couleur #f05d23 (orange)
-        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-
-        outline: none !important;
+      &:focus {
+        border-color: #f05d23 !important; // orange
+        box-shadow: 0 0 0 1px #f05d23 !important;
       }
     }
 
-    // État d'erreur (Zod validation)
-    &.ring-red-500 input {
-      @apply border-red-500 !important;
+    // 2. DÉTECTION DE L'ERREUR
+    // On utilise :has() pour vérifier si un message d'erreur existe dans le parent
+    // OU si l'icône à l'intérieur est devenue rouge
+    &:has(~ p.text-red-500),
+    &:has(.text-red-500) {
+      input {
+        border-color: #ef4444 !important; // rouge
+        box-shadow: 0 0 0 1px #ef4444 !important;
+      }
     }
   }
+
+  // Si :has() n'est pas supporté ou ne suffit pas : on cible l'input si un message d'erreur (p) est son frère suivant
+  .mt-1:has(p.text-red-500) .ttt-input-dark input {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 1px #ef4444 !important;
+  }
+
   /** <UDivider> */
   .ttt-divider {
     div.border-gray-200,

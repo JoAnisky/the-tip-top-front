@@ -6,8 +6,8 @@
   const { fetch: refreshSession } = useUserSession()
 
   const state = reactive({
-    email: undefined,
-    password: undefined
+    email: '',
+    password: ''
   })
 
   async function onSubmit() {
@@ -34,9 +34,6 @@
       loading.value = false
     }
   }
-  onMounted(async () => {
-    console.log(loginSchema)
-  })
 </script>
 
 <template>
@@ -83,14 +80,13 @@
           <UFormGroup label="Adresse email *" name="email" :ui="{ label: { base: 'ttt-form-label' } }">
             <UInput
                 v-model="state.email"
+                name="email"
                 placeholder="Saisir votre adresse email"
                 icon="i-heroicons-envelope"
                 size="xl"
                 variant="none"
                 class="ttt-input-dark"
-                :ui="{
-                icon: { base: 'text-gray-400' },
-              }"
+                :ui="{ icon: { base: 'text-gray-400' } }"
             />
           </UFormGroup>
 
