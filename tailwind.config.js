@@ -14,6 +14,7 @@ export default {
             "ttt-green-light" : "#677C2D",
             "ttt-green-dark" : "#4F7A16",
             "ttt-orange" : "#DD6835",
+            "ttt-form-background" : "#232323",
         },
         fontFamily: {
             'open': ['Open Sans', 'sans-serif'],
