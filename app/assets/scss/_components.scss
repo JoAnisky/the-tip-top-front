@@ -1,35 +1,168 @@
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 13px 25px;
-  border-radius: 15px;
+@layer components {
+  // ============================================
+  // BOUTONS
+  // ============================================
 
-  background: linear-gradient(
-    to bottom,
-    #f05d23,
-    #f08300
-  );
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 25px;
+    border-radius: 15px;
 
-  color: #ffffff;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
-  transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease;
+    background: linear-gradient(
+                    to bottom,
+                    #f05d23,
+                    #f08300
+    );
 
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
+    transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:focus-visible {
+      outline: 3px solid #ffffff;
+      outline-offset: 3px;
+    }
   }
 
-  &:active {
-    transform: scale(0.98);
+  // ============================================
+  // INPUTS / FORMULAIRES
+  // ============================================
+
+  /* Style réutilisable pour les inputs sombres */
+  .ttt-input-dark {
+    --tw-ring-color: transparent !important;
+
+    input {
+      @apply bg-ttt-dark-grey border border-gray-700 text-white rounded-md transition-all;
+      @apply focus:ring-1 focus:ring-ttt-grey-stroke focus:border-ttt-light-grey;
+
+      --tw-ring-color: transparent !important;
+      --tw-ring-shadow: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+
+      &::placeholder {
+        @apply text-gray-500;
+      }
+
+      &:active,
+      &:focus,
+      &:focus-visible {
+        @apply border-ttt-light-grey;
+        --tw-ring-color: transparent !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+    }
   }
-  &:focus-visible {
-    outline: 3px solid #ffffff;
-    outline-offset: 3px;
+
+  /* Alternative : Input avec focus orange (pour cohérence visuelle) */
+  .ttt-input-orange-focus {
+    input {
+      @apply bg-[#1A1A1A] border border-white/10 text-white rounded-lg transition-all;
+      @apply focus:ring-1 focus:ring-ttt-orange focus:border-ttt-orange;
+
+      /* ⭐ SUPPRESSION DU FOCUS RING BLEU PAR DÉFAUT */
+      outline: none !important;
+      box-shadow: none !important;
+
+      &::placeholder {
+        @apply text-gray-500;
+      }
+
+      &:active,
+      &:focus,
+      &:focus-visible {
+        @apply border-ttt-orange;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+    }
+  }
+
+  /* Label de formulaire */
+  .ttt-form-label {
+    @apply text-gray-300 font-medium mb-2 block text-base;
+  }
+
+  /* CLASSE GLOBALE POUR SUPPRIMER LES BORDURES BLEUES SUR TOUS LES INPUTS */
+  .ttt-form-no-blue {
+    /* Supprime les rings sur les inputs */
+    input,
+    textarea,
+    select {
+      --tw-ring-color: transparent !important;
+      --tw-ring-shadow: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+
+      &:focus,
+      &:focus-visible,
+      &:active {
+        --tw-ring-color: transparent !important;
+        --tw-ring-shadow: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+    }
+
+    /* Supprime aussi le ring bleu de Nuxt UI */
+    [class*="ring-primary"],
+    [class*="ring-blue"] {
+      --tw-ring-color: transparent !important;
+    }
+  }
+
+  // ============================================
+  // CONTAINERS / LAYOUTS
+  // ============================================
+
+  .ttt-container {
+    // mobile et tablette par défaut
+    @apply flex flex-col items-center justify-center text-center px-[var(--content-gutter)];
+
+    @screen lg {
+      @apply text-left px-0;
+    }
+  }
+
+  // ============================================
+  // GRADIENTS
+  // ============================================
+
+  /* du gris sombre vers le clair */
+  .bg-gradient-ttt-dark {
+    @apply bg-gradient-to-b from-ttt-dark-grey via-ttt-dark-grey to-ttt-light-grey;
+  }
+
+  /* du gris clair vers le sombre */
+  .bg-gradient-ttt-dark-reverse {
+    @apply bg-gradient-to-b from-ttt-light-grey via-ttt-light-grey to-ttt-dark-grey;
+  }
+
+  /* Version subtile du dégradé inversé */
+  .bg-gradient-ttt-dark-reverse-subtle {
+    background: linear-gradient(
+      to bottom,
+      rgba(77, 77, 77, 0.2) 0%,
+      rgba(77, 77, 77, 0.3) 50%,
+      rgba(38, 38, 38, 0.8) 100%
+    );
   }
 }
