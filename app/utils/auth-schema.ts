@@ -1,29 +1,30 @@
 import { z } from 'zod'
 
-// Base commune pour connexion / inscription
+const requiredMsg = "Ce champ est requis"
+
 export const loginSchema = z.object({
-    email: z.string()
-        .email('Email invalide')
-        .min(1, 'L\'email est requis'),
-    password: z.string()
+    email: z.string({ required_error: requiredMsg })
+        .min(1, 'L\'email est requis')
+        .email('Email invalide'),
+    password: z.string({ required_error: requiredMsg })
+        .min(1, 'Le mot de passe est requis')
         .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
 })
 
-// Schéma d'inscription basé sur l'entité User
 export const registerSchema = z.object({
-    firstName: z.string()
-        .min(2, 'Le prénom est trop court')
-        .max(255),
-    lastName: z.string()
-        .min(2, 'Le nom est trop court')
-        .max(255),
-    email: z.string()
+    firstName: z.string({ required_error: requiredMsg })
+        .min(1, 'Le prénom est requis')
+        .min(2, 'Le prénom est trop court'),
+    lastName: z.string({ required_error: requiredMsg })
+        .min(1, 'Le nom est requis')
+        .min(2, 'Le nom est trop court'),
+    email: z.string({ required_error: requiredMsg })
+        .min(1, 'L\'email est requis')
         .email('Email invalide'),
-    // plainPassword correspond au champ dans l'entité Symfony
-    plainPassword: z.string()
+    plainPassword: z.string({ required_error: requiredMsg })
         .min(8, 'Le mot de passe doit contenir au moins 8 caractères'),
-    // Pour la confirmation dans le formulaire (non envoyé à l'API)
-    confirmPassword: z.string(),
+    confirmPassword: z.string({ required_error: requiredMsg })
+        .min(1, 'Veuillez confirmer votre mot de passe'),
 
     // Champs optionnels présents dans l'entité User
     phoneNumber: z.string().max(20).nullable().optional(),
