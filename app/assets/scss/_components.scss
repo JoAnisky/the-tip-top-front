@@ -46,53 +46,51 @@
 
   /* Style réutilisable pour les inputs sombres */
   .ttt-input-dark {
-    --tw-ring-color: transparent !important;
-
     input {
+      // État de base (Sombre)
       @apply bg-ttt-dark-grey border border-gray-700 text-white rounded-md transition-all;
-      @apply focus:ring-1 focus:ring-ttt-grey-stroke focus:border-ttt-light-grey;
 
-      --tw-ring-color: transparent !important;
-      --tw-ring-shadow: none !important;
+      // On retire les ombres et rings par défaut de Nuxt UI
       outline: none !important;
       box-shadow: none !important;
+      --tw-ring-color: transparent !important;
 
       &::placeholder {
         @apply text-gray-500;
       }
 
-      &:active,
+      // ÉTAT FOCUS : On applique l'orange ici
       &:focus,
-      &:focus-visible {
-        @apply border-ttt-light-grey;
-        --tw-ring-color: transparent !important;
+      &:focus-visible,
+      &:active {
+        @apply border-ttt-orange; // Changement de couleur de la bordure
+
+        // Optionnel : un léger halo orange (ring) pour plus de peps
+        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) #f05d23; // Couleur #f05d23 (orange)
+        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+
         outline: none !important;
-        box-shadow: none !important;
       }
     }
+
+    // État d'erreur (Zod validation)
+    &.ring-red-500 input {
+      @apply border-red-500 !important;
+    }
   }
+  /** <UDivider> */
+  .ttt-divider {
+    div.border-gray-200,
+    div.dark\:border-gray-800 {
+      // force la couleur grise du séparateur
+      border-color: #333333 !important;
+      border-top-width: 2px !important;
+    }
 
-  /* Alternative : Input avec focus orange (pour cohérence visuelle) */
-  .ttt-input-orange-focus {
-    input {
-      @apply bg-[#1A1A1A] border border-white/10 text-white rounded-lg transition-all;
-      @apply focus:ring-1 focus:ring-ttt-orange focus:border-ttt-orange;
-
-      /* ⭐ SUPPRESSION DU FOCUS RING BLEU PAR DÉFAUT */
-      outline: none !important;
-      box-shadow: none !important;
-
-      &::placeholder {
-        @apply text-gray-500;
-      }
-
-      &:active,
-      &:focus,
-      &:focus-visible {
-        @apply border-ttt-orange;
-        outline: none !important;
-        box-shadow: none !important;
-      }
+    // styliser le texte "ou"
+    span {
+      @apply text-gray-300 text-xs uppercase font-bold tracking-widest;
     }
   }
 

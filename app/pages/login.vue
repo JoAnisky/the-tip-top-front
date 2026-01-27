@@ -77,14 +77,9 @@
           </UButton>
         </div>
 
-        <UDivider label="ou" class="mb-8" size="sm" :ui="{ label: 'text-gray-300 uppercase px-4' }" />
+        <UDivider label="ou" class="ttt-divider mb-8"/>
 
-        <UForm
-            :schema="loginSchema"
-            :state="state"
-            class="space-y-6 !ttt-form-no-blue"
-            @submit="onSubmit"
-        >
+        <UForm :schema="loginSchema" :state="state" class="space-y-6 !ttt-form-no-blue" @submit="onSubmit">
           <UFormGroup label="Adresse email *" name="email" :ui="{ label: { base: 'ttt-form-label' } }">
             <UInput
                 v-model="state.email"
@@ -95,7 +90,6 @@
                 class="ttt-input-dark"
                 :ui="{
                 icon: { base: 'text-gray-400' },
-                base: '!ring-0 !ring-transparent'
               }"
             />
           </UFormGroup>
@@ -128,13 +122,9 @@
         </UForm>
       </div>
     </UCard>
-    <p class="mt-8 text-gray-400">
+    <p class="mt-8 text-gray-400 text-base">
       Pas encore de compte ?
-      <NuxtLink to="/inscription" class="text-white font-bold hover:underline">S'inscrire</NuxtLink>
+      <NuxtLink to="/inscription" class="text-white font-bold hover:underline"> S'inscrire</NuxtLink>
     </p>
   </div>
 </template>
-
-<style scoped>
-
-</style>
