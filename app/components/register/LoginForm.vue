@@ -3,6 +3,7 @@
 import {loginSchema} from "#imports";
 
 const loading = ref(false)
+const isPasswordVisible = ref(false)
 const { fetch: refreshSession } = useUserSession()
 
 const state = reactive({
@@ -80,14 +81,26 @@ async function onSubmit() {
           <UFormGroup label="Mot de passe *" name="password" :ui="{ label: { base: 'ttt-form-label' } }">
             <UInput
                 v-model="state.password"
-                type="password"
+                :type="isPasswordVisible ? 'text' : 'password'"
                 placeholder="Saisir votre mot de passe"
-                autocomplete="current-password"
+                autocomplete="new-password"
                 icon="i-heroicons-key"
                 size="xl"
                 variant="none"
                 class="ttt-input-dark"
-            />
+                :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
+            >
+              <template #trailing>
+                <UButton
+                    color="gray"
+                    variant="ghost"
+                    :icon="isPasswordVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                    :padded="false"
+                    @click="isPasswordVisible = !isPasswordVisible"
+                    class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
+                />
+              </template>
+            </UInput>
           </UFormGroup>
 
           <UButton

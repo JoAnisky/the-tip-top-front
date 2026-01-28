@@ -4,6 +4,9 @@ import {registerSchema} from "#imports";
 
 const emit = defineEmits(['switchForm']);
 const loading = ref(false);
+const isPasswordVisible = ref(false);
+const isConfirmVisible = ref(false);
+
 const toast = useToast();
 
 const state = reactive({
@@ -25,6 +28,7 @@ const genderOptions = [
   { value: 'male', label: 'Un homme' },
   { value: 'female', label: 'Une femme' }
 ];
+
 
 async function onSubmit() {
   loading.value = true;
@@ -117,7 +121,28 @@ async function onSubmit() {
                   Mot de passe <span class="text-red-500">*</span>
                 </span>
               </template>
-              <UInput v-model="state.plainPassword" type="password" placeholder="8 caract. min" autocomplete="new-password" icon="i-heroicons-key" size="xl" variant="none" class="ttt-input-dark" />
+              <UInput
+                  v-model="state.plainPassword"
+                  :type="isPasswordVisible ? 'text' : 'password'"
+                  placeholder="8 caract. min"
+                  autocomplete="new-password"
+                  icon="i-heroicons-key"
+                  size="xl"
+                  variant="none"
+                  class="ttt-input-dark"
+                  :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
+              >
+                <template #trailing>
+                  <UButton
+                      color="gray"
+                      variant="ghost"
+                      :icon="isPasswordVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                      :padded="false"
+                      @click="isPasswordVisible = !isPasswordVisible"
+                      class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
+                  />
+                </template>
+              </UInput>
             </UFormGroup>
             <UFormGroup name="confirmPassword">
               <template #label>
@@ -125,7 +150,28 @@ async function onSubmit() {
                   Confirmez votre mot de passe <span class="text-red-500">*</span>
                 </span>
               </template>
-              <UInput v-model="state.confirmPassword" type="password" placeholder="Répétez le mot de passe" autocomplete="new-password" icon="i-heroicons-key" size="xl" variant="none" class="ttt-input-dark" />
+              <UInput
+                  v-model="state.plainPassword"
+                  :type="isConfirmVisible ? 'text' : 'password'"
+                  placeholder="8 caract. min"
+                  autocomplete="new-password"
+                  icon="i-heroicons-key"
+                  size="xl"
+                  variant="none"
+                  class="ttt-input-dark"
+                  :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
+              >
+                <template #trailing>
+                  <UButton
+                      color="gray"
+                      variant="ghost"
+                      :icon="isConfirmVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                      :padded="false"
+                      @click="isConfirmVisible = !isConfirmVisible"
+                      class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
+                  />
+                </template>
+              </UInput>
             </UFormGroup>
           </div>
 
