@@ -12,6 +12,9 @@ export const loginSchema = z.object({
 })
 
 export const registerSchema = z.object({
+    gender: z.enum(['male', 'female'], {
+        required_error: "Veuillez sélectionner votre civilité"
+    }),
     firstName: z.string({ required_error: requiredMsg })
         .min(1, 'Le prénom est requis')
         .min(2, 'Le prénom est trop court'),
@@ -36,6 +39,7 @@ export const registerSchema = z.object({
     acceptTerms: z.literal(true, {
         errorMap: () => ({ message: 'Vous devez accepter les conditions générales d\'utilisation' }),
     }),
+    newsletter: z.boolean().default(false),
 }).refine((data) => data.plainPassword === data.confirmPassword, {
     message: "Les mots de passe ne correspondent pas",
     path: ["confirmPassword"],
