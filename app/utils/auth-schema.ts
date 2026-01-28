@@ -4,10 +4,10 @@ const requiredMsg = "Ce champ est requis"
 
 export const loginSchema = z.object({
     email: z.string({ required_error: requiredMsg })
-        .min(1, 'L\'email est requis')
+        .min(1, 'Saisissez votre adresse email')
         .email('Email invalide'),
     password: z.string({ required_error: requiredMsg })
-        .min(1, 'Le mot de passe est requis')
+        .min(1, 'Saisissez votre mot de passe')
         .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
 })
 
@@ -16,13 +16,13 @@ export const registerSchema = z.object({
         required_error: "Veuillez sélectionner votre civilité"
     }),
     firstName: z.string({ required_error: requiredMsg })
-        .min(1, 'Le prénom est requis')
-        .min(2, 'Le prénom est trop court'),
+        .min(1, 'Saisissez votre prénom')
+        .min(2, 'Le prénom est trop court (min 2 caractères)'),
     lastName: z.string({ required_error: requiredMsg })
-        .min(1, 'Le nom est requis')
-        .min(2, 'Le nom est trop court'),
+        .min(1, 'Saisissez votre nom')
+        .min(2, 'Le nom est trop court (minimum 2 caractères)'),
     email: z.string({ required_error: requiredMsg })
-        .min(1, 'L\'email est requis')
+        .min(1, 'Saisissez votre adresse email')
         .email('Email invalide'),
     plainPassword: z.string({ required_error: requiredMsg })
         .min(8, 'Le mot de passe doit contenir au moins 8 caractères'),
