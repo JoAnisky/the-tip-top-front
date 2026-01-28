@@ -57,7 +57,7 @@ async function onSubmit() {
         <UForm :schema="registerSchema" :state="state" class="space-y-4" @submit="onSubmit">
 
           <UFormGroup label="Vous êtes :" name="gender" :ui="{ label: { base: 'ttt-form-label' } }">
-            <URadioGroup v-model="state.gender" :options="genderOptions" color="neutral" :ui="{wrapper: 'flex flex-row gap-6',fieldset: 'flex flex-row gap-8'}"/>
+            <URadioGroup v-model="state.gender" :options="genderOptions" color="orange" :ui="{wrapper: 'flex flex-row gap-6',fieldset: 'flex flex-row gap-8'}"/>
           </UFormGroup>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -85,7 +85,7 @@ async function onSubmit() {
                   Date de naissance <span class="text-red-500">*</span>
                 </span>
             </template>
-            <UInput v-model="state.birthDate" type="date" size="xl" variant="none" class="ttt-input-dark custom-date-input" />
+            <UInput v-model="state.birthDate" type="date" size="xl" variant="none" class="ttt-input-dark custom-date-input"/>
           </UFormGroup>
 
           <UFormGroup name="email">
@@ -131,13 +131,13 @@ async function onSubmit() {
 
           <div class="space-y-3 pt-2">
             <UFormGroup name="acceptTerms">
-              <UCheckbox v-model="state.acceptTerms" color="neutral" :ui="{ label: 'text-base text-gray-300' }">
+              <UCheckbox v-model="state.acceptTerms" color="orange" :ui="{ label: 'text-base text-gray-300' }">
                 <template #label>
                   <span>J’accepte les <NuxtLink to="/cgu" class="text-ttt-orange underline">conditions générales d’utilisation</NuxtLink> <span class="text-red-500">*</span></span>
                 </template>
               </UCheckbox>
             </UFormGroup>
-            <UCheckbox v-model="state.newsletter" label="J’accepte de recevoir la newsletter Thé Tip Top" color="neutral" :ui="{ label: 'text-base text-gray-300' }" />
+            <UCheckbox v-model="state.newsletter" label="J’accepte de recevoir la newsletter Thé Tip Top" color="orange" :ui="{ label: 'text-base text-gray-300' }"/>
           </div>
 
           <UButton type="submit" block size="xl" class="btn-primary mt-4" :ui="{base: '!text-ttt-white font-bold uppercase',font: '!font-bold'}" :loading="loading">
