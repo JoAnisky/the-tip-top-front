@@ -106,7 +106,7 @@ async function onSubmit() {
               <UInput v-model="state.postalCode" placeholder="Ex: 75001" size="xl" variant="none" class="ttt-input-dark" />
             </UFormGroup>
             <UFormGroup label="Ville" name="city" class="md:col-span-2" :ui="{ label: { base: 'ttt-form-label' } }">
-              <UInput v-model="state.city" placeholder="Votre ville" size="xl" variant="none" class="ttt-input-dark" />
+              <UInput v-model="state.city" placeholder="Votre ville" auto-complete="city" size="xl" variant="none" class="ttt-input-dark" />
             </UFormGroup>
           </div>
 
@@ -117,7 +117,7 @@ async function onSubmit() {
                   Mot de passe <span class="text-red-500">*</span>
                 </span>
               </template>
-              <UInput v-model="state.plainPassword" type="password" placeholder="8 caract. min" icon="i-heroicons-key" size="xl" variant="none" class="ttt-input-dark" />
+              <UInput v-model="state.plainPassword" type="password" placeholder="8 caract. min" autocomplete="new-password" icon="i-heroicons-key" size="xl" variant="none" class="ttt-input-dark" />
             </UFormGroup>
             <UFormGroup name="confirmPassword">
               <template #label>
@@ -125,7 +125,7 @@ async function onSubmit() {
                   Confirmez votre mot de passe <span class="text-red-500">*</span>
                 </span>
               </template>
-              <UInput v-model="state.confirmPassword" type="password" placeholder="Répétez le mot de passe" icon="i-heroicons-key" size="xl" variant="none" class="ttt-input-dark" />
+              <UInput v-model="state.confirmPassword" type="password" placeholder="Répétez le mot de passe" autocomplete="new-password" icon="i-heroicons-key" size="xl" variant="none" class="ttt-input-dark" />
             </UFormGroup>
           </div>
 
