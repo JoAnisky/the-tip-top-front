@@ -151,7 +151,7 @@ async function onSubmit() {
                 </span>
               </template>
               <UInput
-                  v-model="state.plainPassword"
+                  v-model="state.confirmPassword"
                   :type="isConfirmVisible ? 'text' : 'password'"
                   placeholder="8 caract. min"
                   autocomplete="new-password"
