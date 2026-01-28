@@ -1,4 +1,17 @@
+<script setup lang="ts">
+const route = useRoute()
+
+// Afficher le background partout SAUF sur la home
+const isHomePage = computed(() => route.path === '/')
+</script>
+
 <template>
+  <!--  Si ce n'est pas la homepage, on affiche l'image de section et le bouton cookie en haut du NavFooter -->
+  <div v-if="!isHomePage" class="w-full relative bg-ttt-green-light">
+    <CookiesBtn class="relative z-10" />
+    <img src="/images/univers-ttt-background.webp" alt="" aria-hidden="true" class="absolute bottom-0 left-0 w-full object-cover pointer-events-none z-0"/>
+  </div>
+  <!-- Sur la home : NavFooter uniquement -->
   <footer class="w-full bg-ttt-black/70 py-6">
     <nav class="flex justify-center items-center">
       <ul class="flex flex-wrap justify-center items-center font-lato text-ttt-white text-sm uppercase tracking-wider gap-[5.5rem]">
