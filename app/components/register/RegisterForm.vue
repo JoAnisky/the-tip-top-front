@@ -6,14 +6,17 @@ const emit = defineEmits(['switchForm']);
 const loading = ref(false);
 const toast = useToast();
 
-// State avec les champs d'inscription
 const state = reactive({
   gender: 'male',
   firstName: '',
   lastName: '',
+  birthDate: '', // Format YYYY-MM-DD pour l'input type="date"
   email: '',
   plainPassword: '',
   confirmPassword: '',
+  address: '',
+  postalCode: '',
+  city: '',
   acceptTerms: false,
   newsletter: false
 });
