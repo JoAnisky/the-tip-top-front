@@ -52,13 +52,12 @@ async function onSubmit() {
       <div class="p-2">
         <p class="text-xl font-bold text-white mb-2">Créer mon compte</p>
         <UDivider class="ttt-divider mb-8"/>
-
-        <p class="text-sm text-gray-400 mb-6 italic">Les champs marqués d'un * sont obligatoires</p>
+        <p class="text-base text-gray-200 mb-6 italic font-bold">Les champs marqués d'un <span class="text-red-500">*</span> sont obligatoires</p>
 
         <UForm :schema="registerSchema" :state="state" class="space-y-4" @submit="onSubmit">
 
           <UFormGroup label="Vous êtes :" name="gender" :ui="{ label: { base: 'ttt-form-label' } }">
-            <URadioGroup v-model="state.gender" :options="genderOptions" inline :ui="{ label: 'text-gray-300', radio: 'border-gray-700' }" />
+            <URadioGroup v-model="state.gender" :options="genderOptions" color="neutral" :ui="{wrapper: 'flex flex-row gap-6',fieldset: 'flex flex-row gap-8'}"/>
           </UFormGroup>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -132,13 +131,13 @@ async function onSubmit() {
 
           <div class="space-y-3 pt-2">
             <UFormGroup name="acceptTerms">
-              <UCheckbox v-model="state.acceptTerms" :ui="{ label: 'text-base text-gray-300' }">
+              <UCheckbox v-model="state.acceptTerms" color="neutral" :ui="{ label: 'text-base text-gray-300' }">
                 <template #label>
                   <span>J’accepte les <NuxtLink to="/cgu" class="text-ttt-orange underline">conditions générales d’utilisation</NuxtLink> <span class="text-red-500">*</span></span>
                 </template>
               </UCheckbox>
             </UFormGroup>
-            <UCheckbox v-model="state.newsletter" label="J’accepte de recevoir la newsletter Thé Tip Top" :ui="{ label: 'text-base text-gray-300' }" />
+            <UCheckbox v-model="state.newsletter" label="J’accepte de recevoir la newsletter Thé Tip Top" color="neutral" :ui="{ label: 'text-base text-gray-300' }" />
           </div>
 
           <UButton type="submit" block size="xl" class="btn-primary mt-4" :ui="{base: '!text-ttt-white font-bold uppercase',font: '!font-bold'}" :loading="loading">
