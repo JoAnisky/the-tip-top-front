@@ -9,6 +9,7 @@ const state = reactive({
   email: '',
   password: ''
 })
+const emit = defineEmits(['switchForm']);
 
 async function onSubmit() {
   loading.value = true
@@ -37,6 +38,7 @@ async function onSubmit() {
 </script>
 
 <template>
+  <div class="w-full flex flex-col items-center">
     <UCard class="w-full max-w-lg shadow-2xl overflow-visible relative !bg-ttt-form-background !ring-white/10 !ring-1" :ui="{body: { padding: 'p-8 sm:p-10' },ring: '',divide: ''}">
       <div class="absolute -top-12 -right-8 w-32 hidden md:block">
         <img src="/images/jeu-concours.webp" alt="Grand Jeu 100% gagnant" class="rotate-12" />
@@ -101,6 +103,7 @@ async function onSubmit() {
     </UCard>
     <p class="mt-8 text-gray-400 text-base">
       Pas encore de compte ?
-      <NuxtLink to="/inscription" class="text-white font-bold hover:underline"> S'inscrire</NuxtLink>
+      <button @click="emit('switchForm')" class="text-white font-bold hover:underline focus:outline-none" >S'inscrire</button>
     </p>
+  </div>
 </template>
