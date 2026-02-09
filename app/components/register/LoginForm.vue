@@ -64,7 +64,12 @@ async function onSubmit() {
         <UDivider label="ou" class="ttt-divider mb-8"/>
 
         <UForm :schema="loginSchema" :state="state" class="space-y-6 !ttt-form-no-blue" @submit="onSubmit">
-          <UFormGroup label="Adresse email *" name="email" :ui="{ label: { base: 'ttt-form-label' } }">
+          <UFormGroup name="email">
+            <template #label>
+                <span class="ttt-form-label">
+                  Adresse email <span class="text-red-500">*</span>
+                </span>
+            </template>
             <UInput
                 v-model="state.email"
                 name="email"
@@ -78,7 +83,12 @@ async function onSubmit() {
             />
           </UFormGroup>
 
-          <UFormGroup label="Mot de passe *" name="password" :ui="{ label: { base: 'ttt-form-label' } }">
+          <UFormGroup name="password">
+            <template #label>
+                <span class="ttt-form-label">
+                  Mot de passe <span class="text-red-500">*</span>
+                </span>
+            </template>
             <UInput
                 v-model="state.password"
                 :type="isPasswordVisible ? 'text' : 'password'"
