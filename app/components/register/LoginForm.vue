@@ -21,10 +21,15 @@ async function onSubmit() {
       body: state
     })
 
-    // 2. On rafraîchit la session locale (auth-utils)
+    // 2. Stocke l'access token côté client
+    if (response.accessToken) {
+      setAccessToken(response.accessToken)
+    }
+
+    // 3. Rafraîchit la session locale (auth-utils)
     await refreshSession()
 
-    // 3. Redirection vers le jeu
+    // 4. Redirection vers le profil / jeu
     navigateTo('/profile')
   } catch (err) {
     useToast().add({
