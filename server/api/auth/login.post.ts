@@ -1,4 +1,4 @@
-export const defineEventHandler = (async (event) => {
+export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
     const body = await readBody(event)
 
