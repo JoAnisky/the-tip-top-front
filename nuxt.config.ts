@@ -3,6 +3,18 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ['~/assets/scss/main.scss'],
     modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image', 'nuxt-auth-utils'],
+
+    runtimeConfig: {
+        // variables privées (server-side only)
+        apiBaseUrl: process.env.NUXT_API_BASE_URL || 'http://localhost:8000',
+
+        // variables publiques (client + server)
+        public: {
+            apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:8000',
+            siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+        }
+    },
+
     vite: {
       server: {
           allowedHosts: [
@@ -14,7 +26,7 @@ export default defineNuxtConfig({
       }
     },
     site: {
-        url: 'https://the-tip-top.jonathanlore.fr',
+        url: process.env.NUXT_PUBLIC_SITE_URL || 'https://the-tip-top.jonathanlore.fr',
     },
     app: {
         head: {
