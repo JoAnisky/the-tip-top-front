@@ -3,6 +3,7 @@
     <Navbar />
     <main class="flex-grow overflow-x-hidden">
       <slot />
+      <UNotifications />
     </main>
     <NavFooter/>
   </div>
