@@ -1,12 +1,13 @@
-export default defineNuxtRouteMiddleware(async (to, from) => {
-    const { loggedIn, fetch } = useUserSession()
+// app/middleware/auth.ts
+export default defineNuxtRouteMiddleware((to, from) => {
+    const { loggedIn } = useAuth()  // ⚠️ useAuth au lieu de useUserSession
 
-    // en cas de doute, on force un rafraîchissement côté serveur/client
-    if (!loggedIn.value) {
-        await fetch()
-    }
+    console.log('🔒 Middleware auth:', to.path, 'loggedIn:', loggedIn.value)
 
-    if (!loggedIn.value) {
+    if (!loggedIn.value && to.path !== '/login') {
+        console.log('❌ Redirection vers /login')
         return navigateTo('/login')
     }
+
+    console.log('✅ Accès autorisé')
 })

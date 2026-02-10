@@ -1,22 +1,22 @@
 export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
+    const cookieConfig = getCookieConfig()
 
     try {
-        // Appel API pour révoquer le refresh token
-        await $fetch(`${config.apiBaseUrl}/auth/logout`, {
+        // Appel Symfony
+        await fetch(`${config.apiBaseUrl}/auth/logout`, {
             method: 'POST',
-            credentials: 'include',
             headers: {
                 Cookie: event.node.req.headers.cookie || ''
             }
         })
     } catch (error) {
-        // Continue même si l'appel API échoue
         console.error('Erreur logout Symfony:', error)
     }
 
-    // Supprime la session Nuxt
-    await clearUserSession(event)
+    // Supprime les cookies avec la bonne config
+    deleteCookie(event, AUTH_COOKIE_NAMES.USER, cookieConfig)
+    deleteCookie(event, AUTH_COOKIE_NAMES.TOKEN, cookieConfig)
 
     return { success: true }
 })
