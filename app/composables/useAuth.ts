@@ -5,8 +5,6 @@ const loadingRef = ref(false)
 export const useAuth = () => {
     // Charge la session depuis le serveur
     const fetchSession = async () => {
-        // Si on a déjà les infos de session, on ne refait pas un fetch inutile
-        if (loggedInRef.value) return { loggedIn: true, user: userRef.value }
         loadingRef.value = true
         try {
             const data = await $fetch('/api/auth/session', {
@@ -35,10 +33,14 @@ export const useAuth = () => {
             })
         } catch (error) {
             console.error('Erreur logout:', error)
-        }
+        } finally {
+            // vide l'état local quoi qu'il arrive
+            loggedInRef.value = false
+            userRef.value = null
 
-        loggedInRef.value = false
-        userRef.value = null
+            // On redirige vers l'accueil ou le login après déconnexion
+            await navigateTo('/login')
+        }
     }
 
     const refresh = async () => {
