@@ -3,45 +3,37 @@ import { loginSchema } from "#imports";
 
 const loading = ref(false)
 const isPasswordVisible = ref(false)
-const { fetch: refreshSession } = useUserSession()
+
 const toast = useToast()
 
 const state = reactive({
   email: '',
   password: ''
 })
+
 const emit = defineEmits(['switchForm']);
 
 async function onSubmit() {
   loading.value = true
-  const { setAccessToken } = useAuthToken()
-
   try {
-    // 1. Appel à la route serveur Nuxt (Server Action / Proxy)
-    const response = await $fetch('/api/auth/login', {
-      method: 'POST',
-      body: state
-    })
+    await $fetch('/api/auth/login', { method: 'POST', body: state })
 
-    // 2. Stocke l'access token côté client
-    if (response.accessToken) {
-      setAccessToken(response.accessToken)
-    }
+    // attendre que les cookies soient bien set
+    await new Promise(resolve => setTimeout(resolve, 200))
 
-    // 3. Rafraîchit la session locale (auth-utils)
-    await refreshSession()
-    // 4. Redirection vers le profil / jeu
-    navigateTo('/profile')
+    await navigateTo('/profile')
+
   } catch (err: any) {
+    loading.value = false
+
+    console.error('Erreur de login :', err)
 
     toast.add({
       title: 'Erreur de connexion',
-      description: err.data?.message || err.message || 'Identifiants incorrects ou problème serveur.',
+      description: err.data?.message || err.message || 'Identifiants incorrects',
       color: 'red',
       timeout: 5000
     })
-  } finally {
-    loading.value = false
   }
 }
 </script>
