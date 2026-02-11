@@ -1,65 +1,66 @@
+const loggedInRef = ref(false)
+const userRef = ref<any>(null)
+const loadingRef = ref(false)
+
 export const useAuth = () => {
-    const config = useRuntimeConfig()
-
-    // Détermine le domaine dynamiquement
-    const isDev = process.dev
-    let domain = '.dev.local'
-
-    if (!isDev && config.public.siteUrl) {
+    // Charge la session depuis le serveur
+    const fetchSession = async () => {
+        // Si on a déjà les infos de session, on ne refait pas un fetch inutile
+        if (loggedInRef.value) return { loggedIn: true, user: userRef.value }
+        loadingRef.value = true
         try {
-            const url = new URL(config.public.siteUrl)
-            const parts = url.hostname.split('.')
-            if (parts.length >= 2) {
-                domain = '.' + parts.slice(-2).join('.')
-            }
+            const data = await $fetch('/api/auth/session', {
+                credentials: 'include'
+            })
+
+            loggedInRef.value = data.loggedIn
+            userRef.value = data.user
+
+            return data
         } catch (error) {
-            console.error('Erreur parsing domain:', error)
+            console.error('fetchSession: erreur:', error)
+            loggedInRef.value = false
+            userRef.value = null
+            return { loggedIn: false, user: null }
+        } finally {
+            loadingRef.value = false
         }
     }
 
-    const userCookie = useCookie('auth_user', {
-        domain,
-        path: '/'
-    })
-
-    const tokenCookie = useCookie('auth_token', {
-        domain,
-        path: '/'
-    })
-
-    const user = computed(() => {
-        if (!userCookie.value) return null
-
-        try {
-            return typeof userCookie.value === 'string'
-                ? JSON.parse(userCookie.value)
-                : userCookie.value
-        } catch {
-            return null
-        }
-    })
-
-    const accessToken = computed(() => tokenCookie.value)
-
-    const loggedIn = computed(() => {
-        return !!user.value && !!accessToken.value
-    })
-
     const logout = async () => {
         try {
-            await $fetch('/api/auth/logout', { method: 'POST' })
+            await $fetch('/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            })
         } catch (error) {
             console.error('Erreur logout:', error)
         }
 
-        userCookie.value = null
-        tokenCookie.value = null
+        loggedInRef.value = false
+        userRef.value = null
+    }
+
+    const refresh = async () => {
+        try {
+            await $fetch('/api/auth/refresh', {
+                method: 'POST',
+                credentials: 'include'
+            })
+            await fetchSession()
+        } catch (error) {
+            console.error('Erreur refresh:', error)
+            await logout()
+            throw error
+        }
     }
 
     return {
-        user: readonly(user),
-        accessToken: readonly(accessToken),
-        loggedIn: readonly(loggedIn),
-        logout
+        user: readonly(userRef),
+        loggedIn: readonly(loggedInRef),
+        loadingRef: readonly(loadingRef),
+        fetchSession,
+        logout,
+        refresh
     }
 }
