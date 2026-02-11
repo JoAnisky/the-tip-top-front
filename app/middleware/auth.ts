@@ -1,13 +1,15 @@
-// app/middleware/auth.ts
-export default defineNuxtRouteMiddleware((to, from) => {
-    const { loggedIn } = useAuth()  // ⚠️ useAuth au lieu de useUserSession
+export default defineNuxtRouteMiddleware(async (to, from) => {
+    if (process.server) return
 
-    console.log('🔒 Middleware auth:', to.path, 'loggedIn:', loggedIn.value)
+    const { loggedIn, fetchSession, loadingRef } = useAuth()
 
-    if (!loggedIn.value && to.path !== '/login') {
-        console.log('❌ Redirection vers /login')
-        return navigateTo('/login')
+    // Si on n'est pas loggé, on tente une dernière fois de récupérer la session
+    if (!loggedIn.value && !loadingRef.value) {
+        await fetchSession()
     }
 
-    console.log('✅ Accès autorisé')
+    // Redirection si toujours pas loggé
+    if (!loggedIn.value && to.path !== '/login') {
+        return window.location.href = '/login'
+    }
 })
