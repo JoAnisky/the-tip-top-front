@@ -2,29 +2,43 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
 
     try {
-        // Le cookie refresh_token est automatiquement transféré
-        const response = await $fetch(`${config.apiBaseUrl}/auth/refresh`, {
+        // Appel Symfony avec les cookies (refresh_token)
+        const response = await fetch(`${config.apiBaseUrl}/auth/refresh`, {
             method: 'POST',
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                // Transmet les cookies du client au serveur API
+                'Accept': 'application/json',
+                // Transmet TOUS les cookies du client (dont refresh_token de Symfony)
                 Cookie: event.node.req.headers.cookie || ''
             }
         })
 
-        // Met à jour la session Nuxt
-        const session = await getUserSession(event)
-        await setUserSession(event, {
-            ...session,
-            user: response.user,
-            accessToken: response.accessToken
-        })
+        if (!response.ok) {
+            console.error('Refresh échoué')
+            throw createError({
+                statusCode: response.status,
+                message: 'Session expirée'
+            })
+        }
 
-        return response
+        const data = await response.json()
+
+        // transfert les nouveaux cookies HTTP-only de Symfony au client
+        const setCookieHeaders = extractSetCookieHeaders(response)
+
+        if (setCookieHeaders.length > 0) {
+            setCookieHeaders.forEach(cookie => {
+                event.node.res.appendHeader('set-cookie', cookie)
+            })
+        } else {
+            console.warn('Aucun nouveau cookie reçu de Symfony')
+        }
+
+        return {
+            success: true
+        }
     } catch (error: any) {
-        // Clear session si le refresh échoue
-        await clearUserSession(event)
+        console.error('Erreur refresh:', error)
 
         throw createError({
             statusCode: 401,

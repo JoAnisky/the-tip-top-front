@@ -1,7 +1,6 @@
 export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
     const body = await readBody(event)
-    const cookieConfig = getCookieConfig()
 
     try {
         const response = await fetch(`${config.apiBaseUrl}/auth/login`, {
@@ -23,27 +22,25 @@ export default defineEventHandler(async (event) => {
             })
         }
 
-        const data = await response.json()
+        // Transfert TOUS les cookies HTTP-only de Symfony au client
+        const setCookieHeaders = response.headers.getSetCookie?.() || []
 
-        // Stocke l'utilisateur
-        setCookie(event, AUTH_COOKIE_NAMES.USER, JSON.stringify(data.user), {
-            ...cookieConfig,
-            httpOnly: false,  // Le client doit pouvoir lire
-            maxAge: COOKIE_MAX_AGE.USER
-        })
-
-        // Stocke le token
-        setCookie(event, AUTH_COOKIE_NAMES.TOKEN, data.accessToken, {
-            ...cookieConfig,
-            httpOnly: false,
-            maxAge: COOKIE_MAX_AGE.TOKEN
-        })
-
-        return {
-            success: true,
-            user: data.user,
-            accessToken: data.accessToken
+        if (setCookieHeaders.length === 0) {
+            const cookieHeader = response.headers.get('set-cookie')
+            if (cookieHeader) {
+                // Peut être une seule string ou plusieurs séparées
+                setCookieHeaders.push(...cookieHeader.split(',').map(c => c.trim()))
+            }
         }
+
+        // Transfère chaque cookie au client
+        if (setCookieHeaders.length > 0) {
+            setCookieHeaders.forEach(cookie => {
+                event.node.res.appendHeader('set-cookie', cookie)
+            })
+        }
+
+        return { success: true }
     } catch (error: any) {
         throw createError({
             statusCode: error.statusCode || 401,

@@ -1,22 +1,27 @@
 export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
-    const cookieConfig = getCookieConfig()
 
     try {
-        // Appel Symfony
-        await fetch(`${config.apiBaseUrl}/auth/logout`, {
+        // appel Symfony pour révoquer le refresh_token
+        const response = await fetch(`${config.apiBaseUrl}/auth/logout`, {
             method: 'POST',
             headers: {
+                'Content-Type': 'application/json',
                 Cookie: event.node.req.headers.cookie || ''
             }
         })
+
+        // Transfert les cookies de suppression de Symfony
+        const setCookieHeaders = extractSetCookieHeaders(response)
+
+        if (setCookieHeaders.length > 0) {
+            setCookieHeaders.forEach(cookie => {
+                event.node.res.appendHeader('set-cookie', cookie)
+            })
+        }
     } catch (error) {
         console.error('Erreur logout Symfony:', error)
     }
-
-    // Supprime les cookies avec la bonne config
-    deleteCookie(event, AUTH_COOKIE_NAMES.USER, cookieConfig)
-    deleteCookie(event, AUTH_COOKIE_NAMES.TOKEN, cookieConfig)
 
     return { success: true }
 })
