@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ['~/assets/scss/main.scss'],
-    modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image', 'nuxt-auth-utils'],
+    modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image'],
 
     runtimeConfig: {
         // variables privées (server-side only)
