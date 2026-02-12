@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <div class="fixed bottom-8 left-8 z-[100]">
+  <div class="fixed bottom-8 left-8 z-[100] w-fit">
     <button class="group flex items-center justify-center p-0 bg-transparent border-none transition-transform hover:scale-110 active:scale-95"
         @click="showModal = true"
         aria-label="Gérer les cookies"

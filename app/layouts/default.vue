@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col">
     <Navbar />
-    <main class="flex-grow overflow-x-hidden relative">
+    <main class="flex-grow relative">
       <slot />
       <UNotifications />
     </main>
