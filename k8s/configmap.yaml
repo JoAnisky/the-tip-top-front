@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nuxt-front-config
+  namespace: the-tip-top-front
+data:
+  NODE_ENV: "production"
+  DOMAIN: "the-tip-top.jonathanlore.fr"
+  NUXT_PUBLIC_SITE_URL: "https://the-tip-top.jonathanlore.fr"
+
+  # IMPORTANT : Communication interne Kubernetes (pod → pod)
+  # l'url se compose de : http://[nom-du-service].svc.cluster.local
+  NUXT_API_BASE_URL: "http://symfony-api.the-tip-top-api.svc.cluster.local"
+
+  # Communication externe (navigateur → API)
+  NUXT_PUBLIC_API_BASE_URL: "https://api.the-tip-top.jonathanlore.fr"

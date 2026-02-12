@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nuxt-front
+  namespace: the-tip-top-front
 spec:
   replicas: 1
   selector:
@@ -25,9 +26,17 @@ spec:
               memory: "256Mi"
           ports:
             - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: nuxt-front-config
+
+          # Variables sensibles depuis Secret (créé par Jenkins)
           env:
-            - name: NUXT_PUBLIC_API_BASE
-              value: "https://api.the-tip-top.fr/api"
+            - name: NUXT_SESSION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nuxt-front-secrets
+                  key: NUXT_SESSION_PASSWORD
           livenessProbe:
             httpGet:
               path: /

@@ -4,6 +4,8 @@ kind: Kustomization
 namespace: the-tip-top-front
 
 resources:
+  - namespace.yaml
+  - configmap.yaml
   - deployment.yaml
   - service.yaml
   - ingress.yaml
