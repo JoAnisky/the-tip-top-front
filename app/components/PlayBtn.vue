@@ -1,13 +1,15 @@
 <script setup lang="ts">
+const { loggedIn } = useAuth()
 
+const playLink = computed(() => loggedIn.value ? '/profile' : '/login')
 </script>
 
 <template>
-  <button class="btn-primary" type="button" aria-label="Participer au jeu concours Thé Tip Top">
+  <NuxtLink
+      :to="playLink"
+      class="btn-primary"
+      aria-label="Participer au jeu concours Thé Tip Top"
+  >
     Jouer
-  </button>
+  </NuxtLink>
 </template>
-
-<style scoped>
-
-</style>
