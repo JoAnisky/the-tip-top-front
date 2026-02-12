@@ -1,11 +1,16 @@
+// server/api/auth/register.post.ts
 export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
     const body = await readBody(event)
 
     try {
-        return await $fetch(`${config.apiBaseUrl}/auth/register`, {
+        const response = await fetch(`${config.apiBaseUrl}/auth/register`, {
             method: 'POST',
-            body: {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
                 email: body.email,
                 plainPassword: body.plainPassword,
                 firstName: body.firstName,
@@ -17,16 +22,32 @@ export default defineEventHandler(async (event) => {
                 city: body.city,
                 postalCode: body.postalCode,
                 newsletter: body.newsletter
-            },
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            })
         })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+            console.error('❌ Erreur Symfony:', data)
+            throw createError({
+                statusCode: response.status,
+                message: data.message || 'Erreur lors de l\'inscription',
+                data: data.errors || {}
+            })
+        }
+
+        // Renvoie les données au client
+        return {
+            success: true,
+            user: data.user,
+            message: 'Inscription réussie'
+        }
+
     } catch (error: any) {
+        console.error('❌ Erreur register:', error)
         throw createError({
             statusCode: error.statusCode || 400,
-            message: error.data?.message || 'Erreur lors de l\'inscription'
+            message: error.message || 'Erreur lors de l\'inscription'
         })
     }
 })
