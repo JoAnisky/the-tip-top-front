@@ -15,13 +15,15 @@ const emit = defineEmits(['switchForm']);
 
 async function onSubmit() {
   loading.value = true
+  const { fetchSession } = useAuth()
   try {
     await $fetch('/api/auth/login', { method: 'POST', body: state })
 
-    // attendre que les cookies soient bien set
-    await new Promise(resolve => setTimeout(resolve, 200))
+    /// On appelle fetchSession pour passer
+    // loggedInRef à TRUE et remplir userRef
+    await fetchSession()
 
-    await navigateTo('/profile')
+    return navigateTo('/profile', { replace: true })
 
   } catch (err: any) {
     loading.value = false
