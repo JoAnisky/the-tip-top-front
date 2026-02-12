@@ -1,7 +1,6 @@
 <script setup lang="ts">
-const { loggedIn } = useAuth()
+const { playLink } = usePlayLink()
 
-const playLink = computed(() => loggedIn.value ? '/profile' : '/login')
 </script>
 
 <template>
