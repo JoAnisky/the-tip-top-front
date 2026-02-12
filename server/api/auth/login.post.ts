@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
         // Transfère chaque cookie au client
         if (setCookieHeaders.length > 0) {
             setCookieHeaders.forEach(cookie => {
-                event.node.res.appendHeader('set-cookie', cookie)
+                appendResponseHeader(event, 'set-cookie', cookie)
             })
         }
 
