@@ -5,6 +5,8 @@ const loading = ref(false)
 const isPasswordVisible = ref(false)
 
 const toast = useToast()
+const config = useRuntimeConfig()
+const route = useRoute()
 
 const state = reactive({
   email: '',
@@ -12,6 +14,28 @@ const state = reactive({
 })
 
 const emit = defineEmits(['switchForm']);
+
+// URLs OAuth vers Symfony
+const googleOAuthUrl = `${config.public.apiBaseUrl}/auth/oauth/google`
+const facebookOAuthUrl = `${config.public.apiBaseUrl}/auth/oauth/facebook`
+
+// Gestion erreur OAuth depuis query params
+const oauthError = computed(() => route.query.error as string | undefined)
+
+// Afficher l'erreur OAuth si présente
+watch(oauthError, (error) => {
+  if (error) {
+    toast.add({
+      title: 'Erreur OAuth',
+      description: error,
+      color: 'red',
+      timeout: 5000
+    })
+
+    // Nettoyer l'URL
+    navigateTo('/login', { replace: true })
+  }
+}, { immediate: true })
 
 async function onSubmit() {
   loading.value = true
@@ -51,13 +75,13 @@ async function onSubmit() {
         <p>Se connecter</p>
         <div class="flex gap-5 my-4">
           <!-- Bouton Facebook -->
-          <UButton color="gray" variant="solid" block class="h-11 px-4 !bg-[#1877F2] hover:!bg-[#166FE5] text-white flex-1">
+          <UButton :to="facebookOAuthUrl" color="gray" variant="solid" block class="h-11 px-4 !bg-[#1877F2] hover:!bg-[#166FE5] text-white flex-1">
             <img src="/images/facebook-logo.svg" alt="Facebook" class="w-5 h-5 mr-2" />
             <span class="hidden sm:inline">Facebook</span>
           </UButton>
 
           <!-- Bouton Google -->
-          <UButton color="white" variant="solid" block class="h-11 px-4 !bg-white hover:!bg-gray-100 !text-gray-700 flex-1">
+          <UButton :to="googleOAuthUrl" color="white" variant="solid" block class="h-11 px-4 !bg-white hover:!bg-gray-100 !text-gray-700 flex-1">
             <img src="/images/google-logo.svg" alt="Google" class="w-5 h-5 mr-2" />
             <span class="hidden sm:inline">Google</span>
           </UButton>
