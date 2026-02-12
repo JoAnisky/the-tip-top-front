@@ -13,6 +13,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     // Une fois le fetch terminé, si on n'est toujours pas loggé
     if (!loggedIn.value && to.path !== '/login') {
-        return navigateTo('/login')
+        return navigateTo('/login', {
+            replace: true,
+        })
     }
 })

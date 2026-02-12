@@ -1,4 +1,9 @@
 <script setup lang="ts">
+  definePageMeta({
+    middleware: ['guest'],
+    layout: 'default'
+  })
+
   import LoginForm from "~/components/register/LoginForm.vue";
   import RegisterForm from "~/components/register/RegisterForm.vue";
 
