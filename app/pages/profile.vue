@@ -3,12 +3,11 @@ definePageMeta({
   middleware: ['auth']
 })
 
-const { user, loggedIn } = useAuth()
+const { user, loggedIn, loading, logout } = useAuth()
 
-// Debug
-console.log('Page profile chargée')
-console.log('loggedIn:', loggedIn.value)
-console.log('user:', user.value)
+async function handleLogout() {
+  await logout()
+}
 </script>
 
 <template>
@@ -19,7 +18,14 @@ console.log('user:', user.value)
           <h1 class="text-2xl font-bold">Mon Profil</h1>
         </template>
 
-        <div v-if="loggedIn && user" class="space-y-4">
+        <div v-if="loading" class="space-y-4 py-8">
+          <div class="flex items-center justify-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          </div>
+          <p class="text-center text-gray-500">Chargement...</p>
+        </div>
+
+        <div v-else-if="loggedIn && user" class="space-y-4">
           <div>
             <p class="text-sm text-gray-500">Nom complet</p>
             <p class="text-lg font-semibold">{{ user.firstName }} {{ user.lastName }}</p>
@@ -45,15 +51,11 @@ console.log('user:', user.value)
             <UButton
                 color="red"
                 variant="outline"
-                @click="navigateTo('/logout')"
+                @click="handleLogout"
             >
               Se déconnecter
             </UButton>
           </div>
-        </div>
-
-        <div v-else class="space-y-4">
-          <p>Chargement de votre profil...</p>
         </div>
       </UCard>
     </div>
