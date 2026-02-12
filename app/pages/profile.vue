@@ -3,7 +3,7 @@ definePageMeta({
   middleware: ['auth']
 })
 
-const { user, loggedIn } = useUserSession()
+const { user, loggedIn } = useAuth()
 
 // Debug
 console.log('Page profile chargée')
