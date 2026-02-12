@@ -1,15 +1,18 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
+    // ignorer le côté serveur pour les cookies HttpOnly
     if (process.server) return
 
-    const { loggedIn, fetchSession, loadingRef } = useAuth()
+    const { loggedIn, fetchSession } = useAuth()
 
-    // Si on n'est pas log, on tente une dernière fois de récupérer la session
-    // if (!loggedIn.value && !loadingRef.value) {
-    //     await fetchSession()
-    // }
+    // Sécu : Si l'état dit "pas connecté", on vérifie une
+    // dernière fois auprès de l'API avant de rejeter l'utilisateur.
+    // gère le cas du rafraîchissement de page (F5).
+    if (!loggedIn.value) {
+        await fetchSession()
+    }
 
-    // Redirection si toujours pas loggé
+    // Une fois le fetch terminé, si on n'est toujours pas loggé
     if (!loggedIn.value && to.path !== '/login') {
-        return window.location.href = '/login'
+        return navigateTo('/login')
     }
 })

@@ -5,6 +5,9 @@ const loadingRef = ref(false)
 export const useAuth = () => {
     // Charge la session depuis le serveur
     const fetchSession = async () => {
+        // Si déjà loggé, on ne refait pas l'appel API (gain de perf)
+        if (loggedInRef.value) return { loggedIn: true, user: userRef.value }
+
         loadingRef.value = true
         try {
             const data = await $fetch('/api/auth/session', {
@@ -60,7 +63,7 @@ export const useAuth = () => {
     return {
         user: readonly(userRef),
         loggedIn: readonly(loggedInRef),
-        loadingRef: readonly(loadingRef),
+        loading: readonly(loadingRef),
         fetchSession,
         logout,
         refresh
