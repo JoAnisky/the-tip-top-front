@@ -28,7 +28,7 @@ const isActive = (path: string) => {
 </script>
 
 <template>
-  <nav class="sticky top-0 w-full z-50 flex items-center justify-between px-[var(--navbar-gutter)] h-20 bg-ttt-black/70 backdrop-blur-md">
+  <nav class="fixed top-0 w-full z-50 flex items-center justify-between px-[var(--navbar-gutter)] h-20 bg-ttt-black/70 backdrop-blur-md">
     <NuxtLink to="/" class="flex-shrink-0">
       <img src="/images/the_tip_top_logo_header.svg" alt="Logo Thé Tip Top" class="w-[140px] md:w-[183px] object-contain">
     </NuxtLink>
