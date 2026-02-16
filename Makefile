@@ -25,3 +25,5 @@ logs-dev:
 # Afficher les logs du conteneur ttt-front en prod
 logs-prod:
 	docker compose --env-file .docker/.env.docker.prod logs -f ttt-front
+
+restart-dev: down-dev up-dev
