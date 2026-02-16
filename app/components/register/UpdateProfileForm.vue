@@ -2,7 +2,7 @@
 import { registerSchema } from "#imports";
 import type { FormSubmitEvent } from '#ui/types'
 
-const { user, fetchSession, logout } = useAuth()
+const { user, logout, fetchUser } = useAuth()
 const toast = useToast()
 
 // État
@@ -10,20 +10,6 @@ const isSaving = ref(false)
 const isPasswordVisible = ref(false)
 const isConfirmVisible = ref(false)
 const hasOAuthAccounts = ref(false)
-
-// Charger les infos complètes du user
-const fetchUserDetails = async () => {
-  try {
-    const response = await $fetch('/api/auth/me')
-    hasOAuthAccounts.value = response.hasOAuthAccounts || false
-  } catch (err) {
-    console.error('Erreur chargement user:', err)
-  }
-}
-
-onMounted(() => {
-  fetchUserDetails()
-})
 
 const genderOptions = [
   { value: 'male', label: 'Un homme' },
@@ -35,7 +21,7 @@ const formState = reactive({
   gender: 'male' as 'male' | 'female',
   firstName: '',
   lastName: '',
-  birthdate: '',
+  birthDate: '',
   email: '',
   address: '',
   postalCode: '',
@@ -48,6 +34,11 @@ const formState = reactive({
 
 // Valeurs originales pour détecter les changements
 const originalValues = ref({ ...formState })
+onMounted(async () => {
+  if (user.value) {
+    hasOAuthAccounts.value = user.value.hasOAuthAccounts || false
+  }
+})
 
 // Initialiser avec les données user
 watch(user, (newUser) => {
@@ -57,7 +48,7 @@ watch(user, (newUser) => {
       lastName: newUser.lastName || '',
       email: newUser.email || '',
       gender: newUser.gender || 'male',
-      birthdate: newUser.birthdate || '',
+      birthDate: newUser.birthDate || '',
       address: newUser.address || '',
       postalCode: newUser.postalCode || '',
       city: newUser.city || '',
@@ -80,7 +71,7 @@ const hasChanges = computed(() => {
       formState.lastName !== originalValues.value.lastName ||
       formState.email !== originalValues.value.email ||
       formState.gender !== originalValues.value.gender ||
-      formState.birthdate !== originalValues.value.birthdate ||
+      formState.birthDate !== originalValues.value.birthDate ||
       formState.address !== originalValues.value.address ||
       formState.postalCode !== originalValues.value.postalCode ||
       formState.city !== originalValues.value.city ||
@@ -126,7 +117,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       body: payload
     })
 
-    await fetchSession()
+    await fetchUser()
 
     toast.add({
       title: 'Profil mis à jour',
@@ -135,12 +126,24 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       timeout: 5000
     })
 
-    // Mettre à jour les valeurs originales
-    originalValues.value = {
-      ...formState,
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: ''
+    if (user.value) {
+      const updatedValues = {
+        firstName: user.value.firstName || '',
+        lastName: user.value.lastName || '',
+        email: user.value.email || '',
+        gender: user.value.gender || 'male',
+        birthDate: user.value.birthDate || '',
+        address: user.value.address || '',
+        postalCode: user.value.postalCode || '',
+        city: user.value.city || '',
+        newsletter: user.value.newsletter || false,
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      }
+
+      Object.assign(formState, updatedValues)
+      originalValues.value = { ...updatedValues }
     }
 
     // Réinitialiser les champs de mot de passe
