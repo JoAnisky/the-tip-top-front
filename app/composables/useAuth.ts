@@ -1,28 +1,22 @@
-const loggedInRef = ref(false)
-const userRef = ref<any>(null)
-const loadingRef = ref(false)
-
 export const useAuth = () => {
+    const userRef = useState<any>('auth_user', () => null)
+    const loggedInRef = useState<boolean>('auth_logged_in', () => false)
+    const loadingRef = useState<boolean>('auth_loading', () => false)
     // Charge la session depuis le serveur
-    const fetchSession = async () => {
-        // Si déjà loggé, on ne refait pas l'appel API (gain de perf)
-        if (loggedInRef.value) return { loggedIn: true, user: userRef.value }
-
+    const fetchUser = async () => {
         loadingRef.value = true
         try {
-            const data = await $fetch('/api/auth/session', {
-                credentials: 'include'
-            })
+            const response = await $fetch('/api/auth/me')
 
-            loggedInRef.value = data.loggedIn
-            userRef.value = data.user
+            userRef.value = response
+            loggedInRef.value = true
 
-            return data
+            return response
         } catch (error) {
-            console.error('fetchSession: erreur:', error)
+            console.error('fetchUser: erreur:', error)
             loggedInRef.value = false
             userRef.value = null
-            return { loggedIn: false, user: null }
+            return null
         } finally {
             loadingRef.value = false
         }
@@ -52,7 +46,7 @@ export const useAuth = () => {
                 method: 'POST',
                 credentials: 'include'
             })
-            await fetchSession()
+            await fetchUser()
         } catch (error) {
             console.error('Erreur refresh:', error)
             await logout()
@@ -61,10 +55,10 @@ export const useAuth = () => {
     }
 
     return {
-        user: readonly(userRef),
+        user: userRef,
         loggedIn: readonly(loggedInRef),
         loading: readonly(loadingRef),
-        fetchSession,
+        fetchUser,
         logout,
         refresh
     }

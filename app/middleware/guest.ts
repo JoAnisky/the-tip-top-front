@@ -2,11 +2,11 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     // Skip côté serveur
     if (process.server) return
 
-    const { loggedIn, fetchSession } = useAuth()
+    const { loggedIn, fetchUser } = useAuth()
 
     // Vérifie la session si pas encore fait
     if (!loggedIn.value) {
-        await fetchSession()
+        await fetchUser()
     }
     // Si connecté, redirige vers la page précédente ou /profile
     if (loggedIn.value) {

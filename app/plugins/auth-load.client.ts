@@ -3,13 +3,13 @@ export default defineNuxtPlugin({
     parallel: false,
     async setup() {
 
-        const { fetchSession, loggedIn } = useAuth()
+        const { fetchUser, loggedIn } = useAuth()
 
         if (!loggedIn.value) {
             try {
-                await fetchSession()
+                await fetchUser()
             } catch (error) {
-                console.error('  - Erreur fetchSession:', error)
+                console.error('  - Erreur fetchUser:', error)
             }
         }
     }

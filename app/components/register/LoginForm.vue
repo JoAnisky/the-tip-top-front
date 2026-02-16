@@ -39,13 +39,13 @@ watch(oauthError, (error) => {
 
 async function onSubmit() {
   loading.value = true
-  const { fetchSession } = useAuth()
+  const { fetchUser } = useAuth()
   try {
     await $fetch('/api/auth/login', { method: 'POST', body: state })
 
-    /// On appelle fetchSession pour passer
+    /// On appelle fetchUser pour passer
     // loggedInRef à TRUE et remplir userRef
-    await fetchSession()
+    await fetchUser()
 
     return navigateTo('/profile', { replace: true })
 
