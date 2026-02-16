@@ -2,7 +2,7 @@
 import { registerSchema } from "#imports";
 import type { FormSubmitEvent } from '#ui/types'
 
-const { user, fetchSession } = useAuth()
+const { user, fetchSession, logout } = useAuth()
 const toast = useToast()
 
 // État
@@ -35,7 +35,7 @@ const formState = reactive({
   gender: 'male' as 'male' | 'female',
   firstName: '',
   lastName: '',
-  birthDate: '',
+  birthdate: '',
   email: '',
   address: '',
   postalCode: '',
@@ -57,7 +57,7 @@ watch(user, (newUser) => {
       lastName: newUser.lastName || '',
       email: newUser.email || '',
       gender: newUser.gender || 'male',
-      birthDate: newUser.birthDate || '',
+      birthdate: newUser.birthdate || '',
       address: newUser.address || '',
       postalCode: newUser.postalCode || '',
       city: newUser.city || '',
@@ -80,7 +80,7 @@ const hasChanges = computed(() => {
       formState.lastName !== originalValues.value.lastName ||
       formState.email !== originalValues.value.email ||
       formState.gender !== originalValues.value.gender ||
-      formState.birthDate !== originalValues.value.birthDate ||
+      formState.birthdate !== originalValues.value.birthdate ||
       formState.address !== originalValues.value.address ||
       formState.postalCode !== originalValues.value.postalCode ||
       formState.city !== originalValues.value.city ||
@@ -108,7 +108,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       gender: formState.gender,
       firstName: formState.firstName,
       lastName: formState.lastName,
-      birthDate: formState.birthDate,
+      birthdate: formState.birthdate,
       email: formState.email,
       address: formState.address || null,
       postalCode: formState.postalCode || null,
@@ -291,14 +291,14 @@ const fullName = computed(() => {
 
           <!-- Date de naissance -->
           <div class="mb-6">
-            <UFormGroup name="birthDate">
+            <UFormGroup name="birthdate">
               <template #label>
                 <span class="text-sm text-gray-300">
                   Date de naissance <span class="text-red-500">*</span>
                 </span>
               </template>
               <UInput
-                  v-model="formState.birthDate"
+                  v-model="formState.birthdate"
                   type="date"
                   size="xl"
                   variant="none"
