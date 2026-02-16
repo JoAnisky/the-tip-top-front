@@ -108,7 +108,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       gender: formState.gender,
       firstName: formState.firstName,
       lastName: formState.lastName,
-      birthdate: formState.birthdate,
+      birthDate: formState.birthDate,
       email: formState.email,
       address: formState.address || null,
       postalCode: formState.postalCode || null,
@@ -184,7 +184,9 @@ const fullName = computed(() => {
       <!-- En-tête avec nom -->
       <div class="flex items-center justify-between mb-12 flex-wrap gap-4">
         <div>
-          <h2 class="text-xl font-semibold">{{ fullName || 'Utilisateur' }}</h2>
+          <ClientOnly>
+            <h2 class="text-xl font-semibold">{{ fullName || 'Utilisateur' }}</h2>
+          </ClientOnly>
           <UButton
               @click="onLogout"
               variant="link"
@@ -239,13 +241,14 @@ const fullName = computed(() => {
         <div class="flex items-center gap-3">
           <UIcon name="i-heroicons-exclamation-triangle" class="text-orange-400 flex-shrink-0" />
           <p class="text-sm text-orange-300">
-            Vous avez des modifications non enregistrées
+            Enregistrez les modifications pour qu'elles soient prises en compte
           </p>
         </div>
       </div>
 
-      <!-- Formulaire -->
-      <UForm id="profile-form" :schema="registerSchema" :state="formState" class="space-y-12" @submit="onSubmit">
+      <ClientOnly>
+        <!-- Formulaire -->
+        <UForm id="profile-form" :schema="registerSchema" :state="formState" class="space-y-12" @submit="onSubmit">
         <!-- Informations générales -->
         <section>
           <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
@@ -365,6 +368,7 @@ const fullName = computed(() => {
               <UInput
                   v-model="formState.city"
                   placeholder="Votre ville"
+                  autocomplete="city"
                   size="xl"
                   variant="none"
                   class="ttt-input-dark"
@@ -413,6 +417,7 @@ const fullName = computed(() => {
                   <UInput
                       v-model="formState.currentPassword"
                       type="password"
+                      autocomplete="current-password"
                       placeholder="Saisir votre mot de passe actuel"
                       icon="i-heroicons-lock-closed"
                       size="xl"
@@ -432,6 +437,7 @@ const fullName = computed(() => {
                       v-model="formState.newPassword"
                       :type="isPasswordVisible ? 'text' : 'password'"
                       placeholder="8 caractères minimum"
+                      autocomplete="new-password"
                       icon="i-heroicons-key"
                       size="xl"
                       variant="none"
@@ -462,6 +468,7 @@ const fullName = computed(() => {
                       v-model="formState.confirmPassword"
                       :type="isConfirmVisible ? 'text' : 'password'"
                       placeholder="Confirmer votre nouveau mot de passe"
+                      autocomplete="new-password"
                       icon="i-heroicons-key"
                       size="xl"
                       variant="none"
@@ -529,6 +536,7 @@ const fullName = computed(() => {
           </div>
         </section>
       </UForm>
+      </ClientOnly>
 
       <!-- Légende -->
       <p class="mt-8 text-sm text-gray-500 italic text-center">
