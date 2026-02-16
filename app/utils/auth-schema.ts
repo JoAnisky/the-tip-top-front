@@ -42,8 +42,10 @@ export const registerSchema = z.object({
     city: z.string().max(150).nullable().optional(),
     postalCode: z.string()
         .max(20)
-        .regex(/^[0-9]{5}$/, "Code postal invalide (5 chiffres)")
-        .nullable().optional(),
+        .regex(/^(?:[0-8]\d|9[0-8]|2[AB])\d{3}$/, "Code postal invalide")
+        .optional()
+        .or(z.literal('')) // Autorise explicitement la chaîne vide sans déclencher la regex (état initial)
+        .transform(val => val === '' ? null : val),
     address: z.string().max(255).nullable().optional(),
 
     newsletter: z.boolean().default(false),
