@@ -294,14 +294,14 @@ const fullName = computed(() => {
 
           <!-- Date de naissance -->
           <div class="mb-6">
-            <UFormGroup name="birthdate">
+            <UFormGroup name="birthDate">
               <template #label>
                 <span class="text-sm text-gray-300">
                   Date de naissance <span class="text-red-500">*</span>
                 </span>
               </template>
               <UInput
-                  v-model="formState.birthdate"
+                  v-model="formState.birthDate"
                   type="date"
                   size="xl"
                   variant="none"
