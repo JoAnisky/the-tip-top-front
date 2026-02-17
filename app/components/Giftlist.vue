@@ -1,28 +1,6 @@
 <script setup lang="ts">
-
-interface Gift {
-  name: string;
-  image: string;
-}
-
-const gifts: Gift[] = [
-  {
-    name: "Infuseur à thé",
-    image: "/images/gifts/infuseur-a-the.webp",
-  },
-  {
-    name: "Boîte de 100g Thé détox ou infusion",
-    image:  "/images/gifts/boite-the-ou-infusion.webp",
-  },
-  {
-    name: "Boîte de 100g Thé signature",
-    image: "/images/gifts/boite-the-signature.webp",
-  },
-  {
-    name: "Coffret découverte (valeur de 39€ ou 69€)",
-    image: "/images/gifts/coffret-decouverte.webp",
-  },
-];
+import { useGifts } from '~/composables/useGifts'
+const { gifts } = useGifts()
 </script>
 
 <template>
