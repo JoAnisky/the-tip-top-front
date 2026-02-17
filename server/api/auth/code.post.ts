@@ -15,9 +15,10 @@ export default defineEventHandler(async (event) => {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/ld+json',
+                'Accept': 'application/ld+json'
             },
-            body: { code: body }
+            body: { code: body.code }
         })
         return response
     } catch (error: any) {
