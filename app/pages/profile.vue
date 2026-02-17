@@ -3,11 +3,12 @@ definePageMeta({
   middleware: ['auth']
 })
 
-import Game from "~/components/profile/Game.vue";
-import UpdateProfileForm from "~/components/profile/UpdateProfileForm.vue";
+import GameSection from "~/components/profile/GameSection.vue";
+import UpdateProfileSection from "~/components/profile/UpdateProfileSection.vue";
+
 </script>
 
 <template>
-  <Game/>
-  <UpdateProfileForm/>
+  <GameSection/>
+  <UpdateProfileSection/>
 </template>

@@ -1,0 +1,40 @@
+<script setup lang="ts">
+const { user, logout } = useAuth()
+
+const fullName = computed(() => {
+  if (!user.value) return ''
+  return `${user.value.firstName} ${user.value.lastName}`.trim()
+})
+</script>
+
+<template>
+  <section class="min-h-screen bg-[#121212] text-white p-8">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-2">Votre profil</h2>
+      <p class="text-center mb-8">
+        Modifiez vos informations ci-dessous, puis cliquez sur "Enregistrer le profil"
+      </p>
+
+      <ClientOnly>
+      <div class="flex items-center justify-between mb-12 border-b border-gray-800 pb-6">
+        <div>
+          <h2 class="text-2xl font-bold">{{ fullName || 'Utilisateur' }}</h2>
+          <UBadge v-if="user?.hasOAuthAccounts" color="blue" variant="subtle" size="xs" class="mt-1">
+            <UIcon name="i-heroicons-shield-check" class="mr-1" /> Compte OAuth
+          </UBadge>
+        </div>
+
+        <UButton @click="logout" variant="ghost" color="red" icon="i-heroicons-arrow-left-on-rectangle">
+          Se déconnecter
+        </UButton>
+      </div>
+
+
+        <ProfileForm v-if="user" :user="user" />
+        <div v-else class="flex justify-center py-12">
+          <UIcon name="i-heroicons-arrow-path" class="animate-spin text-3xl text-orange-500" />
+        </div>
+      </ClientOnly>
+    </div>
+  </section>
+</template>
