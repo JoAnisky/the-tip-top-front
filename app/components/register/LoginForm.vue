@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { loginSchema } from "#imports";
+const { login } = useAuth()
 
 const loading = ref(false)
 const isPasswordVisible = ref(false)
@@ -39,15 +40,10 @@ watch(oauthError, (error) => {
 
 async function onSubmit() {
   loading.value = true
-  const { fetchUser } = useAuth()
   try {
-    await $fetch('/api/auth/login', { method: 'POST', body: state })
+    await login(state.email, state.password)
 
-    /// On appelle fetchUser pour passer
-    // loggedInRef à TRUE et remplir userRef
-    await fetchUser()
-
-    return navigateTo('/profile', { replace: true })
+    await navigateTo('/profile', { replace: true })
 
   } catch (err: any) {
     loading.value = false
@@ -60,6 +56,8 @@ async function onSubmit() {
       color: 'red',
       timeout: 5000
     })
+  } finally {
+    loading.value = false
   }
 }
 </script>

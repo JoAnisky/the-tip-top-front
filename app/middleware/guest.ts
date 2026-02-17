@@ -4,10 +4,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     const { loggedIn, fetchUser } = useAuth()
 
-    // Vérifie la session si pas encore fait
-    if (!loggedIn.value) {
-        await fetchUser()
-    }
+    await fetchUser()
+
     // Si connecté, redirige vers la page précédente ou /profile
     if (loggedIn.value) {
         // évite la boucle infinie si la page précédente est aussi login/register

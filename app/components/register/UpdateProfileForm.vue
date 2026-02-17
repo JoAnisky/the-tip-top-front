@@ -2,7 +2,7 @@
 import { registerSchema } from "#imports";
 import type { FormSubmitEvent } from '#ui/types'
 
-const { user, logout, fetchUser } = useAuth()
+const { user, logout, fetchUser, invalidate } = useAuth()
 const toast = useToast()
 
 // État
@@ -117,6 +117,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       body: payload
     })
 
+    invalidate()
     await fetchUser()
 
     toast.add({
@@ -252,299 +253,297 @@ const fullName = computed(() => {
       <ClientOnly>
         <!-- Formulaire -->
         <UForm id="profile-form" :schema="registerSchema" :state="formState" class="space-y-12" @submit="onSubmit">
-        <!-- Informations générales -->
-        <section>
-          <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
-            <UIcon name="i-heroicons-user" />
-            Informations générales
-          </h3>
-
-          <!-- Genre -->
-          <div class="mb-6">
-            <UFormGroup label="Vous êtes :" name="gender">
-              <template #label>
-                <span class="block mb-2 text-sm text-gray-300">
-                  Vous êtes : <span class="text-red-500">*</span>
-                </span>
-              </template>
-              <URadioGroup v-model="formState.gender" :options="genderOptions" color="orange" :ui="{
-                  wrapper: 'flex flex-row gap-8',
-                  fieldset: 'flex flex-row gap-8'
-                }"/>
-            </UFormGroup>
-          </div>
-
-          <!-- Prénom, Nom -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <UFormGroup name="firstName">
-              <template #label>
-                <span class="text-sm text-gray-300">
-                  Prénom <span class="text-red-500">*</span>
-                </span>
-              </template>
-              <UInput v-model="formState.firstName" placeholder="Votre prénom" size="xl" variant="none" class="ttt-input-dark"/>
-            </UFormGroup>
-
-            <UFormGroup name="lastName">
-              <template #label>
-                <span class="text-sm text-gray-300">
-                  Nom <span class="text-red-500">*</span>
-                </span>
-              </template>
-              <UInput v-model="formState.lastName" placeholder="Votre nom" size="xl" variant="none" class="ttt-input-dark"/>
-            </UFormGroup>
-          </div>
-
-          <!-- Date de naissance -->
-          <div class="mb-6">
-            <UFormGroup name="birthDate">
-              <template #label>
-                <span class="text-sm text-gray-300">
-                  Date de naissance <span class="text-red-500">*</span>
-                </span>
-              </template>
-              <UInput
-                  v-model="formState.birthDate"
-                  type="date"
-                  size="xl"
-                  variant="none"
-                  class="ttt-input-dark custom-date-input"
-              />
-            </UFormGroup>
-          </div>
-
-          <!-- Email -->
-          <div class="mb-6">
-            <UFormGroup name="email">
-              <template #label>
-                <span class="text-sm text-gray-300">
-                  Adresse email <span class="text-red-500">*</span>
-                </span>
-              </template>
-              <UInput
-                  v-model="formState.email"
-                  type="email"
-                  placeholder="votre@email.com"
-                  icon="i-heroicons-envelope"
-                  size="xl"
-                  variant="none"
-                  class="ttt-input-dark"
-              />
-            </UFormGroup>
-          </div>
-
-          <!-- Adresse postale -->
-          <div class="mb-6">
-            <UFormGroup name="address">
-              <template #label>
-                <span class="text-sm text-gray-300">Adresse postale</span>
-              </template>
-              <UInput
-                  v-model="formState.address"
-                  placeholder="N° et nom de rue"
-                  size="xl"
-                  variant="none"
-                  class="ttt-input-dark"
-              />
-            </UFormGroup>
-          </div>
-
-          <!-- Code postal et Ville -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <UFormGroup name="postalCode" class="md:col-span-1">
-              <template #label>
-                <span class="text-sm text-gray-300">Code postal</span>
-              </template>
-              <UInput
-                  v-model="formState.postalCode"
-                  placeholder="Ex: 75001"
-                  size="xl"
-                  variant="none"
-                  class="ttt-input-dark"
-              />
-            </UFormGroup>
-
-            <UFormGroup name="city" class="md:col-span-2">
-              <template #label>
-                <span class="text-sm text-gray-300">Ville</span>
-              </template>
-              <UInput
-                  v-model="formState.city"
-                  placeholder="Votre ville"
-                  autocomplete="city"
-                  size="xl"
-                  variant="none"
-                  class="ttt-input-dark"
-              />
-            </UFormGroup>
-          </div>
-        </section>
-
-        <!-- Préférences -->
-        <section>
-          <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
-            <UIcon name="i-heroicons-bell" />
-            Préférences
-          </h3>
-
-          <UCheckbox
-              v-model="formState.newsletter"
-              label="J'accepte de recevoir la newsletter Thé Tip Top"
-              color="orange"
-              :ui="{ label: 'text-base text-gray-300' }"
-          />
-        </section>
-
-        <!-- Informations du compte -->
-        <section>
-          <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
-            <UIcon name="i-heroicons-key" />
-            Sécurité du compte
-          </h3>
-
-          <!-- Changement de mot de passe -->
-          <template v-if="!hasOAuthAccounts">
-            <div class="space-y-6 p-6 bg-gray-900/50 rounded-lg border border-gray-800">
-              <h4 class="text-sm font-medium text-gray-400">
-                Changer le mot de passe (optionnel)
-              </h4>
-
-              <div class="grid grid-cols-1 gap-6">
-                <!-- Mot de passe actuel -->
-                <UFormGroup name="currentPassword">
-                  <template #label>
-                    <span class="text-sm text-gray-300">
-                      Mot de passe actuel
-                    </span>
-                  </template>
-                  <UInput
-                      v-model="formState.currentPassword"
-                      type="password"
-                      autocomplete="current-password"
-                      placeholder="Saisir votre mot de passe actuel"
-                      icon="i-heroicons-lock-closed"
-                      size="xl"
-                      variant="none"
-                      class="ttt-input-dark"
-                  />
-                </UFormGroup>
-
-                <!-- Nouveau mot de passe -->
-                <UFormGroup name="newPassword">
-                  <template #label>
-                    <span class="text-sm text-gray-300">
-                      Nouveau mot de passe
-                    </span>
-                  </template>
-                  <UInput
-                      v-model="formState.newPassword"
-                      :type="isPasswordVisible ? 'text' : 'password'"
-                      placeholder="8 caractères minimum"
-                      autocomplete="new-password"
-                      icon="i-heroicons-key"
-                      size="xl"
-                      variant="none"
-                      class="ttt-input-dark"
-                      :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
-                  >
-                    <template #trailing>
-                      <UButton
-                          color="gray"
-                          variant="ghost"
-                          :icon="isPasswordVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-                          :padded="false"
-                          @click="isPasswordVisible = !isPasswordVisible"
-                          class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
-                      />
-                    </template>
-                  </UInput>
-                </UFormGroup>
-
-                <!-- Confirmation -->
-                <UFormGroup name="confirmPassword">
-                  <template #label>
-                    <span class="text-sm text-gray-300">
-                      Confirmer le mot de passe
-                    </span>
-                  </template>
-                  <UInput
-                      v-model="formState.confirmPassword"
-                      :type="isConfirmVisible ? 'text' : 'password'"
-                      placeholder="Confirmer votre nouveau mot de passe"
-                      autocomplete="new-password"
-                      icon="i-heroicons-key"
-                      size="xl"
-                      variant="none"
-                      class="ttt-input-dark"
-                      :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
-                  >
-                    <template #trailing>
-                      <UButton
-                          color="gray"
-                          variant="ghost"
-                          :icon="isConfirmVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-                          :padded="false"
-                          @click="isConfirmVisible = !isConfirmVisible"
-                          class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
-                      />
-                    </template>
-                  </UInput>
-                </UFormGroup>
-              </div>
-
-              <p class="text-xs text-gray-500 italic">
-                Le mot de passe doit contenir au moins 8 caractères
-              </p>
+          <!-- Légende -->
+          <p class="mt-8 text-sm italic bold">
+            Les champs marqués d'un <span class="text-red-500">*</span> sont obligatoires
+          </p>
+          <!-- Informations générales -->
+          <section>
+            <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+              <UIcon name="i-heroicons-user" />
+              Informations générales
+            </h3>
+            <!-- Genre -->
+            <div class="mb-6">
+              <UFormGroup label="Vous êtes :" name="gender">
+                <template #label>
+                  <span class="block mb-2 text-sm text-gray-300">
+                    Vous êtes : <span class="text-red-500">*</span>
+                  </span>
+                </template>
+                <URadioGroup v-model="formState.gender" :options="genderOptions" color="orange" :ui="{
+                    wrapper: 'flex flex-row gap-8',
+                    fieldset: 'flex flex-row gap-8'
+                  }"/>
+              </UFormGroup>
             </div>
-          </template>
 
-          <!-- Message pour users OAuth -->
-          <div v-else class="p-4 bg-blue-900/20 border border-blue-800 rounded-lg">
-            <div class="flex items-start gap-3">
-              <UIcon name="i-heroicons-information-circle" class="text-blue-400 flex-shrink-0 mt-0.5" />
-              <div class="text-sm text-blue-300">
-                <p class="font-medium mb-1">Compte OAuth</p>
-                <p class="text-blue-400">
-                  Vous êtes connecté via un fournisseur externe (Google/Facebook).
-                  Le changement de mot de passe n'est pas disponible pour ce type de compte.
+            <!-- Prénom, Nom -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <UFormGroup name="firstName">
+                <template #label>
+                  <span class="text-sm text-gray-300">
+                    Prénom <span class="text-red-500">*</span>
+                  </span>
+                </template>
+                <UInput v-model="formState.firstName" placeholder="Votre prénom" size="xl" variant="none" class="ttt-input-dark"/>
+              </UFormGroup>
+
+              <UFormGroup name="lastName">
+                <template #label>
+                  <span class="text-sm text-gray-300">
+                    Nom <span class="text-red-500">*</span>
+                  </span>
+                </template>
+                <UInput v-model="formState.lastName" placeholder="Votre nom" size="xl" variant="none" class="ttt-input-dark"/>
+              </UFormGroup>
+            </div>
+
+            <!-- Date de naissance -->
+            <div class="mb-6">
+              <UFormGroup name="birthDate">
+                <template #label>
+                  <span class="text-sm text-gray-300">
+                    Date de naissance <span class="text-red-500">*</span>
+                  </span>
+                </template>
+                <UInput
+                    v-model="formState.birthDate"
+                    type="date"
+                    size="xl"
+                    variant="none"
+                    class="ttt-input-dark custom-date-input"
+                />
+              </UFormGroup>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-6">
+              <UFormGroup name="email">
+                <template #label>
+                  <span class="text-sm text-gray-300">
+                    Adresse email <span class="text-red-500">*</span>
+                  </span>
+                </template>
+                <UInput
+                    v-model="formState.email"
+                    type="email"
+                    placeholder="votre@email.com"
+                    icon="i-heroicons-envelope"
+                    size="xl"
+                    variant="none"
+                    class="ttt-input-dark"
+                />
+              </UFormGroup>
+            </div>
+
+            <!-- Adresse postale -->
+            <div class="mb-6">
+              <UFormGroup name="address">
+                <template #label>
+                  <span class="text-sm text-gray-300">Adresse postale</span>
+                </template>
+                <UInput
+                    v-model="formState.address"
+                    placeholder="N° et nom de rue"
+                    size="xl"
+                    variant="none"
+                    class="ttt-input-dark"
+                />
+              </UFormGroup>
+            </div>
+
+            <!-- Code postal et Ville -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <UFormGroup name="postalCode" class="md:col-span-1">
+                <template #label>
+                  <span class="text-sm text-gray-300">Code postal</span>
+                </template>
+                <UInput
+                    v-model="formState.postalCode"
+                    placeholder="Ex: 75001"
+                    size="xl"
+                    variant="none"
+                    class="ttt-input-dark"
+                />
+              </UFormGroup>
+
+              <UFormGroup name="city" class="md:col-span-2">
+                <template #label>
+                  <span class="text-sm text-gray-300">Ville</span>
+                </template>
+                <UInput
+                    v-model="formState.city"
+                    placeholder="Votre ville"
+                    autocomplete="city"
+                    size="xl"
+                    variant="none"
+                    class="ttt-input-dark"
+                />
+              </UFormGroup>
+            </div>
+          </section>
+
+          <!-- Préférences -->
+          <section>
+            <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+              <UIcon name="i-heroicons-bell" />
+              Préférences
+            </h3>
+
+            <UCheckbox
+                v-model="formState.newsletter"
+                label="J'accepte de recevoir la newsletter Thé Tip Top"
+                color="orange"
+                :ui="{ label: 'text-base text-gray-300' }"
+            />
+          </section>
+
+          <!-- Informations du compte -->
+          <section>
+            <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+              <UIcon name="i-heroicons-key" />
+              Sécurité du compte
+            </h3>
+
+            <!-- Changement de mot de passe -->
+            <template v-if="!hasOAuthAccounts">
+              <div class="space-y-6 p-6 bg-gray-900/50 rounded-lg border border-gray-800">
+                <h4 class="text-sm font-medium text-gray-400">
+                  Changer le mot de passe (optionnel)
+                </h4>
+
+                <div class="grid grid-cols-1 gap-6">
+                  <!-- Mot de passe actuel -->
+                  <UFormGroup name="currentPassword">
+                    <template #label>
+                      <span class="text-sm text-gray-300">
+                        Mot de passe actuel
+                      </span>
+                    </template>
+                    <UInput
+                        v-model="formState.currentPassword"
+                        type="password"
+                        autocomplete="current-password"
+                        placeholder="Saisir votre mot de passe actuel"
+                        icon="i-heroicons-lock-closed"
+                        size="xl"
+                        variant="none"
+                        class="ttt-input-dark"
+                    />
+                  </UFormGroup>
+
+                  <!-- Nouveau mot de passe -->
+                  <UFormGroup name="newPassword">
+                    <template #label>
+                      <span class="text-sm text-gray-300">
+                        Nouveau mot de passe
+                      </span>
+                    </template>
+                    <UInput
+                        v-model="formState.newPassword"
+                        :type="isPasswordVisible ? 'text' : 'password'"
+                        placeholder="8 caractères minimum"
+                        autocomplete="new-password"
+                        icon="i-heroicons-key"
+                        size="xl"
+                        variant="none"
+                        class="ttt-input-dark"
+                        :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
+                    >
+                      <template #trailing>
+                        <UButton
+                            color="gray"
+                            variant="ghost"
+                            :icon="isPasswordVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                            :padded="false"
+                            @click="isPasswordVisible = !isPasswordVisible"
+                            class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
+                        />
+                      </template>
+                    </UInput>
+                  </UFormGroup>
+
+                  <!-- Confirmation -->
+                  <UFormGroup name="confirmPassword">
+                    <template #label>
+                      <span class="text-sm text-gray-300">
+                        Confirmer le mot de passe
+                      </span>
+                    </template>
+                    <UInput
+                        v-model="formState.confirmPassword"
+                        :type="isConfirmVisible ? 'text' : 'password'"
+                        placeholder="Confirmer votre nouveau mot de passe"
+                        autocomplete="new-password"
+                        icon="i-heroicons-key"
+                        size="xl"
+                        variant="none"
+                        class="ttt-input-dark"
+                        :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
+                    >
+                      <template #trailing>
+                        <UButton
+                            color="gray"
+                            variant="ghost"
+                            :icon="isConfirmVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                            :padded="false"
+                            @click="isConfirmVisible = !isConfirmVisible"
+                            class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
+                        />
+                      </template>
+                    </UInput>
+                  </UFormGroup>
+                </div>
+
+                <p class="text-xs text-gray-500 italic">
+                  Le mot de passe doit contenir au moins 8 caractères
                 </p>
               </div>
-            </div>
-          </div>
-        </section>
+            </template>
 
-        <!-- Comptes liés -->
-        <section v-if="hasOAuthAccounts">
-          <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
-            <UIcon name="i-heroicons-link" />
-            Comptes liés
-          </h3>
-
-          <div class="space-y-4">
-            <div class="flex items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-800">
-              <div class="flex items-center gap-3">
-                <img src="/images/google-logo.svg" alt="Google" class="w-6 h-6" />
-                <span class="text-sm">Google</span>
+            <!-- Message pour users OAuth -->
+            <div v-else class="p-4 bg-blue-900/20 border border-blue-800 rounded-lg">
+              <div class="flex items-start gap-3">
+                <UIcon name="i-heroicons-information-circle" class="text-blue-400 flex-shrink-0 mt-0.5" />
+                <div class="text-sm text-blue-300">
+                  <p class="font-medium mb-1">Compte OAuth</p>
+                  <p class="text-blue-400">
+                    Vous êtes connecté via un fournisseur externe (Google/Facebook).
+                    Le changement de mot de passe n'est pas disponible pour ce type de compte.
+                  </p>
+                </div>
               </div>
-              <UBadge color="green" variant="subtle">Lié</UBadge>
             </div>
+          </section>
 
-            <div class="flex items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-800">
-              <div class="flex items-center gap-3">
-                <img src="/images/facebook-logo.svg" alt="Facebook" class="w-6 h-6" />
-                <span class="text-sm">Facebook</span>
+          <!-- Comptes liés -->
+          <section v-if="hasOAuthAccounts">
+            <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+              <UIcon name="i-heroicons-link" />
+              Comptes liés
+            </h3>
+
+            <div class="space-y-4">
+              <div class="flex items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-800">
+                <div class="flex items-center gap-3">
+                  <img src="/images/google-logo.svg" alt="Google" class="w-6 h-6" />
+                  <span class="text-sm">Google</span>
+                </div>
+                <UBadge color="green" variant="subtle">Lié</UBadge>
               </div>
-              <UBadge color="green" variant="subtle">Lié</UBadge>
+
+              <div class="flex items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-800">
+                <div class="flex items-center gap-3">
+                  <img src="/images/facebook-logo.svg" alt="Facebook" class="w-6 h-6" />
+                  <span class="text-sm">Facebook</span>
+                </div>
+                <UBadge color="green" variant="subtle">Lié</UBadge>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
       </UForm>
       </ClientOnly>
-
-      <!-- Légende -->
-      <p class="mt-8 text-sm text-gray-500 italic text-center">
-        Les champs marqués d'un <span class="text-red-500">*</span> sont obligatoires
-      </p>
     </div>
   </div>
 </template>
