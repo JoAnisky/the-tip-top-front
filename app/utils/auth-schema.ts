@@ -62,3 +62,74 @@ export const registerSchema = z.object({
     message: "Les mots de passe ne correspondent pas",
     path: ["confirmPassword"],
 })
+
+export const profileSchema = z.object({
+    gender: z.enum(['male', 'female'], {
+        required_error: "Veuillez sélectionner votre civilité"
+    }),
+    firstName: z.string({ required_error: requiredMsg })
+        .min(1, 'Saisissez votre prénom')
+        .min(2, 'Le prénom est trop court'),
+    lastName: z.string({ required_error: requiredMsg })
+        .min(1, 'Saisissez votre nom')
+        .min(2, 'Le nom est trop court'),
+
+    birthDate: z.string({ required_error: "La date de naissance est requise" })
+        .min(1, 'La date de naissance est requise')
+        .refine((date) => {
+            const birth = new Date(date);
+            const now = new Date();
+            // la date doit être dans le passé et l'utilisateur doit avoir un âge réaliste
+            return birth < now && birth > new Date('1900-01-01');
+        }, { message: "Date de naissance invalide" }),
+
+    email: z.string({ required_error: requiredMsg })
+        .min(1, 'Saisissez votre adresse email')
+        .email('Email invalide'),
+
+    address: z.string().max(255).nullable().optional(),
+    city: z.string().max(150).nullable().optional(),
+    postalCode: z.string()
+        .max(20)
+        .regex(/^(?:[0-8]\d|9[0-8]|2[AB])\d{3}$/, "Code postal invalide")
+        .optional()
+        .or(z.literal(''))
+        .transform(val => val === '' ? null : val),
+
+    newsletter: z.boolean().default(false),
+
+    currentPassword: z.string().optional().or(z.literal('')),
+    newPassword: z.string().optional().or(z.literal('')),
+    confirmPassword: z.string().optional().or(z.literal(''))
+
+}).superRefine((data, ctx) => {
+    if (data.newPassword && data.newPassword.length > 0) {
+
+        // Minimum 8 caractères
+        if (data.newPassword.length < 8) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Minimum 8 caractères',
+                path: ['newPassword']
+            })
+        }
+
+        // currentPassword obligatoire si newPassword rempli
+        if (!data.currentPassword || data.currentPassword.length === 0) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Le mot de passe actuel est requis',
+                path: ['currentPassword']
+            })
+        }
+
+        // confirmPassword doit correspondre
+        if (data.confirmPassword !== data.newPassword) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Les mots de passe ne correspondent pas',
+                path: ['confirmPassword']
+            })
+        }
+    }
+})

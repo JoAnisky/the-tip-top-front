@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { registerSchema } from "#imports";
+import { profileSchema } from "#imports";
 import type { FormSubmitEvent } from '#ui/types'
 
 const { user, logout, fetchUser, invalidate } = useAuth()
@@ -7,7 +7,7 @@ const toast = useToast()
 
 // État
 const isSaving = ref(false)
-const isCurrentVisible = ref(false)   // ← Nouveau
+const isCurrentVisible = ref(false)
 const isPasswordVisible = ref(false)
 const isConfirmVisible = ref(false)
 const hasOAuthAccounts = ref(false)
@@ -223,7 +223,7 @@ const fullName = computed(() => {
 
       <ClientOnly>
         <!-- Formulaire -->
-        <UForm :schema="registerSchema" :state="formState" class="space-y-6 pb-[5rem]" @submit="onSubmit">
+        <UForm :schema="profileSchema" :state="formState" class="space-y-6 pb-[5rem]" @submit="onSubmit">
           <!-- Légende -->
           <p class="mt-8 text-sm italic bold">
             Les champs marqués d'un <span class="text-red-500">*</span> sont obligatoires
