@@ -1,0 +1,35 @@
+.wheel-wrapper {
+  position: relative;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .wheel-layer {
+    display: block;
+    height: auto;
+  }
+
+  .wheel-structure {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .wheel-background {
+    position: absolute;
+    top: -33px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 0;
+  }
+
+  .wheel-arrow {
+    position: absolute;
+    top: 0;
+    transform-origin: 50% 50%;
+    z-index: 3;
+  }
+}

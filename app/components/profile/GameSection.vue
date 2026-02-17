@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import PrizeWheel from "~/components/profile/PrizeWheel.vue";
+import SpinWheel from "~/components/profile/game/SpinWheel.vue";
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import PrizeWheel from "~/components/profile/PrizeWheel.vue";
           Et lancez la roue pour découvrir ce que vous avez gagné !
         </p>
       </div>
-      <PrizeWheel/>
+      <SpinWheel/>
     </div>
     <img src="/images/leaf.png" alt="" aria-hidden="true" class="absolute bottom-0 right-0 w-48 pointer-events-none"/>
   </section>
