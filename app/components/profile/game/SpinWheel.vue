@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import WinModale from "~/components/modales/WinModale.vue";
 import { uniqueCodeSchema } from "~/utils/unique-code-schema";
 import type { WinResult } from '~/types/game'
 
@@ -43,11 +44,12 @@ async function onSubmit() {
     })
 
     winResult.value = {
-      gainLabel: response.gain.label,
+      gainLabel: response.gain.name,
       gainId: response.gain.id,
       codeId: response.id
     }
 
+    console.log("response : " , response)
     await spinToRandom()
     isModalOpen.value = true
 
@@ -115,7 +117,7 @@ async function onSubmit() {
   </div>
 
   <!-- winResult passé en prop -->
-  <WinModal v-model="isModalOpen" :win-result="winResult" />
+  <WinModale v-model="isModalOpen" :win-result="winResult" />
 </template>
 
 <style scoped lang="scss" src="./SpinWheel.scss" />
