@@ -23,6 +23,9 @@ const state = reactive({ code: '' })
 const SPIN_DURATION_MS = 4000
 const MIN_TURNS = 5
 const MAX_TURNS = 8
+// anti spam "Lancer la roue"
+const cooldownActive = ref(false)
+const COOLDOWN_MS = 3000
 
 function spinToRandom(): Promise<void> {
   return new Promise((resolve) => {
@@ -34,6 +37,8 @@ function spinToRandom(): Promise<void> {
 }
 
 async function onSubmit() {
+  if (isSpinning.value || loading.value || cooldownActive.value) return
+
   loading.value = true
   isSpinning.value = true
 
@@ -49,11 +54,16 @@ async function onSubmit() {
       codeId: response.id
     }
 
-    console.log("response : " , response)
     await spinToRandom()
     isModalOpen.value = true
 
   } catch (err: any) {
+
+    cooldownActive.value = true
+    setTimeout(() => {
+      cooldownActive.value = false
+    }, COOLDOWN_MS)
+
     toast.add({
       title: 'Code invalide',
       description: err.data?.message || 'Ce code est invalide ou déjà utilisé.',
@@ -108,8 +118,8 @@ async function onSubmit() {
           size="xl"
           class="btn-primary"
           :ui="{ base: '!text-ttt-white font-bold uppercase', font: '!font-bold' }"
-          :loading="loading"
-          :disabled="isSpinning"
+          :loading="loading || cooldownActive"
+          :disabled="isSpinning || cooldownActive"
       >
         Lancer la roue
       </UButton>
