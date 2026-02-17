@@ -36,14 +36,15 @@ const emit = defineEmits<{
         </p>
         <div class="space-y-4 mb-4">
           <p class="text-3xl font-bold text-orange-400">{{ winResult?.gainLabel }}</p>
-          <p class="text-sm text-gray-400">
-            Présentez ce résultat en boutique pour récupérer votre lot.
+          <p class="text-sm text-gray-200">
+            Présentez votre ticket de caisse comportant le code en boutique pour récupérer votre lot.
           </p>
         </div>
       </div>
       <template #footer>
         <div class="flex justify-end gap-3">
-          <UButton block class="btn-primary mt-4" @click="emit('update:modelValue', false)">
+          <UButton block class="btn-primary mt-4" @click="emit('update:modelValue', false)"
+                   :ui="{base: '!text-ttt-white font-bold uppercase',font: '!font-bold'}">
             Fermer
           </UButton>
         </div>
