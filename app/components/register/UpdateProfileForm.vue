@@ -7,6 +7,7 @@ const toast = useToast()
 
 // État
 const isSaving = ref(false)
+const isCurrentVisible = ref(false)   // ← Nouveau
 const isPasswordVisible = ref(false)
 const isConfirmVisible = ref(false)
 const hasOAuthAccounts = ref(false)
@@ -393,14 +394,26 @@ const fullName = computed(() => {
                     </template>
                     <UInput
                         v-model="formState.currentPassword"
-                        type="password"
+                        :type="isCurrentVisible ? 'text' : 'password'"
                         autocomplete="current-password"
                         placeholder="Saisir votre mot de passe actuel"
                         icon="i-heroicons-lock-closed"
                         size="xl"
                         variant="none"
                         class="ttt-input-dark"
-                    />
+                        :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
+                    >
+                      <template #trailing>
+                        <UButton
+                            color="gray"
+                            variant="ghost"
+                            :icon="isCurrentVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                            :padded="false"
+                            @click="isCurrentVisible = !isCurrentVisible"
+                            class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
+                        />
+                      </template>
+                    </UInput>
                   </UFormGroup>
 
                   <!-- Nouveau mot de passe -->
