@@ -47,7 +47,7 @@
   .ttt-input-dark {
     // 1. Style de base obligatoire pour contrer le "border-0" du DOM
     input {
-      @apply bg-ttt-dark-grey text-white rounded-md transition-all;
+      @apply bg-ttt-dark-grey text-white rounded-md transition-all mt-2;
       border: 1px solid #374151 !important; // gray-700
       outline: none !important;
       box-shadow: none !important;

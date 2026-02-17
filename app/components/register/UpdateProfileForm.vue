@@ -186,58 +186,28 @@ const fullName = computed(() => {
       </p>
 
       <!-- En-tête avec nom -->
-      <div class="flex items-center justify-between mb-12 flex-wrap gap-4">
+      <div class="flex items-center justify-between mb-12 border-b border-gray-800 pb-6">
         <div>
           <ClientOnly>
-            <h2 class="text-xl font-semibold">{{ fullName || 'Utilisateur' }}</h2>
+            <h2 class="text-2xl font-bold">{{ fullName || 'Utilisateur' }}</h2>
           </ClientOnly>
-          <UButton
-              @click="onLogout"
-              variant="link"
-              color="red"
-              :padded="false"
-              class="text-sm italic hover:text-red-400 transition-colors"
-              icon="i-heroicons-arrow-left-on-rectangle"
-          >
-            Se déconnecter
-          </UButton>
-
-          <div v-if="hasOAuthAccounts" class="mt-2">
-            <UBadge color="blue" variant="subtle">
+          <div v-if="hasOAuthAccounts" class="mt-1">
+            <UBadge color="blue" variant="subtle" size="xs">
               <UIcon name="i-heroicons-shield-check" class="mr-1" />
-              Compte lié via OAuth
+              Compte OAuth
             </UBadge>
           </div>
         </div>
 
-        <!-- Boutons d'action - toujours visibles -->
-        <div class="flex gap-3">
-          <UButton
-              color="gray"
-              variant="outline"
-              class="rounded-lg px-6"
-              :disabled="!hasChanges"
-              @click="resetForm"
-          >
-            <UIcon name="i-heroicons-arrow-path" class="mr-2" />
-            Annuler
-          </UButton>
-
-          <UButton
-              type="submit"
-              form="profile-form"
-              variant="solid"
-              class="btn-primary text-white dark:text-white font-semibold"
-              :disabled="!hasChanges"
-              :loading="isSaving"
-              :ui="{
-                color: 'white'
-              }"
-          >
-            <UIcon name="i-heroicons-check" class="mr-2 font-semibold" />
-            Enregistrer
-          </UButton>
-        </div>
+        <UButton
+            @click="onLogout"
+            variant="ghost"
+            color="red"
+            class="hover:bg-red-900/20 transition-colors"
+            icon="i-heroicons-arrow-left-on-rectangle"
+        >
+          Se déconnecter
+        </UButton>
       </div>
 
       <!-- Indicateur de modifications non enregistrées -->
@@ -252,7 +222,7 @@ const fullName = computed(() => {
 
       <ClientOnly>
         <!-- Formulaire -->
-        <UForm id="profile-form" :schema="registerSchema" :state="formState" class="space-y-12" @submit="onSubmit">
+        <UForm :schema="registerSchema" :state="formState" class="space-y-6 pb-[5rem]" @submit="onSubmit">
           <!-- Légende -->
           <p class="mt-8 text-sm italic bold">
             Les champs marqués d'un <span class="text-red-500">*</span> sont obligatoires
@@ -409,7 +379,7 @@ const fullName = computed(() => {
             <!-- Changement de mot de passe -->
             <template v-if="!hasOAuthAccounts">
               <div class="space-y-6 p-6 bg-gray-900/50 rounded-lg border border-gray-800">
-                <h4 class="text-sm font-medium text-gray-400">
+                <h4 class="text-sm font-medium">
                   Changer le mot de passe (optionnel)
                 </h4>
 
@@ -496,7 +466,7 @@ const fullName = computed(() => {
                   </UFormGroup>
                 </div>
 
-                <p class="text-xs text-gray-500 italic">
+                <p class="text-sm text-gray-200 italic">
                   Le mot de passe doit contenir au moins 8 caractères
                 </p>
               </div>
@@ -542,6 +512,30 @@ const fullName = computed(() => {
               </div>
             </div>
           </section>
+          <div class="mt-2 pt-8 border-t border-gray-800 flex justify-end gap-4">
+            <UButton
+                color="gray"
+                variant="ghost"
+                class="px-6"
+                :disabled="!hasChanges || isSaving"
+                @click="resetForm"
+            >
+              Annuler les modifications
+            </UButton>
+            <UButton
+                type="submit"
+                variant="solid"
+                class="btn-primary text-white dark:text-white font-semibold"
+                :disabled="!hasChanges"
+                :loading="isSaving"
+                :ui="{
+                color: 'white'
+              }"
+            >
+              <UIcon name="i-heroicons-check" class="mr-2 font-semibold" />
+              Enregistrer le profil
+            </UButton>
+          </div>
       </UForm>
       </ClientOnly>
     </div>
@@ -549,10 +543,6 @@ const fullName = computed(() => {
 </template>
 
 <style scoped>
-.ttt-input-dark {
-  @apply bg-gray-900/50 border border-gray-700 text-white placeholder-gray-500;
-}
-
 .custom-date-input input[type="date"] {
   @apply text-white;
 }
@@ -560,6 +550,7 @@ const fullName = computed(() => {
 .custom-date-input input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
+
 section {
   @apply !m-0 !py-6
 }
