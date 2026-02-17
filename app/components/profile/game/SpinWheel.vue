@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { uniqueCodeSchema } from "~/utils/unique-code-schema";
+import type { WinResult } from '~/types/game'
+
 const loading = ref(false);
 const isDisabled = ref(true);
+const winResult = ref<WinResult | null>(null)
+const isSpinning = ref(false)
 
 const wheelImages = {
   structure: '/images/wheel/structure.webp',
@@ -13,6 +17,40 @@ const wheelImages = {
 const state = reactive({
   code: ''
 })
+
+async function onSubmit() {
+  loading.value = true
+  isSpinning.value = true
+
+  try {
+    const response = await $fetch('/api/auth/code', {
+      method: 'POST',
+      body: state.code
+    })
+
+    winResult.value = {
+      gainLabel: response.gain.label,
+      gainId: response.gain.id,
+      codeId: response.id
+    }
+
+    // Lance l'animation → quand elle est terminée, affiche la modale
+    console.log("response.gain :", response.gain)
+    // await spinToGain(response.gain.id)
+    // showResultModal()
+
+  } catch (err: any) {
+    isSpinning.value = false
+    toast.add({
+      title: 'Code invalide',
+      description: err.data?.message || 'Ce code est invalide ou déjà utilisé.',
+      color: 'red',
+      timeout: 5000
+    })
+  } finally {
+    loading.value = false
+  }
+}
 
 </script>
 <template>
