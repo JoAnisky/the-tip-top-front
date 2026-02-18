@@ -16,8 +16,11 @@ const { user } = useAuth()
 
       <!-- Empty state SI pas de gains -->
       <div v-if="!user?.gains || user.gains.length === 0" class="text-center py-8">
-        <p class="text-ttt-white/60">
-          Vous n'avez pas encore participé au jeu concours. Rendez vite en magasin et effectuez un achat d'un montant minimum de 49€ pour tenter votre chance !
+        <p class="text-ttt-white">
+          Vous n'avez pas encore participé au jeu concours 😢
+        </p>
+        <p class="text-ttt-white">
+          Rendez vous vite en magasin et effectuez un achat d'un montant minimum de 49€ pour tenter votre chance !
         </p>
       </div>
 

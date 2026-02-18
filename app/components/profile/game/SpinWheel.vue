@@ -3,6 +3,7 @@ import WinModale from "~/components/modales/WinModale.vue";
 import { uniqueCodeSchema } from "~/utils/unique-code-schema";
 import type { WinResult } from '~/types/game'
 
+const { invalidate, fetchUser } = useAuth()
 const toast = useToast()
 
 const hasError = ref(false)
@@ -60,6 +61,9 @@ async function onSubmit() {
 
     isSpinning.value = true
     await spinToRandom()
+    // Invalide et recharge les données user AVANT d'ouvrir la modale (recharge le tableau des gains)
+    invalidate()
+    await fetchUser()
     isModalOpen.value = true
 
   } catch (err: any) {
