@@ -5,6 +5,9 @@ import type { WinResult } from '~/types/game'
 
 const toast = useToast()
 
+const hasError = ref(false)
+const errorMessage = ref('')
+
 const loading = ref(false)
 const isSpinning = ref(false)
 const isModalOpen = ref(false)
@@ -40,7 +43,8 @@ async function onSubmit() {
   if (isSpinning.value || loading.value || cooldownActive.value) return
 
   loading.value = true
-  isSpinning.value = true
+  hasError.value = false
+  errorMessage.value = ''
 
   try {
     const response = await $fetch('/api/auth/code', {
@@ -54,10 +58,13 @@ async function onSubmit() {
       codeId: response.id
     }
 
+    isSpinning.value = true
     await spinToRandom()
     isModalOpen.value = true
 
   } catch (err: any) {
+    hasError.value = true
+    errorMessage.value = err.data?.message || 'Ce code est invalide ou déjà utilisé.'
 
     cooldownActive.value = true
     setTimeout(() => {
@@ -66,10 +73,12 @@ async function onSubmit() {
 
     toast.add({
       title: 'Code invalide',
-      description: err.data?.message || 'Ce code est invalide ou déjà utilisé.',
+      description: errorMessage.value,
       color: 'red',
       timeout: 5000
     })
+
+    loading.value = false
   } finally {
     loading.value = false
     isSpinning.value = false
@@ -101,14 +110,21 @@ async function onSubmit() {
             Code sur votre ticket d'achat supérieur à 49€
           </span>
         </template>
+
+        <div v-if="hasError" class="mb-2 text-red-500 text-sm font-medium">
+          {{ errorMessage }}
+        </div>
+
         <UInput
             v-model="state.code"
             name="code"
-            placeholder="Code unique à 10 caractères"
+            placeholder="Code unique à 10 caractères, par exemple : DFGT67YH78"
             size="xl"
             variant="none"
             class="ttt-input-dark"
+            :class="{ 'input-error': hasError }"
             :disabled="isSpinning"
+            @input="hasError = false; errorMessage = ''"
         />
       </UFormGroup>
 
@@ -125,7 +141,14 @@ async function onSubmit() {
       </UButton>
     </UForm>
   </div>
-
+  <div class="flex flex-wrap justify-center gap-2 mb-1 w-[80vw] lg:w-[60vw] lg:p-[1.5rem]">
+    <p class="text-justify lg:text-center font-bold text-ttt-white">
+      Une fois votre gain validé, présentez votre code unique en boutique pour récupérer votre lot.
+    </p>
+    <p class="text-justify lg:text-center text-lg text-ttt-white/80">
+      Vous disposez de 30 jours supplémentaires à l'issue du jeu concours pour récupérer votre lot grâce à votre code.
+    </p>
+  </div>
   <!-- winResult passé en prop -->
   <WinModale v-model="isModalOpen" :win-result="winResult" />
 </template>

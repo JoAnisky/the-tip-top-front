@@ -93,3 +93,8 @@
 :deep(.ttt-input-dark) {
   width: 100%;
 }
+
+:deep(.input-error input) {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 1px #ef4444 !important;
+}
