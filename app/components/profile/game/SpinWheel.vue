@@ -125,7 +125,7 @@ async function onSubmit() {
             placeholder="Code unique à 10 caractères, par exemple : DFGT67YH78"
             size="xl"
             variant="none"
-            class="ttt-input-dark"
+            class="ttt-input-dark font-mono"
             :class="{ 'input-error': hasError }"
             :disabled="isSpinning"
             @input="hasError = false; errorMessage = ''"
