@@ -1,0 +1,78 @@
+.gains-history {
+  @apply w-full max-w-[1200px] mx-auto mt-12;
+}
+
+.gains-table {
+  @apply bg-[#1a1a1a] rounded-lg overflow-hidden;
+}
+
+.table-header {
+  @apply grid grid-cols-[2fr_1.5fr_1fr] gap-4 px-6 py-4;
+  @apply bg-black text-white font-bold uppercase text-sm;
+}
+
+.table-row {
+  @apply grid grid-cols-[2fr_1.5fr_1fr] gap-4 px-6 py-6;
+  @apply border-t border-[#333] items-center;
+  @apply bg-ttt-white;
+  @apply transition-colors hover:bg-gray-100;
+}
+
+.col-gain {
+  @apply flex items-center gap-4;
+}
+
+.gain-image {
+  @apply w-[60px] h-[60px] object-contain rounded-full bg-gray-100;
+}
+
+.gain-info {
+  @apply flex flex-col gap-1;
+}
+
+.gain-name {
+  @apply text-ttt-dark-grey font-semibold text-base;
+}
+
+.gain-date {
+  @apply text-gray-500 text-sm italic;
+}
+
+.col-code {
+  @apply flex items-center;
+}
+
+.code-value {
+  @apply text-ttt-dark-grey font-mono tracking-wide;
+}
+
+.col-status {
+  @apply flex justify-end;
+}
+
+.status-badge {
+  @apply px-5 py-2 rounded-full text-sm font-semibold uppercase tracking-wide;
+}
+
+.status-claimed {
+  @apply bg-ttt-status-green text-white border border-gray-300;
+}
+
+.status-pending {
+  @apply bg-red-700 text-white;
+}
+
+// Responsive mobile
+@media (max-width: 768px) {
+  .table-header {
+    @apply hidden;
+  }
+
+  .table-row {
+    @apply grid-cols-1 gap-3 p-4;
+  }
+
+  .col-status {
+    @apply justify-start;
+  }
+}
