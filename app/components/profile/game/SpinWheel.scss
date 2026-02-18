@@ -33,7 +33,51 @@
     top: 0;
     transform-origin: 50% 50%;
     z-index: 3;
+
+    &.arrow-wobble {
+      // Même durée et easing que la roue pour synchroniser la décélération
+      animation: arrowWobble 3.5s cubic-bezier(0.17, 0.67, 0.12, 0.99) forwards;
+    }
+
   }
+}
+// Oscillation de la pointe en haut de la roue
+@keyframes arrowWobble {
+  // Début rapide - BEAUCOUP de taps rapprochés avec amplitude moyenne
+  0% { transform: rotate(0deg); }
+  2% { transform: rotate(4deg); }
+  4% { transform: rotate(-4deg); }
+  6% { transform: rotate(4deg); }
+  8% { transform: rotate(-4deg); }
+  10% { transform: rotate(4deg); }
+  12% { transform: rotate(-4deg); }
+  14% { transform: rotate(5deg); }
+  16% { transform: rotate(-5deg); }
+  18% { transform: rotate(5deg); }
+  20% { transform: rotate(-5deg); }
+  22% { transform: rotate(5deg); }
+  24% { transform: rotate(-5deg); }
+  26% { transform: rotate(5deg); }
+  28% { transform: rotate(-5deg); }
+  30% { transform: rotate(5deg); }
+
+  // Phase intermédiaire - taps qui s'espacent
+  35% { transform: rotate(-6deg); }
+  40% { transform: rotate(6deg); }
+  45% { transform: rotate(-6deg); }
+
+  // Ralentissement final - grands rebonds espacés (les 10 crans)
+  50% { transform: rotate(8deg); }   // Cran 1
+  55% { transform: rotate(-8deg); }  // Cran 2
+  60% { transform: rotate(10deg); }  // Cran 3
+  65% { transform: rotate(-10deg); } // Cran 4
+  70% { transform: rotate(12deg); }  // Cran 5
+  75% { transform: rotate(-12deg); } // Cran 6
+  80% { transform: rotate(14deg); }  // Cran 7
+  85% { transform: rotate(-14deg); } // Cran 8
+  90% { transform: rotate(15deg); }  // Cran 9
+  93% { transform: rotate(-10deg); } // Cran 10 (réduit)
+  96%, 100% { transform: rotate(0deg); }
 }
 
 .form-container {

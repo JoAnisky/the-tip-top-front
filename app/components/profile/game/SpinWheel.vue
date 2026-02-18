@@ -90,7 +90,7 @@ async function onSubmit() {
         alt=""
         aria-hidden="true"
     />
-    <img class="wheel-layer wheel-arrow" :src="wheelImages.arrow" alt="" aria-hidden="true" />
+    <img class="wheel-layer wheel-arrow" :class="{ 'arrow-wobble': isSpinning }" :src="wheelImages.arrow" alt="" aria-hidden="true" />
   </div>
 
   <div class="form-container">
