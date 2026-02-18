@@ -10,7 +10,7 @@ const { getGiftById } = useGifts()
 
 function formatDate(isoDate: string): string {
   const date = new Date(isoDate)
-  return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })
+  return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 </script>
 
