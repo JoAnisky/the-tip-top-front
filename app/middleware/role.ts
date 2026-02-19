@@ -1,14 +1,13 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-    const { user, fetchUser } = await fetchUser()
+    if (process.server) return
 
-    if(!user.value){
-        await fetchUser()
-    }
+    const { user, loggedIn } = useAuth()
 
     const requiredRole = to.meta.role as string | undefined
-    if(!requiredRole) return
+    if (!requiredRole) return
 
-    if (!user.value?.roles?.includes(requiredRole)) {
+    // auth.ts a déjà fetchUser, si loggedIn est false ici c'est qu'on n'est pas connecté
+    if (!loggedIn.value || !user.value?.roles?.includes(requiredRole)) {
         return navigateTo('/')
     }
 })
