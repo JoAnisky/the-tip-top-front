@@ -11,16 +11,15 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
 
     try {
-        const response = await $fetch(`${config.apiBaseUrl}/api/codes/validate`, {
+        return await $fetch(`${config.apiBaseUrl}/api/codes/validate`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/ld+json',
                 'Accept': 'application/ld+json'
             },
-            body: { code: body.code }
+            body: JSON.stringify({ code: body.code })
         })
-        return response
     } catch (error: any) {
         const status = error.response?.status ?? 500
         const message = error.data?.detail
