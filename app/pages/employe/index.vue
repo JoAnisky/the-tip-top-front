@@ -1,0 +1,190 @@
+<script setup lang="ts">
+definePageMeta({
+  middleware: ['auth', 'role'],
+  role: 'ROLE_EMPLOYEE',
+})
+import type { Customer, CustomerCode } from '~/types/customer'
+let debounceTimer: ReturnType<typeof setTimeout> | null = null
+
+const search = ref('')
+const customers = ref<Customer[]>([])
+const selectedCustomer = ref<Customer | null>(null)
+const loadingSearch = ref(false)
+const loadingCodes = ref(false)
+const claimingCode = ref<number | null>(null)
+const toast = useToast()
+
+watch(search, () => {
+  if (debounceTimer) clearTimeout(debounceTimer)
+  debounceTimer = setTimeout(async () => {
+    if (search.value.trim().length < 2) {
+      customers.value = []
+      selectedCustomer.value = null
+      return
+    }
+
+    loadingSearch.value = true
+    try {
+      customers.value = await $fetch('/api/employee/customers', {
+        query: { search: search.value.trim() }
+      })
+      selectedCustomer.value = null
+    } catch {
+      toast.add({ title: 'Erreur lors de la recherche', color: 'red' })
+    } finally {
+      loadingSearch.value = false
+    }
+  }, 400)
+})
+
+// Sélection d'un client et chargement de ses codes
+async function selectCustomer(customer: Customer) {
+  selectedCustomer.value = customer
+  loadingCodes.value = true
+
+  try {
+    // On récupère les codes via l'endpoint personnalisé /api/users/{id}
+    const codes = await $fetch<CustomerCode[]>(`/api/employee/customers/${customer.id}/codes`)
+    selectedCustomer.value = { ...customer, codes }
+  } catch {
+    toast.add({ title: 'Erreur lors du chargement des gains', color: 'red' })
+  } finally {
+    loadingCodes.value = false
+  }
+}
+
+async function claimCode(code: CustomerCode) {
+  claimingCode.value = code.id
+
+  try {
+    await $fetch('/api/employee/codes/claim', {
+      method: 'POST',
+      body: { code: code.code }
+    })
+
+    // Mise à jour locale sans re-fetch
+    if (selectedCustomer.value?.codes) {
+      const idx = selectedCustomer.value.codes.findIndex(c => c.id === code.id)
+      if (idx !== -1) {
+        selectedCustomer.value.codes[idx] = {
+          ...selectedCustomer.value.codes[idx],
+          isClaimed: true,
+          claimedOn: new Date().toISOString().split('T')[0]
+        }
+      }
+    }
+
+    toast.add({ title: 'Lot remis avec succès', color: 'green' })
+  } catch (error: any) {
+    toast.add({ title: error.data?.message ?? 'Erreur lors de la remise', color: 'red' })
+  } finally {
+    claimingCode.value = null
+  }
+}
+
+function fullName(customer: Customer) {
+  return [customer.firstName, customer.lastName].filter(Boolean).join(' ') || customer.email
+}
+</script>
+
+<template>
+  <div class="max-w-4xl mx-auto p-6 space-y-6">
+    <h1 class="text-2xl font-bold">Dashboard Employé</h1>
+
+    <UAlert
+        icon="i-heroicons-information-circle"
+        color="primary"
+        variant="soft"
+        title="Comment procéder ?"
+    >
+      <template #description>
+        <ol class="list-decimal list-inside space-y-1 mt-1">
+          <li>Recherchez un client par nom, prénom ou email</li>
+          <li>Sélectionnez-le pour voir ses gains</li>
+          <li>Cliquez sur "Valider la remise" pour le lot concerné</li>
+        </ol>
+      </template>
+    </UAlert>
+    <!-- Barre de recherche -->
+    <UInput
+        v-model="search"
+        placeholder="Rechercher un client (nom, prénom, email)…"
+        icon="i-heroicons-magnifying-glass"
+        size="lg"
+        class="ttt-input-dark"
+        :loading="loadingSearch"
+    />
+
+    <!-- Liste des résultats -->
+    <div v-if="customers.length > 0 && !selectedCustomer" class="border rounded-lg divide-y">
+      <button
+          v-for="customer in customers"
+          :key="customer.id"
+          class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors"
+          @click="selectCustomer(customer)"
+      >
+        <span class="font-medium">{{ fullName(customer) }}</span>
+        <span class="text-sm text-gray-500 ml-2">{{ customer.email }}</span>
+      </button>
+    </div>
+
+    <p v-else-if="search.length >= 2 && !loadingSearch && customers.length === 0" class="text-gray-500">
+      Aucun client trouvé.
+    </p>
+
+    <!-- Détail client sélectionné -->
+    <div v-if="selectedCustomer" class="space-y-4">
+      <div class="flex items-center gap-3">
+        <UButton
+            icon="i-heroicons-arrow-left"
+            variant="ghost"
+            @click="selectedCustomer = null"
+        />
+        <h2 class="text-xl font-semibold m-0">{{ fullName(selectedCustomer) }}</h2>
+        <span class="text-gray-500">{{ selectedCustomer.email }}</span>
+      </div>
+
+      <!-- Chargement des codes -->
+      <div v-if="loadingCodes" class="flex justify-center py-8">
+        <UIcon name="i-heroicons-arrow-path" class="animate-spin text-2xl" />
+      </div>
+
+      <!-- Aucun gain -->
+      <p v-else-if="!selectedCustomer.codes?.length" class="text-gray-500">
+        Ce client n'a aucun gain validé.
+      </p>
+
+      <!-- Liste des gains -->
+      <div v-else class="space-y-3">
+        <div
+            v-for="code in selectedCustomer.codes"
+            :key="code.id"
+            class="border rounded-lg p-4 flex items-center justify-between"
+            :class="code.isClaimed ? 'bg-gray-50 opacity-60' : 'bg-white'"
+        >
+          <div class="space-y-1">
+            <p class="font-medium">{{ code.gainName ?? 'Gain inconnu' }}</p>
+            <p class="text-sm text-gray-500">
+              Code : <code class="font-mono">{{ code.code }}</code>
+            </p>
+            <p class="text-sm text-gray-500">
+              Validé le {{ code.validatedOn }}
+            </p>
+            <p v-if="code.isClaimed" class="text-sm text-green-600">
+              ✓ Remis le {{ code.claimedOn }}
+            </p>
+          </div>
+
+          <UButton
+              v-if="!code.isClaimed"
+              label="Valider la remise"
+              color="primary"
+              :loading="claimingCode === code.id"
+              @click="claimCode(code)"
+          />
+          <UBadge v-else label="Remis" color="green" variant="soft" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
