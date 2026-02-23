@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import {useApiFetch} from "~/composables/useApiFetch";
+
 definePageMeta({
   middleware: ['auth', 'role'],
   role: 'ROLE_EMPLOYEE',
 })
 import type { Customer, CustomerCode } from '~/types/customer'
-let debounceTimer: ReturnType<typeof setTimeout> | null = null
+
+const { apiFetch } = useApiFetch()
 
 const search = ref('')
 const customers = ref<Customer[]>([])
@@ -13,6 +16,8 @@ const loadingSearch = ref(false)
 const loadingCodes = ref(false)
 const claimingCode = ref<number | null>(null)
 const toast = useToast()
+
+let debounceTimer: ReturnType<typeof setTimeout> | null = null
 
 watch(search, () => {
   if (debounceTimer) clearTimeout(debounceTimer)
@@ -25,7 +30,7 @@ watch(search, () => {
 
     loadingSearch.value = true
     try {
-      customers.value = await $fetch('/api/employee/customers', {
+      customers.value = await apiFetch('/api/employee/customers', {
         query: { search: search.value.trim() }
       })
       selectedCustomer.value = null
@@ -44,7 +49,7 @@ async function selectCustomer(customer: Customer) {
 
   try {
     // On récupère les codes via l'endpoint personnalisé /api/users/{id}
-    const codes = await $fetch<CustomerCode[]>(`/api/employee/customers/${customer.id}/codes`)
+    const codes = await apiFetch<CustomerCode[]>(`/api/employee/customers/${customer.id}/codes`)
     selectedCustomer.value = { ...customer, codes }
   } catch {
     toast.add({ title: 'Erreur lors du chargement des gains', color: 'red' })
@@ -57,7 +62,7 @@ async function claimCode(code: CustomerCode) {
   claimingCode.value = code.id
 
   try {
-    await $fetch('/api/employee/codes/claim', {
+    await apiFetch('/api/employee/codes/claim', {
       method: 'POST',
       body: { code: code.code }
     })
