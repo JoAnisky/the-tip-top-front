@@ -6,19 +6,17 @@ export interface GainStat {
 export interface AdminStats {
     tickets: {
         total: number
-        validated: number
-        participation_rate: number
-    }
-    gains: GainStat[]
-    claiming: {
+        used: number
         won: number
         claimed: number
+        participation_rate: number
         claim_rate: number
     }
+    gains: GainStat[]
     winners: {
-        gender: string
-        total: number
-    }[]
+        gender: { gender: string, total: number }[]
+        age_groups: { label: string, total: number }[]
+    }
 }
 
 export const useAdminStats = () => {
