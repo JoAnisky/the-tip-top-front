@@ -16,6 +16,27 @@
   @apply border-t border-[#333] items-center;
   @apply bg-ttt-white;
   @apply transition-colors hover:bg-gray-100;
+
+  &.row-claimed {
+    @apply bg-gray-100 opacity-70;
+
+    .gain-name,
+    .code-value {
+      @apply text-gray-400;
+    }
+
+    .gain-date {
+      @apply text-gray-400;
+    }
+
+    .gain-image {
+      filter: grayscale(50%);
+    }
+
+    &:hover {
+      @apply bg-gray-200;
+    }
+  }
 }
 
 .col-gain {
@@ -24,6 +45,7 @@
 
 .gain-image {
   @apply w-[60px] h-[60px] object-contain rounded-full bg-gray-100;
+  @apply transition-all;
 }
 
 .gain-info {
@@ -32,10 +54,12 @@
 
 .gain-name {
   @apply text-ttt-dark-grey font-semibold text-base;
+  @apply transition-colors;
 }
 
 .gain-date {
   @apply text-gray-500 text-sm italic;
+  @apply transition-colors;
 }
 
 .col-code {
@@ -44,6 +68,7 @@
 
 .code-value {
   @apply text-ttt-dark-grey font-mono tracking-wide;
+  @apply transition-colors;
 }
 
 .col-status {
@@ -55,11 +80,11 @@
 }
 
 .status-claimed {
-  @apply bg-ttt-status-green text-white border border-gray-300;
+  @apply bg-gray-200 text-gray-500 border border-gray-300;
 }
 
 .status-pending {
-  @apply bg-red-700 text-white;
+  @apply bg-amber-500 text-white;
 }
 
 // Responsive mobile
