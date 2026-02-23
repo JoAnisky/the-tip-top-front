@@ -116,15 +116,15 @@ function fullName(customer: Customer) {
     />
 
     <!-- Liste des résultats -->
-    <div v-if="customers.length > 0 && !selectedCustomer" class="border rounded-lg divide-y">
+    <div v-if="customers.length > 0 && !selectedCustomer" class="rounded-xl border border-white/20 divide-y divide-white/10 overflow-hidden">
       <button
           v-for="customer in customers"
           :key="customer.id"
-          class="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors"
+          class="w-full text-left px-4 py-3 hover:bg-white/10 transition-colors"
           @click="selectCustomer(customer)"
       >
-        <span class="font-medium">{{ fullName(customer) }}</span>
-        <span class="text-sm text-gray-500 ml-2">{{ customer.email }}</span>
+        <span class="font-medium text-white">{{ fullName(customer) }}</span>
+        <span class="text-sm text-white ml-2 italic">({{ customer.email }})</span>
       </button>
     </div>
 
@@ -141,7 +141,7 @@ function fullName(customer: Customer) {
             @click="selectedCustomer = null"
         />
         <h2 class="text-xl font-semibold m-0">{{ fullName(selectedCustomer) }}</h2>
-        <span class="text-gray-500">{{ selectedCustomer.email }}</span>
+        <span class="text-white italic">({{ selectedCustomer.email }})</span>
       </div>
 
       <!-- Chargement des codes -->
@@ -159,30 +159,35 @@ function fullName(customer: Customer) {
         <div
             v-for="code in selectedCustomer.codes"
             :key="code.id"
-            class="border rounded-lg p-4 flex items-center justify-between"
-            :class="code.isClaimed ? 'bg-gray-50 opacity-60' : 'bg-white'"
+            class="rounded-xl p-4 flex items-center justify-between gap-4 border transition-opacity"
+            :class="code.isClaimed
+            ? 'bg-white/5 border-white/10 opacity-50'
+            : 'bg-white/10 border-white/20'"
         >
-          <div class="space-y-1">
-            <p class="font-medium">{{ code.gainName ?? 'Gain inconnu' }}</p>
-            <p class="text-sm text-gray-500">
-              Code : <code class="font-mono">{{ code.code }}</code>
+          <div class="space-y-1 min-w-0">
+            <p class="font-semibold text-white">{{ code.gainName ?? 'Gain inconnu' }}</p>
+            <p class="text-sm text-gray-400">
+              Code : <code class="font-mono text-gray-300">{{ code.code }}</code>
             </p>
-            <p class="text-sm text-gray-500">
+            <p class="text-sm text-gray-400">
               Validé le {{ code.validatedOn }}
             </p>
-            <p v-if="code.isClaimed" class="text-sm text-green-600">
-              ✓ Remis le {{ code.claimedOn }}
+            <p v-if="code.isClaimed" class="text-sm text-emerald-400 flex items-center gap-1">
+              <UIcon name="i-heroicons-check-circle" class="w-4 h-4" />
+              Remis le {{ code.claimedOn }}
             </p>
           </div>
 
-          <UButton
-              v-if="!code.isClaimed"
-              label="Valider la remise"
-              color="primary"
-              :loading="claimingCode === code.id"
-              @click="claimCode(code)"
-          />
-          <UBadge v-else label="Remis" color="green" variant="soft" />
+          <div class="shrink-0">
+            <UButton
+                v-if="!code.isClaimed"
+                label="Valider la remise"
+                color="primary"
+                :loading="claimingCode === code.id"
+                @click="claimCode(code)"
+            />
+            <UBadge v-else label="Remis" color="green" variant="soft" />
+          </div>
         </div>
       </div>
     </div>
