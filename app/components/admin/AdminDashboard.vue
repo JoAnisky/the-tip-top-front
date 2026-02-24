@@ -112,15 +112,15 @@ onUnmounted(() => {
 
     <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-        <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4">Répartition des gains</h2>
+        <h2 class="text-sm font-semibold text-white uppercase tracking-wide mb-4">Répartition des gains</h2>
         <div class="relative h-48"><canvas ref="gainsChartRef" /></div>
       </div>
       <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-        <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4">Gagnants par genre</h2>
+        <h2 class="text-sm font-semibold text-white uppercase tracking-wide mb-4">Gagnants par genre</h2>
         <div class="relative h-48"><canvas ref="genderChartRef" /></div>
       </div>
       <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-        <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4">Gagnants par tranche d'âge</h2>
+        <h2 class="text-sm font-semibold text-white uppercase tracking-wide mb-4">Gagnants par tranche d'âge</h2>
         <div class="relative h-48"><canvas ref="ageChartRef" /></div>
       </div>
     </section>
