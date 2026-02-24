@@ -150,7 +150,7 @@ async function onSubmit() {
         </UForm>
       </div>
     </UCard>
-    <p class="mt-8 text-gray-200 text-base">
+    <p class="mt-8 text-gray-200 text-base z-10">
       Pas encore de compte ?
       <button @click="emit('switchForm')" class="text-white font-bold underline focus:outline-none" >S'inscrire</button>
     </p>
