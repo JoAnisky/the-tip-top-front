@@ -22,7 +22,7 @@ const isHomePage = computed(() => route.path === '/')
           <NuxtLink to="/mentions-legales" class="nav-footer-link">Mentions légales et CGU</NuxtLink>
         </li>
         <li class="nav-footer-item">
-          <NuxtLink to="/cookies" class="nav-footer-link">Politique de cookies</NuxtLink>
+          <NuxtLink to="/politique-de-cookies" class="nav-footer-link">Politique de cookies</NuxtLink>
         </li>
         <li class="nav-footer-item">
           <NuxtLink to="/contact" class="nav-footer-link">Contact</NuxtLink>
