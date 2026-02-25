@@ -10,7 +10,8 @@ const emit = defineEmits(['updated'])
 const { fetchUser, invalidate } = useAuth()
 const toast = useToast()
 
-const hasOAuthAccounts = computed(() => props.user?.hasOAuthAccounts || false)
+const oAuthAccounts = computed(() => props.user?.oAuthAccounts ?? { google: false, facebook: false })
+const hasOAuthAccounts = computed(() => oAuthAccounts.value.google || oAuthAccounts.value.facebook)
 
 // États locaux au formulaire
 const isSaving = ref(false)
@@ -411,7 +412,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
         </h3>
 
         <div class="space-y-4">
-          <div class="flex items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-800">
+          <div v-if="oAuthAccounts.google" class="flex items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-800">
             <div class="flex items-center gap-3">
               <img src="/images/google-logo.svg" alt="Google" class="w-6 h-6" />
               <span class="text-sm">Google</span>
@@ -419,7 +420,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
             <UBadge color="green" variant="subtle">Lié</UBadge>
           </div>
 
-          <div class="flex items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-800">
+          <div v-if="oAuthAccounts.facebook" class="flex items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-800">
             <div class="flex items-center gap-3">
               <img src="/images/facebook-logo.svg" alt="Facebook" class="w-6 h-6" />
               <span class="text-sm">Facebook</span>
