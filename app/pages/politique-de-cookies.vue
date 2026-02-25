@@ -1,6 +1,8 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'default' })
-useHead({ title: 'Politique de cookies — Thé Tip Top' })
+useSeoPage({
+  title: 'Politique de cookies — Confidentialité Thé Tip Top',
+  description: 'Découvrez comment Thé Tip Top utilise les cookies : connexion, préférences, analytics et réseaux sociaux. Gérez vos préférences à tout moment en toute transparence.',
+})
 
 const cookieTypes = [
   {
