@@ -7,7 +7,7 @@ const isHomePage = computed(() => route.path === '/')
 
 <template>
   <!--  Si ce n'est pas la homepage, on affiche l'image des montagnes avec drapeau Français en haut du NavFooter -->
-  <div v-if="!isHomePage" class="w-full relative bg-ttt-green-light">
+  <div v-if="!isHomePage" class="w-full relative bg-ttt-green-light h-[6rem]">
     <img src="/images/univers-ttt-background.webp" alt="" aria-hidden="true" class="absolute bottom-0 left-0 w-full object-cover pointer-events-none z-0"/>
   </div>
   <!-- Sur la home : NavFooter uniquement -->
