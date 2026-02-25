@@ -100,7 +100,7 @@ const cookieTypes = [
               </div>
               <UBadge
                   :label="type.canDisable ? 'Optionnel' : 'Obligatoire'"
-                  :color="type.canDisable ? 'warning' : 'success'"
+                  :color="type.canDisable ? 'yellow' : 'primary'"
                   variant="subtle"
                   size="sm"
                   class="flex-shrink-0"
