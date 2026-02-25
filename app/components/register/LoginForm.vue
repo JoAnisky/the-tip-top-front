@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { loginSchema } from "#imports";
 const { login } = useAuth()
+const { allowsSocial } = useCookieConsent()
 
 const loading = ref(false)
 const isPasswordVisible = ref(false)
+const isCookieModalOpen = ref(false)
 
 const toast = useToast()
 const config = useRuntimeConfig()
@@ -14,7 +16,10 @@ const state = reactive({
   password: ''
 })
 
-const emit = defineEmits(['switchForm']);
+const emit = defineEmits<{
+  switchForm: []
+  openCookieModal: []
+}>()
 
 // URLs OAuth vers Symfony
 const googleOAuthUrl = `${config.public.apiBaseUrl}/auth/oauth/google`
@@ -60,6 +65,20 @@ async function onSubmit() {
     loading.value = false
   }
 }
+
+/**
+ * Intercepte le clic sur un bouton OAuth.
+ * Si les cookies sociaux sont acceptés → redirige vers Symfony.
+ * Sinon → ouvre la modale pour modifier les préférences.
+ */
+function handleOAuthClick(url: string) {
+  if (allowsSocial.value) {
+    navigateTo(url, { external: true })
+  } else {
+    isCookieModalOpen.value = true
+  }
+}
+
 </script>
 
 <template>
@@ -73,18 +92,34 @@ async function onSubmit() {
         <p>Se connecter</p>
         <div class="flex gap-5 my-4">
           <!-- Bouton Facebook -->
-          <UButton :to="facebookOAuthUrl" color="gray" variant="solid" block class="h-11 px-4 !bg-[#1877F2] hover:!bg-[#166FE5] text-white flex-1">
-            <img src="/images/facebook-logo.svg" alt="Facebook" class="w-5 h-5 mr-2" />
-            <span class="hidden sm:inline">Facebook</span>
-          </UButton>
+          <UTooltip :text="allowsSocial ? '' : 'Activez les cookies de connexion sociale pour utiliser cette option'" :prevent="allowsSocial" class="flex-1">
+            <UButton color="gray" variant="solid" block class="h-11 px-4 text-white transition-opacity" :class="allowsSocial ? '!bg-[#1877F2] hover:!bg-[#166FE5]' : '!bg-[#1877F2]/40 cursor-not-allowed'"
+                :disabled="!allowsSocial"
+                @click="handleOAuthClick(facebookOAuthUrl)"
+            >
+              <img src="/images/facebook-logo.svg" alt="Facebook" class="w-5 h-5 mr-2" />
+              <span class="hidden sm:inline">Facebook</span>
+            </UButton>
+          </UTooltip>
 
           <!-- Bouton Google -->
-          <UButton :to="googleOAuthUrl" color="white" variant="solid" block class="h-11 px-4 !bg-white hover:!bg-gray-100 !text-gray-700 flex-1">
-            <img src="/images/google-logo.svg" alt="Google" class="w-5 h-5 mr-2" />
-            <span class="hidden sm:inline">Google</span>
-          </UButton>
+          <UTooltip :text="allowsSocial ? '' : 'Activez les cookies de connexion sociale pour utiliser cette option'" :prevent="allowsSocial" class="flex-1">
+            <UButton color="white" variant="solid" block class="h-11 px-4 transition-opacity" :class="allowsSocial ? '!bg-white hover:!bg-gray-100 !text-gray-700' : '!bg-white/30 !text-gray-400 cursor-not-allowed'"
+                :disabled="!allowsSocial"
+                @click="handleOAuthClick(googleOAuthUrl)"
+            >
+              <img src="/images/google-logo.svg" alt="Google" class="w-5 h-5 mr-2" />
+              <span class="hidden sm:inline">Google</span>
+            </UButton>
+          </UTooltip>
         </div>
-
+        <!-- Lien modifier préférences si cookies sociaux refusés -->
+        <p v-if="!allowsSocial" class="text-xs text-center text-white/70 -mt-2 mb-4">
+          <button class="underline hover:text-white transition-colors" @click="emit('openCookieModal')">
+            Modifier mes préférences de cookies
+          </button>
+          pour activer ces options.
+        </p>
         <UDivider label="ou" class="ttt-divider mb-8"/>
 
         <UForm :schema="loginSchema" :state="state" class="space-y-6 !ttt-form-no-blue" @submit="onSubmit">

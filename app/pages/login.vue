@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import CookieModal from "~/components/cookies/CookieModal.vue";
+
   definePageMeta({
     middleware: ['guest'],
     layout: 'default'
@@ -8,6 +10,7 @@
   import RegisterForm from "~/components/register/RegisterForm.vue";
 
   const isLogin = ref(true);
+  const isCookieModalOpen = ref(false)
 
   const toggleForm = () => {
     isLogin.value = !isLogin.value;
@@ -27,12 +30,14 @@
       </div>
       <div class="form-container w-full flex flex-col items-center justify-center">
         <Transition name="flip" mode="out-in">
-          <LoginForm v-if="isLogin" @switchForm="toggleForm" />
+          <LoginForm v-if="isLogin" @switchForm="toggleForm" @openCookieModal="isCookieModalOpen = true"/>
           <RegisterForm v-else @switchForm="toggleForm" />
         </Transition>
       </div>
     </div>
   </div>
+  <CookieModal v-model="isCookieModalOpen" />
+
 </template>
 
 <style scoped>
