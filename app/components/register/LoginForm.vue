@@ -93,7 +93,10 @@ function handleOAuthClick(url: string) {
         <div class="flex gap-5 my-4">
           <!-- Bouton Facebook -->
           <UTooltip :text="allowsSocial ? '' : 'Activez les cookies de connexion sociale pour utiliser cette option'" :prevent="allowsSocial" class="flex-1">
-            <UButton color="gray" variant="solid" block class="h-11 px-4 text-white transition-opacity" :class="allowsSocial ? '!bg-[#1877F2] hover:!bg-[#166FE5]' : '!bg-[#1877F2]/40 cursor-not-allowed'"
+            <UButton color="gray" variant="solid" block class="h-11 px-4 text-white transition-opacity" :class="{
+                '!bg-[#1877F2] hover:!bg-[#166FE5]': allowsSocial,
+                '!bg-[#1877F2]/40 cursor-not-allowed': !allowsSocial
+                }"
                 :disabled="!allowsSocial"
                 @click="handleOAuthClick(facebookOAuthUrl)"
             >
@@ -104,7 +107,10 @@ function handleOAuthClick(url: string) {
 
           <!-- Bouton Google -->
           <UTooltip :text="allowsSocial ? '' : 'Activez les cookies de connexion sociale pour utiliser cette option'" :prevent="allowsSocial" class="flex-1">
-            <UButton color="white" variant="solid" block class="h-11 px-4 transition-opacity" :class="allowsSocial ? '!bg-white hover:!bg-gray-100 !text-gray-700' : '!bg-white/30 !text-gray-400 cursor-not-allowed'"
+            <UButton color="white" variant="solid" block class="h-11 px-4 transition-opacity" :class="{
+                  '!bg-white hover:!bg-gray-100 !text-gray-700': allowsSocial,
+                  '!bg-white/30 !text-gray-400 cursor-not-allowed': !allowsSocial
+                }"
                 :disabled="!allowsSocial"
                 @click="handleOAuthClick(googleOAuthUrl)"
             >
