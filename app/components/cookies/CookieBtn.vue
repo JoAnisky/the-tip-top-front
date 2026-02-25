@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import CookiesModal from "~/components/modales/CookiesModal.vue";
+  import CookieModal from "~/components/cookies/CookieModal.vue";
 
   const showModal = ref(false)
 </script>
@@ -18,6 +18,6 @@
         Paramètres des cookies
       </span>
     </button>
-    <CookiesModal v-model="showModal" />
+    <CookieModal v-model="showModal" />
   </div>
 </template>

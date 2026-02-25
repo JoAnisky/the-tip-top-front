@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import CookieBanner from "~/components/cookies/CookieBanner.vue";
+import CookieBtn from "~/components/cookies/CookieBtn.vue";
+</script>
+
 <template>
   <div class="min-h-screen flex flex-col">
     <Navbar />
@@ -7,8 +12,6 @@
     </main>
     <NavFooter/>
   </div>
-  <CookiesBtn/>
-
+  <CookieBanner />
+  <CookieBtn/>
 </template>
-<script setup lang="ts">
-</script>
