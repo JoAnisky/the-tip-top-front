@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import Disclaimer from "~/components/Disclaimer.vue";
 
-definePageMeta({ layout: 'default' })
-useHead({ title: 'Règlement — Thé Tip Top' })
+useSeoPage({
+  title: 'Règlement du jeu-concours Thé Tip Top 2025',
+  description: 'Consultez le règlement officiel du jeu-concours Thé Tip Top 2025 : conditions de participation, répartition des dotations, tirage au sort final. 100% des codes sont gagnants.',
+})
 
 const prizes = [
   { label: 'Infuseur à thé', percent: 60, color: 'text-amber-300' },
@@ -18,7 +20,7 @@ const prizes = [
     <!-- Hero -->
     <section class="relative py-16 px-4 border-b border-white/10">
       <div class="max-w-3xl mx-auto text-center">
-        <p class="text-sm uppercase tracking-widest text-ttt-orange mb-3 font-medium">Jeu-concours 2025</p>
+        <p class="text-sm uppercase tracking-widest text-ttt-orange mb-3 font-medium">Jeu-concours 2026</p>
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Règlement du jeu</h1>
         <p class="text-white max-w-xl mx-auto text-sm">
           Règles complètes du jeu-concours organisé à l'occasion de l'ouverture de la 10<sup>e</sup> boutique

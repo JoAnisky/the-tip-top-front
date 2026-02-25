@@ -1,7 +1,12 @@
 <script setup lang="ts">
-
 definePageMeta({
   middleware: ['auth']
+})
+
+useSeoPage({
+  title: 'Mon espace personnel — Jeu-concours Thé Tip Top',
+  description: 'Accédez à votre espace personnel Thé Tip Top : saisissez vos codes de participation, consultez vos gains et gérez les informations de votre compte.',
+  noindex: true,
 })
 
 import GameSection from "~/components/profile/GameSection.vue";
