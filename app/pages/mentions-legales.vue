@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import Disclaimer from "~/components/Disclaimer.vue";
 
-definePageMeta({ layout: 'default' })
-useHead({ title: 'Mentions légales — Thé Tip Top' })
+useSeoPage({
+  title: 'Mentions légales du site Thé Tip Top',
+  description: 'Mentions légales du jeu-concours Thé Tip Top : éditeur, directeur de publication, hébergeur Infomaniak, propriété intellectuelle et données personnelles CNIL.',
+})
 </script>
 
 <template>
