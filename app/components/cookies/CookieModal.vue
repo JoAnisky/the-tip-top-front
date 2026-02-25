@@ -1,23 +1,39 @@
 <script setup lang="ts">
 const isOpen = defineModel<boolean>({ default: false })
 
-const preferences = ref<boolean>(true)
-const analytics = ref<boolean>(true)
-const social = ref<boolean>(true)
+const { consent, saveConsent, acceptAll, rejectAll } = useCookieConsent()
 
-function acceptAll() {
-  preferences.value = true
-  analytics.value = true
-  social.value = true
+// Copie locale des préférences pour édition dans la modale
+// (on ne sauvegarde qu'au clic sur "Enregistrer")
+const localPreferences = ref(consent.value.preferences)
+const localAnalytics = ref(consent.value.analytics)
+const localSocial = ref(consent.value.social)
+
+watch(consent, (val) => {
+  localPreferences.value = val.preferences
+  localAnalytics.value = val.analytics
+  localSocial.value = val.social
+})
+
+function handleSave() {
+  saveConsent({
+    preferences: localPreferences.value,
+    analytics: localAnalytics.value,
+    social: localSocial.value,
+  })
   isOpen.value = false
 }
 
-function rejectAll() {
-  preferences.value = false
-  analytics.value = false
-  social.value = false
+function handleAcceptAll() {
+  acceptAll()
   isOpen.value = false
 }
+
+function handleRejectAll() {
+  rejectAll()
+  isOpen.value = false
+}
+
 </script>
 
 <template>
@@ -75,7 +91,7 @@ function rejectAll() {
               <p class="font-medium text-ttt-black">Cookies de préférences</p>
               <p class="text-xs text-ttt-black/50 mt-0.5">Mémorise vos choix sur le site.</p>
             </div>
-            <UToggle v-model="preferences" color="lime" class="flex-shrink-0 mt-0.5" />
+            <UToggle v-model="localPreferences" color="lime" class="flex-shrink-0 mt-0.5" />
           </div>
 
           <UDivider />
@@ -86,7 +102,7 @@ function rejectAll() {
               <p class="font-medium text-ttt-black">Mesure d'audience</p>
               <p class="text-xs text-ttt-black/50 mt-0.5">Statistiques anonymes de fréquentation (Google Analytics).</p>
             </div>
-            <UToggle v-model="analytics" color="lime" class="flex-shrink-0 mt-0.5" />
+            <UToggle v-model="localAnalytics" color="lime" class="flex-shrink-0 mt-0.5" />
           </div>
 
           <UDivider />
@@ -97,26 +113,35 @@ function rejectAll() {
               <p class="font-medium text-ttt-black">Connexion sociale</p>
               <p class="text-xs text-ttt-black/50 mt-0.5">Uniquement si vous vous connectez via Google ou Facebook.</p>
             </div>
-            <UToggle v-model="social" color="lime" class="flex-shrink-0 mt-0.5" />
+            <UToggle v-model="localSocial" color="lime" class="flex-shrink-0 mt-0.5" />
           </div>
         </div>
       </div>
 
       <template #footer>
-        <div class="flex justify-end gap-3">
+        <div class="flex flex-wrap justify-between gap-3">
           <UButton
               color="black"
               variant="ghost"
               label="Tout refuser"
               class="text-ttt-black/60 hover:text-ttt-black hover:bg-gray-100"
-              @click="rejectAll"
+              @click="handleRejectAll"
           />
-          <UButton
-              label="Accepter et fermer"
-              color="lime"
-              class="!text-ttt-black font-bold uppercase border-none"
-              @click="acceptAll"
-          />
+          <div class="flex gap-2">
+            <UButton
+                color="black"
+                variant="outline"
+                label="Tout accepter"
+                class="text-ttt-black hover:bg-gray-100"
+                @click="handleAcceptAll"
+            />
+            <UButton
+                label="Enregistrer"
+                color="lime"
+                class="!text-ttt-black font-bold uppercase border-none"
+                @click="handleSave"
+            />
+          </div>
         </div>
       </template>
     </UCard>
