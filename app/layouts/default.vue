@@ -7,5 +7,8 @@
     </main>
     <NavFooter/>
   </div>
+  <CookiesBtn/>
 
 </template>
+<script setup lang="ts">
+</script>

@@ -6,9 +6,8 @@ const isHomePage = computed(() => route.path === '/')
 </script>
 
 <template>
-  <!--  Si ce n'est pas la homepage, on affiche l'image de section et le bouton cookie en haut du NavFooter -->
+  <!--  Si ce n'est pas la homepage, on affiche l'image des montagnes avec drapeau Français en haut du NavFooter -->
   <div v-if="!isHomePage" class="w-full relative bg-ttt-green-light">
-    <CookiesBtn class="relative z-10" />
     <img src="/images/univers-ttt-background.webp" alt="" aria-hidden="true" class="absolute bottom-0 left-0 w-full object-cover pointer-events-none z-0"/>
   </div>
   <!-- Sur la home : NavFooter uniquement -->

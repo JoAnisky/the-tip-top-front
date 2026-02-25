@@ -64,5 +64,4 @@ useSeoMeta({
       <Faqlist/>
     </div>
   </section>
-  <CookiesBtn/>
 </template>
