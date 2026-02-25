@@ -51,9 +51,9 @@ const cookieTypes = [
     <!-- Hero -->
     <section class="relative py-16 px-4 border-b border-white/10">
       <div class="max-w-3xl mx-auto text-center">
-        <p class="text-sm uppercase tracking-widest text-ttt-orange mb-3 font-medium">Transparence &amp; vie privée</p>
+        <p class="text-xl uppercase tracking-widest text-ttt-green-lighter mb-3 font-medium">Transparence &amp; vie privée</p>
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Politique de cookies</h1>
-        <p class="text-white/80 text-sm">Dernière mise à jour : janvier 2025</p>
+        <p class="text-white/80 text-sm">Dernière mise à jour : Mars 2025</p>
       </div>
     </section>
 
@@ -62,7 +62,7 @@ const cookieTypes = [
 
       <!-- Intro -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Qu'est-ce qu'un cookie ?</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Qu'est-ce qu'un cookie ?</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">
           Un cookie est un petit fichier texte déposé sur votre appareil (ordinateur, smartphone, tablette)
@@ -78,7 +78,7 @@ const cookieTypes = [
 
       <!-- Utilisation -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">À quoi servent nos cookies ?</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">À quoi servent nos cookies ?</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">Sur ce site, les cookies sont utilisés pour :</p>
         <ul class="space-y-2 text-sm">
@@ -91,7 +91,7 @@ const cookieTypes = [
 
       <!-- Tableau détaillé -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Détail des cookies utilisés</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Détail des cookies utilisés</h2>
         <UDivider class="mb-4" />
         <div class="space-y-8">
           <div v-for="type in cookieTypes" :key="type.category">
@@ -139,7 +139,7 @@ const cookieTypes = [
 
       <!-- Gérer -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Gérer vos préférences</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Gérer vos préférences</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">
           Lors de votre première visite, un bandeau vous permet d'accepter ou de refuser les cookies
@@ -176,7 +176,7 @@ const cookieTypes = [
 
       <!-- Contact -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Contact &amp; droits</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Contact &amp; droits</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">
           Pour toute question sur l'utilisation de vos données ou sur cette politique,
@@ -196,7 +196,7 @@ const cookieTypes = [
 
       <!-- Évolution -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Mises à jour de cette politique</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Mises à jour de cette politique</h2>
         <UDivider class="mb-4" />
         <p>
           Cette politique peut être mise à jour à tout moment pour refléter des évolutions légales

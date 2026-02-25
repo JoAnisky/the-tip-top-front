@@ -20,7 +20,7 @@ const prizes = [
     <!-- Hero -->
     <section class="relative py-16 px-4 border-b border-white/10">
       <div class="max-w-3xl mx-auto text-center">
-        <p class="text-sm uppercase tracking-widest text-ttt-orange mb-3 font-medium">Jeu-concours 2026</p>
+        <p class="text-xl uppercase tracking-widest text-ttt-green-lighter mb-3 font-medium">Jeu-concours 2026</p>
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Règlement du jeu</h1>
         <p class="text-white max-w-xl mx-auto text-sm">
           Règles complètes du jeu-concours organisé à l'occasion de l'ouverture de la 10<sup>e</sup> boutique
@@ -37,7 +37,7 @@ const prizes = [
 
       <!-- Section 1 : Organisateur -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 1 — Organisateur</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 1 — Organisateur</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">
           Le jeu-concours est organisé par la société <span class="text-white font-medium">Thé Tip Top</span>,
@@ -51,7 +51,7 @@ const prizes = [
 
       <!-- Section 2 : Conditions de participation -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 2 — Conditions de participation</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 2 — Conditions de participation</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">
           Le jeu est ouvert à toute personne physique <span class="text-white">majeure</span>, résidant en
@@ -71,7 +71,7 @@ const prizes = [
 
       <!-- Section 3 : Inscription -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 3 — Modalités d'inscription</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 3 — Modalités d'inscription</h2>
         <UDivider class="mb-4" />
         <p class="mb-4">Pour participer, l'utilisateur doit :</p>
         <ol class="space-y-2 list-none">
@@ -96,7 +96,7 @@ const prizes = [
 
       <!-- Section 4 : Codes -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 4 — Codes de participation</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 4 — Codes de participation</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">
           Chaque ticket de caisse conforme comporte un code unique composé de
@@ -116,7 +116,7 @@ const prizes = [
 
       <!-- Section 5 : Dotations -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 5 — Dotations</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 5 — Dotations</h2>
         <UDivider class="mb-4" />
         <p class="mb-4">
           <span class="text-white font-medium">100&nbsp;% des codes sont gagnants.</span>
@@ -141,7 +141,7 @@ const prizes = [
 
       <!-- Section 6 : Durée -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 6 — Durée du jeu</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 6 — Durée du jeu</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">
           Le jeu est ouvert pendant une période de <span class="text-white font-medium">30 jours</span>.
@@ -153,7 +153,7 @@ const prizes = [
 
       <!-- Section 7 : Retrait des gains -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 7 — Retrait des gains</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 7 — Retrait des gains</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">Les gains peuvent être retirés de deux manières :</p>
         <div class="grid sm:grid-cols-2 gap-4">
@@ -174,7 +174,7 @@ const prizes = [
 
       <!-- Section 8 : Tirage au sort -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 8 — Tirage au sort final</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 8 — Tirage au sort final</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">
           À l'issue du jeu-concours, un tirage au sort sera effectué parmi l'ensemble des participants
@@ -190,7 +190,7 @@ const prizes = [
 
       <!-- Section 9 : Fraude -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 9 — Fraude et abus</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 9 — Fraude et abus</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">
           Tout comportement frauduleux entraînera l'exclusion définitive du participant et pourra faire l'objet
@@ -207,7 +207,7 @@ const prizes = [
 
       <!-- Section 10 : Données personnelles -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 10 — Données personnelles</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 10 — Données personnelles</h2>
         <UDivider class="mb-4" />
         <p class="mb-3">
           Les données collectées lors de l'inscription et de la participation sont traitées conformément au
@@ -223,7 +223,7 @@ const prizes = [
 
       <!-- Section 11 : Droit applicable -->
       <section>
-        <h2 class="text-xl font-bold text-ttt-orange mb-1">Article 11 — Droit applicable</h2>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 11 — Droit applicable</h2>
         <UDivider class="mb-4" />
         <p>
           Le présent règlement est soumis au droit français. En cas de litige, et après tentative de résolution
