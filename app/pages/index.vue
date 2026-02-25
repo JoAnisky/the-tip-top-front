@@ -1,8 +1,15 @@
 <script setup lang="ts">
 useSeoMeta({
-  ogTitle: 'Grand jeu concours Thé Tip Top Nice - Gagnez 1 an de thé bio premium',
-  description: 'Célébrez l\’ouverture de notre 10e boutique à Nice ! Participez au jeu concours Thé Tip Top, gagnez des cadeaux exclusifs allant de l\’infuseur à un an de thés bio. Participation 100% gagnante.',
-  ogDescription: 'Célébrez l\’ouverture de notre 10e boutique à Nice ! Participez au jeu concours Thé Tip Top, gagnez des cadeaux exclusifs allant de l\’infuseur à un an de thés bio. Participation 100% gagnante.'
+  titleTemplate: null, // bypass le "— Thé Tip Top" du nuxt.config
+  title: 'Grand jeu concours Thé Tip Top Nice — Gagnez 1 an de thé bio',
+  description: 'Célébrez l\'ouverture de notre 10e boutique à Nice ! Participez au jeu-concours Thé Tip Top, 100% gagnant. Gagnez infuseurs, boîtes de thé et coffrets exclusifs.',
+  ogTitle: 'Grand jeu concours Thé Tip Top Nice — Gagnez 1 an de thé bio',
+  ogDescription: 'Participez au jeu-concours Thé Tip Top, 100% gagnant. Infuseurs, thés bio et coffrets découverte à gagner.',
+  ogUrl: 'https://the-tip-top.jonathanlore.fr/',
+  robots: 'index, follow',
+})
+useHead({
+  link: [{ rel: 'canonical', href: 'https://the-tip-top.jonathanlore.fr/' }],
 })
 </script>
 

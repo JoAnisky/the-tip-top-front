@@ -3,9 +3,9 @@ export function useSeoPage(meta: {
     description: string
     noindex?: boolean
 }) {
-    const config = useRuntimeConfig()
+    const site = useSiteConfig()
     const route = useRoute()
-    const canonical = `${config.public.siteUrl}${route.path}`
+    const canonical = `${site.url}${route.path}`
 
     useSeoMeta({
         title: meta.title,
