@@ -35,6 +35,12 @@ watch(isModalOpen, (open) => {
     isVisible.value = false
   }
 })
+
+// Quand hasDecided change depuis n'importe où (login, CookiesBtn...)
+watch(hasDecided, (decided) => {
+  if (decided) isVisible.value = false
+})
+
 </script>
 
 <template>
