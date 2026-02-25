@@ -141,8 +141,8 @@ const cookieTypes = [
         <UDivider class="mb-4" />
         <p class="mb-3">
           Lors de votre première visite, un bandeau vous permet d'accepter ou de refuser les cookies
-          optionnels. Vous pouvez revenir sur votre choix à tout moment depuis le lien
-          « Gérer mes cookies » en bas de page.
+          optionnels. Vous pouvez revenir sur votre choix à tout moment depuis le bouton
+          « Paramètres des cookies » (rond blanc contenant une icone de cookie) en bas à gauche de la page.
         </p>
         <p class="mb-4">
           Vous pouvez aussi paramétrer votre navigateur pour bloquer ou supprimer les cookies.
@@ -164,7 +164,7 @@ const cookieTypes = [
             <UIcon name="i-heroicons-arrow-top-right-on-square" class="w-4 h-4 text-ttt-orange flex-shrink-0" />
             <span class="text-white">Gérer sur Safari</span>
           </a>
-          <a href="https://support.microsoft.com/fr-fr/microsoft-edge/supprimer-les-cookies-dans-microsoft-edge" target="_blank" rel="noopener"
+          <a href="https://support.microsoft.com/fr-fr/windows/g%C3%A9rer-les-cookies-dans-microsoft-edge-afficher-autoriser-bloquer-supprimer-et-utiliser-168dab11-0753-043d-7c16-ede5947fc64d#bkmk_deleteallcookies" target="_blank" rel="noopener"
              class="bg-white/5 hover:bg-white/10 transition rounded-xl px-4 py-3 flex items-center gap-2">
             <UIcon name="i-heroicons-arrow-top-right-on-square" class="w-4 h-4 text-ttt-orange flex-shrink-0" />
             <span class="text-white">Gérer sur Edge</span>
