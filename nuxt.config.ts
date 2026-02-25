@@ -27,13 +27,19 @@ export default defineNuxtConfig({
     },
     site: {
         url: process.env.NUXT_PUBLIC_SITE_URL || 'https://the-tip-top.jonathanlore.fr',
+        name: 'Thé Tip Top',
     },
     app: {
         head: {
-            title: 'Grand jeu concours Thé Tip Top Nice - Gagnez 1 an de thé bio premium', // default fallback title
-            htmlAttrs: {
-                lang: 'fr',
-            },
+            titleTemplate: '%s — Thé Tip Top',
+            title: 'Grand jeu concours — Gagnez 1 an de thé bio premium', // fallback homepage
+            htmlAttrs: { lang: 'fr' },
+            meta: [
+                { name: 'robots', content: 'index, follow' }, // défaut global
+            ],
+            link: [
+                { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            ],
         },
     },
 })
