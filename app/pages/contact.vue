@@ -1,6 +1,9 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'default' })
-useHead({ title: 'Contact — Thé Tip Top' })
+useSeoPage({
+  title: 'Contactez l\'équipe du jeu-concours Thé Tip Top ',
+  description: 'Une question sur le jeu-concours Thé Tip Top, votre compte ou vos gains ? Contactez notre équipe par e-mail, nous répondons dans les plus brefs délais.',
+})
 </script>
 
 <template>
