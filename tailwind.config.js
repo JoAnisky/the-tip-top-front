@@ -12,6 +12,7 @@ export default {
             "ttt-status-red" : "#C40000",
             "ttt-status-green" : "#0B6033",
             "ttt-green-light" : "#677C2D",
+            "ttt-green-lighter" : "#5dc700",
             "ttt-green-dark" : "#4F7A16",
             "ttt-orange" : "#DD6835",
             "ttt-form-background" : "#232323",
