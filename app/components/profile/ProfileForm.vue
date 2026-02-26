@@ -82,13 +82,12 @@ function resetForm() {
 async function onSubmit(event: FormSubmitEvent<any>) {
   isSaving.value = true
   try {
-    const payload = { ...formState }
-    // Nettoyage des mots de passe si vides
-    if (!formState.newPassword) {
-      delete payload.currentPassword
-      delete payload.newPassword
-      delete payload.confirmPassword
-    }
+    const { currentPassword, newPassword, confirmPassword, ...basePayload } = formState
+
+    // On envoie les passwords seulement si newPassword est renseigné
+    const payload = formState.newPassword
+        ? { ...basePayload, currentPassword, newPassword, confirmPassword }
+        : basePayload
 
     await $fetch('/api/auth/profile', { method: 'PATCH', body: payload })
 
@@ -442,12 +441,10 @@ async function onSubmit(event: FormSubmitEvent<any>) {
         <UButton
             type="submit"
             variant="solid"
+            color="white"
             class="btn-primary w-full sm:w-auto text-white dark:text-white font-semibold"
             :disabled="!hasChanges"
             :loading="isSaving"
-            :ui="{
-                color: 'white'
-              }"
         >
           <UIcon name="i-heroicons-check" class="mr-2 font-semibold" />
           Enregistrer le profil
