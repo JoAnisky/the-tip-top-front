@@ -127,7 +127,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       </div>
     </div>
 
-    <UForm :schema="profileSchema" :state="formState" class="space-y-6 pb-[5rem]" @submit="onSubmit">
+    <UForm :schema="profileSchema" :state="formState" class="space-y-6 pb-[4rem] lg:pb-[10rem]" @submit="onSubmit">
       <!-- Légende -->
       <p class="mt-8 text-sm italic bold">
         Les champs marqués d'un <span class="text-red-500">*</span> sont obligatoires
@@ -429,11 +429,11 @@ async function onSubmit(event: FormSubmitEvent<any>) {
           </div>
         </div>
       </section>
-      <div class="mt-2 pt-8 border-t border-gray-800 flex justify-end gap-4">
+      <div class="mt-2 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center sm:justify-end gap-4">
         <UButton
             color="gray"
             variant="ghost"
-            class="px-6"
+            class="w-full sm:w-auto px-6 justify-center"
             :disabled="!hasChanges || isSaving"
             @click="resetForm"
         >
@@ -442,7 +442,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
         <UButton
             type="submit"
             variant="solid"
-            class="btn-primary text-white dark:text-white font-semibold"
+            class="btn-primary w-full sm:w-auto text-white dark:text-white font-semibold"
             :disabled="!hasChanges"
             :loading="isSaving"
             :ui="{

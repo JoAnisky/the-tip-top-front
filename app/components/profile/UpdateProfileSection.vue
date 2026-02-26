@@ -16,18 +16,18 @@ const fullName = computed(() => {
       </p>
 
       <ClientOnly>
-      <div class="flex items-center justify-between mb-12 border-b border-gray-800 pb-6">
-        <div>
-          <h2 class="text-2xl font-bold">{{ fullName || 'Utilisateur' }}</h2>
-          <UBadge v-if="user?.hasOAuthAccounts" color="blue" variant="subtle" size="xs" class="mt-1">
-            <UIcon name="i-heroicons-shield-check" class="mr-1" /> Compte OAuth
-          </UBadge>
-        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-12 border-b border-gray-800 pb-6 gap-4">
+          <div>
+            <p class="text-2xl font-bold">{{ fullName || 'Utilisateur' }}</p>
+            <UBadge v-if="user?.hasOAuthAccounts" color="blue" variant="subtle" size="xs" class="mt-1">
+              <UIcon name="i-heroicons-shield-check" class="mr-1" /> Compte OAuth
+            </UBadge>
+          </div>
 
-        <UButton @click="logout" variant="ghost" color="red" icon="i-heroicons-arrow-left-on-rectangle">
-          Se déconnecter
-        </UButton>
-      </div>
+          <UButton @click="logout" variant="ghost" color="red" icon="i-heroicons-arrow-left-on-rectangle" class="self-start sm:self-auto">
+            Se déconnecter
+          </UButton>
+        </div>
 
 
         <ProfileForm v-if="user" :user="user" />
