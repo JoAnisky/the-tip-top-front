@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxt/fonts": "^0.12.1",
     "@nuxt/ui": "^2.21.0",
+    "@nuxtjs/sitemap": "^7.6.0",
     "@unhead/vue": "^2.1.2",
     "canvas-confetti": "^1.9.4",
     "chart.js": "^4.5.1",

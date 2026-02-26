@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ['~/assets/scss/main.scss'],
-    modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image'],
+    modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image', '@nuxtjs/sitemap'],
 
     runtimeConfig: {
         // variables privées (server-side only)
@@ -42,4 +42,12 @@ export default defineNuxtConfig({
             ],
         },
     },
+    sitemap: {
+        exclude: [
+            '/admin',
+            '/employe',
+            '/profile',
+            'login'
+        ]
+    }
 })
