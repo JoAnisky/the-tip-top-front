@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {usePlayLink} from "~/composables/usePlayLink";
-
+const { loggedIn } = useAuth()
 const activeHash = useActiveSection()
 const route = useRoute()
 const isOpen = ref(false)
