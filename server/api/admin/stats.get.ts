@@ -1,4 +1,6 @@
-export default defineEventHandler(async (event) => {
+import type { StatsResponse } from '~/types/stats'
+
+export default defineEventHandler(async (event): Promise<StatsResponse> => {
     const config = useRuntimeConfig()
     const cookies = parseCookies(event)
     const accessToken = cookies.access_token
