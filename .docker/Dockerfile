@@ -14,13 +14,14 @@ RUN mkdir -p /var/www/html/node_modules .nuxt && \
 USER node
 
 # En dev, on lance npm install et nuxt dev
-CMD bash -c "npm install && npx nuxt dev --host 0.0.0.0"
+CMD bash -c "HUSKY=0 npm install && npx nuxt dev --host 0.0.0.0"
 
 # --- Stage BUILD (Prod) ---
 FROM base AS build
+
 # on copie SEULEMENT les fichiers de dépendances pour mettre en cache l'install
 COPY package*.json ./
-RUN npm install --frozen-lockfile
+RUN HUSKY=0 npm install --frozen-lockfile
 
 # on copie le reste du code (le .dockerignore filtrera ici)
 COPY . .

@@ -3,7 +3,10 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ['~/assets/scss/main.scss'],
     modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image', '@nuxtjs/sitemap'],
-
+    typescript: {
+        typeCheck: true,
+        strict: true
+    },
     runtimeConfig: {
         // variables privées (server-side only)
         apiBaseUrl: process.env.NUXT_API_BASE_URL || 'http://localhost:8000',

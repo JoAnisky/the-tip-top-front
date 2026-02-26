@@ -7,7 +7,9 @@
     "clean": "rm -rf .nuxt .output node_modules/.cache",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "prepare": "husky"
   },
   "dependencies": {
     "@nuxt/fonts": "^0.12.1",
@@ -25,7 +27,9 @@
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.9.0",
+    "husky": "^9.1.7",
     "sass-embedded": "^1.97.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vue-tsc": "^3.2.5"
   }
 }
