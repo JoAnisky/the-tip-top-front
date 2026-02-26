@@ -71,10 +71,13 @@ async function claimCode(code: CustomerCode) {
     if (selectedCustomer.value?.codes) {
       const idx = selectedCustomer.value.codes.findIndex(c => c.id === code.id)
       if (idx !== -1) {
-        selectedCustomer.value.codes[idx] = {
-          ...selectedCustomer.value.codes[idx],
-          isClaimed: true,
-          claimedOn: new Date().toISOString().split('T')[0]
+        const current = selectedCustomer.value.codes[idx]
+        if(current){
+          selectedCustomer.value.codes[idx] = {
+            ...current,
+            isClaimed: true,
+            claimedOn: new Date().toISOString().split('T')[0] ?? null
+          }
         }
       }
     }
