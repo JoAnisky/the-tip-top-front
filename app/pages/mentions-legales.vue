@@ -46,7 +46,12 @@ useSeoPage({
       <section>
         <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Directeur de la publication</h2>
         <UDivider class="mb-4" />
-        <p>Clément <span class="text-white font-medium">DURAND</span>, en sa qualité de responsable publication.</p>
+        <p class="mb-3">Clément <span class="text-white font-medium">DURAND</span>, en sa qualité de responsable publication.</p>
+        <p class="text-white/80 text-sm">
+          En tant que directeur de la publication, M. Durand est responsable du contenu éditorial diffusé
+          sur ce site, conformément à la loi n° 82-652 du 29 juillet 1982 sur la communication audiovisuelle
+          et à la loi pour la confiance dans l'économie numérique (LCEN) du 21 juin 2004.
+        </p>
       </section>
 
       <!-- Section 3 -->
@@ -147,7 +152,8 @@ useSeoPage({
       </section>
 
       <!-- Nav liens -->
-      <div class="pt-6 border-t border-white/10 flex flex-wrap gap-4 text-sm">
+      <div class="pt-6 border-t border-white/10 flex flex-col gap-4 items-center">
+        <h3 class="text-lg font-bold text-ttt-green-lighter mb-1">Pour en savoir plus</h3>
         <NuxtLink to="/reglement" class="text-ttt-orange hover:underline">→ Consulter le règlement du jeu</NuxtLink>
         <NuxtLink to="/politique-de-cookies" class="text-ttt-orange hover:underline">→ Politique de cookies</NuxtLink>
       </div>

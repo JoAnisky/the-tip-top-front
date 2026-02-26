@@ -42,6 +42,11 @@ useSeoPage({
           France, pour garantir une qualité et une pureté inégalées. Chaque mélange raconte une histoire,
           celle de terroirs riches et d'un savoir-faire ancestral.
         </p>
+        <p class="mt-3">
+          Aujourd'hui, Thé Tip Top propose plus de 50 références de thés verts, noirs, rooibos et infusions,
+          tous assemblés à la main dans notre atelier français. Chaque recette est le résultat de mois de
+          recherche et de dégustation, pour atteindre l'équilibre aromatique parfait.
+        </p>
       </section>
 
       <!-- Section 2 -->
@@ -83,6 +88,11 @@ useSeoPage({
           boutiques — dont notre toute nouvelle boutique de Nice — ou en ligne, nous aimons partager notre
           expertise et vous guider dans le choix de votre thé bio idéal.
         </p>
+        <p class="mt-3">
+          Notre réseau compte aujourd'hui 10 boutiques en France, de Paris à Nice, animées par des conseillers
+          passionnés formés à l'art du thé. En boutique comme en ligne, nous mettons un point d'honneur à vous
+          accompagner dans la découverte de saveurs qui vous ressemblent.
+        </p>
         <p>
           Venez découvrir nos collections, échanger avec nos experts et faire partie de l'aventure Thé Tip Top.
         </p>
@@ -90,7 +100,7 @@ useSeoPage({
 
       <!-- CTA jeu-concours -->
       <div class="pt-6 border-t border-white/10 flex flex-col items-center gap-4 text-center">
-        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">À l'occasion de l'ouverture de notre 10e boutique à Nice, participez à notre jeu-concours 100% gagnant !</h2>
+        <h3 class="text-xl font-bold text-ttt-green-lighter mb-1">À l'occasion de l'ouverture de notre 10e boutique à Nice, participez à notre jeu-concours 100% gagnant !</h3>
         <PlayBtn/>
         <NuxtLink to="/contact" class="hover:underline text-sm">→ Nous contacter</NuxtLink>
       </div>

@@ -1,11 +1,14 @@
 <script setup lang="ts">
-  import CookieModal from "~/components/cookies/CookieModal.vue";
-
   definePageMeta({
     middleware: ['guest'],
-    layout: 'default'
+  })
+  useSeoPage({
+    title: 'Connexion — Participez au jeu-concours',
+    description: 'Connectez-vous à votre espace Thé Tip Top pour saisir vos codes et découvrir vos gains. Créez votre compte gratuitement en quelques secondes.',
+    noindex: true,
   })
 
+  import CookieModal from "~/components/cookies/CookieModal.vue";
   import LoginForm from "~/components/register/LoginForm.vue";
   import RegisterForm from "~/components/register/RegisterForm.vue";
 

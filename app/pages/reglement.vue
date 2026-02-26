@@ -232,7 +232,8 @@ const prizes = [
       </section>
 
       <!-- Nav liens -->
-      <div class="pt-6 border-t border-white/10 flex flex-wrap gap-4 text-sm">
+      <div class="pt-6 border-t border-white/10 flex flex-col gap-4 items-center">
+        <h3 class="text-lg font-bold text-ttt-green-lighter mb-1">Pour en savoir plus</h3>
         <NuxtLink to="/mentions-legales" class="text-ttt-orange hover:underline">→ Mentions légales</NuxtLink>
         <NuxtLink to="/politique-de-cookies" class="text-ttt-orange hover:underline">→ Politique de cookies</NuxtLink>
       </div>

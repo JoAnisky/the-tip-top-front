@@ -188,6 +188,11 @@ const cookieTypes = [
           <p>✉️ <a href="mailto:webmaster@thetiptop.fr" class="text-ttt-orange hover:underline">webmaster@thetiptop.fr</a></p>
         </div>
         <p class="mt-3 text-sm text-white/80">
+          Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit
+          d'accès, de rectification, d'effacement et de portabilité de vos données personnelles. Vous pouvez
+          exercer ces droits à tout moment en nous contactant à l'adresse ci-dessus.
+        </p>
+        <p class="mt-3 text-sm text-white/80">
           Vous pouvez également déposer une réclamation auprès de la
           <a href="https://www.cnil.fr" target="_blank" rel="noopener" class="text-ttt-orange hover:underline">CNIL</a>
           si vous estimez que vos droits ne sont pas respectés.
@@ -198,15 +203,21 @@ const cookieTypes = [
       <section>
         <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Mises à jour de cette politique</h2>
         <UDivider class="mb-4" />
-        <p>
+        <p class="mb-3">
           Cette politique peut être mise à jour à tout moment pour refléter des évolutions légales
           ou des changements dans notre utilisation des cookies. La version en vigueur est toujours
           celle affichée sur cette page.
         </p>
+        <p class="text-white/80 text-sm">
+          Conformément aux recommandations de la CNIL, nous nous engageons à vous informer de toute
+          modification substantielle de cette politique, notamment en cas d'ajout de nouveaux cookies
+          ou de changement de finalité. La date de dernière mise à jour est indiquée en haut de cette page.
+        </p>
       </section>
 
       <!-- Nav liens -->
-      <div class="pt-6 border-t border-white/10 flex flex-wrap gap-4 text-sm">
+      <div class="pt-6 border-t border-white/10 flex flex-col gap-4 items-center">
+        <h3 class="text-lg font-bold text-ttt-green-lighter mb-1">Pour en savoir plus</h3>
         <NuxtLink to="/mentions-legales" class="text-ttt-orange hover:underline">→ Mentions légales</NuxtLink>
         <NuxtLink to="/reglement" class="text-ttt-orange hover:underline">→ Règlement du jeu</NuxtLink>
       </div>
