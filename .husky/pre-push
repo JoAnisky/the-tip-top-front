@@ -1,1 +1,1 @@
-npm run typecheck
+docker compose exec ttt-front npx nuxt typecheck
