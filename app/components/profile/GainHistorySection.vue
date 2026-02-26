@@ -27,6 +27,5 @@ const { user } = useAuth()
       <!-- Tableau SI des gains existent -->
       <ProfileGainsHistory v-else :gains="user.gains" />
     </div>
-    <img src="/images/leaf.png" alt="" aria-hidden="true" class="decorative-leaf"/>
   </section>
 </template>

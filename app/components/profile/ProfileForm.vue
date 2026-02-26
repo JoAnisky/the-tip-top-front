@@ -127,7 +127,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
       </div>
     </div>
 
-    <UForm :schema="profileSchema" :state="formState" class="space-y-6 pb-[4rem] lg:pb-[10rem]" @submit="onSubmit">
+    <UForm :schema="profileSchema" :state="formState" class="space-y-6 lg:pb-[10rem]" @submit="onSubmit">
       <!-- Légende -->
       <p class="mt-8 text-sm italic bold">
         Les champs marqués d'un <span class="text-red-500">*</span> sont obligatoires

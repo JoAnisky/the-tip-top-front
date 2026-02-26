@@ -8,7 +8,7 @@ const fullName = computed(() => {
 </script>
 
 <template>
-  <section class="min-h-screen bg-[#121212] text-white p-8">
+  <section class="min-h-screen text-white px-8">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-4xl font-bold text-center mb-2">Votre profil</h2>
       <p class="text-center mb-8">
