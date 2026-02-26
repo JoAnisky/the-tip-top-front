@@ -94,7 +94,7 @@ function fullName(customer: Customer) {
 
 <template>
   <div class="max-w-4xl mx-auto p-6 space-y-6">
-    <h1 class="text-2xl font-bold">Dashboard Employé</h1>
+    <h1 class="text-2xl font-bold mb-8 text-center">Dashboard Employé</h1>
 
     <UAlert
         icon="i-heroicons-information-circle"
@@ -106,7 +106,7 @@ function fullName(customer: Customer) {
         <ol class="list-decimal list-inside space-y-1 mt-1">
           <li>Recherchez un client par nom, prénom ou email</li>
           <li>Sélectionnez-le pour voir ses gains</li>
-          <li>Cliquez sur "Valider la remise" pour le lot concerné</li>
+          <li>Une fois le lot remis, cliquez sur "Valider la remise" pour le lot concerné </li>
         </ol>
       </template>
     </UAlert>
