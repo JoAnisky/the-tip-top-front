@@ -9,12 +9,12 @@ export const useApiFetch = () => {
      */
     const apiFetch = async <T>(url: string, options?: any): Promise<T> => {
         try {
-            return await $fetch<T>(url, options)
+            return await $fetch<T>(url, options) as T
         } catch (error: any) {
             if (error?.response?.status === 401) {
                 try {
                     await refresh()
-                    return await $fetch<T>(url, options)
+                    return await $fetch<T>(url, options) as T
                 } catch {
                     await logout()
                     throw error
