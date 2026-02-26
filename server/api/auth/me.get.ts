@@ -56,9 +56,9 @@ async function tryRefreshAndRetry(event: any, config: any) {
 
         setCookieHeaders.forEach((cookie: string) => {
             event.node.res.appendHeader('set-cookie', cookie)
-            // Extraire le nouveau access_token pour rejouer la requête
             if (cookie.startsWith('access_token=')) {
-                newAccessToken = cookie.split(';')[0].split('=')[1]
+                const cookiePart = cookie.split(';')[0]
+                newAccessToken = cookiePart?.split('=')[1] ?? null
             }
         })
 
