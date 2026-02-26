@@ -47,9 +47,9 @@ async function onSubmit() {
 </script>
 
 <template>
-  <div class="w-full flex flex-col items-center pb-[8.5rem]">
+  <div class="login-register-form-container">
     <UCard class="w-full max-w-2xl shadow-2xl overflow-visible relative !bg-ttt-form-background !ring-white/10 !ring-1" :ui="{body: { padding: 'p-8 sm:p-10' },ring: '',divide: ''}">
-      <div class="absolute -top-12 -right-8 w-32 hidden md:block">
+      <div class="absolute w-28 -right-0 -top-12 lg:-right-8 lg:w-32 md:block">
         <img src="/images/jeu-concours.webp" alt="Grand Jeu 100% gagnant" class="rotate-12" />
       </div>
 
