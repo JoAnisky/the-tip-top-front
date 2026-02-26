@@ -8,6 +8,14 @@ export interface UserGain {
     claimedOn: string | null
 }
 
+export interface ApiCodeResponse {
+    id: number
+    gain: {
+        id: number
+        name: string
+    }
+}
+
 export interface WinResult {
     gainLabel: string
     gainId: number

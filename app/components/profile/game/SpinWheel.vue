@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import WinModale from "~/components/modales/WinModale.vue";
 import { uniqueCodeSchema } from "~/utils/unique-code-schema";
-import type { WinResult } from '~/types/game'
+import type {ApiCodeResponse, WinResult} from '~/types/game'
 
 const { invalidate, fetchUser } = useAuth()
 const toast = useToast()
@@ -48,7 +48,7 @@ async function onSubmit() {
   errorMessage.value = ''
 
   try {
-    const response = await $fetch('/api/auth/code', {
+    const response= await $fetch<ApiCodeResponse>('/api/auth/code', {
       method: 'POST',
       body: { code: state.code }
     })
