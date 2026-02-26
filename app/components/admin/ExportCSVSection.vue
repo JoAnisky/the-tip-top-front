@@ -30,7 +30,7 @@ async function downloadExport(filter: 'all' | 'newsletter' | 'unclaimed') {
     <h2 class="text-sm font-semibold text-white uppercase tracking-wide mb-4">
       Export emailing
     </h2>
-    <div class="flex flex-wrap gap-3">
+    <div class="flex flex-wrap gap-3 justify-center">
       <UButton
           label="Tous les utilisateurs"
           icon="i-heroicons-arrow-down-tray"
