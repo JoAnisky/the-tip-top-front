@@ -91,10 +91,14 @@ async function onSubmit() {
 </script>
 
 <template>
-  <div class="wheel-wrapper mt-6">
-    <div class="absolute top-[-1rem] right-[-6rem] w-32 hidden md:block">
+  <div class="relative flex justify-center mt-6">
+    <!-- Image jeu-concours positionnée par rapport à la roue -->
+    <div class="absolute -top-[4rem] -right-4 lg:top-[-2rem] lg:right-[-6rem] w-24 lg:w-32 z-10">
       <img :src="wheelImages.game" alt="Grand Jeu 100% gagnant" class="rotate-12" />
     </div>
+
+    <div class="wheel-wrapper">
+
     <img class="wheel-layer wheel-structure" :src="wheelImages.structure" alt="" aria-hidden="true" />
     <img
         class="wheel-layer wheel-background"
@@ -105,7 +109,7 @@ async function onSubmit() {
     />
     <img class="wheel-layer wheel-arrow" :class="{ 'arrow-wobble': isSpinning }" :src="wheelImages.arrow" alt="" aria-hidden="true" />
   </div>
-
+</div>
   <div class="form-container">
     <UForm :schema="uniqueCodeSchema" :state="state" class="space-y-6 !ttt-form-no-blue" @submit="onSubmit">
       <UFormGroup name="code">
