@@ -149,7 +149,7 @@ async function onSubmit() {
     <p class="text-justify lg:text-center font-bold text-ttt-white">
       Une fois votre gain validé, présentez votre code unique en boutique pour récupérer votre lot.
     </p>
-    <p class="text-justify lg:text-center text-lg text-ttt-white/80">
+    <p class="text-justify lg:text-center text-lg text-ttt-white/80 z-10">
       Vous disposez de 30 jours supplémentaires à l'issue du jeu concours pour récupérer votre lot grâce à votre code.
     </p>
   </div>

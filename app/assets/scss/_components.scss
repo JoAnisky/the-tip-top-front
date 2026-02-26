@@ -160,4 +160,8 @@
       rgba(38, 38, 38, 0.8) 100%
     );
   }
+
+  .decorative-leaf{
+    @apply absolute bottom-0 right-0 w-24 lg:w-48 pointer-events-none z-0;
+  }
 }

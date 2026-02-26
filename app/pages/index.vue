@@ -37,7 +37,7 @@ useHead({
         Thé Tip Top.
       </p>
     </div>
-    <img src="/images/leaf.png" alt="" aria-hidden="true" class="absolute bottom-0 right-0 w-48 pointer-events-none"/>
+    <img src="/images/leaf.png" alt="" aria-hidden="true" class="decorative-leaf"/>
   </section>
 
   <section id="howto" class="bg-ttt-green-light">
