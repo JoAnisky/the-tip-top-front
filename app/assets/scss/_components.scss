@@ -46,14 +46,30 @@
   /* Style réutilisable pour les inputs sombres */
   .ttt-input-dark {
     // 1. Style de base obligatoire pour contrer le "border-0" du DOM
-    input {
+    input, select, textarea {
       @apply bg-ttt-dark-grey text-white rounded-md transition-all mt-2;
       border: 1px solid #374151 !important; // gray-700
       outline: none !important;
       box-shadow: none !important;
 
+      // Placeholder plus lisible
+      &::placeholder {
+        color: #9ca3af !important; // gray-400 — ratio suffisant sur fond sombre
+      }
+
+      // Placeholder du select (option vide)
+      &:invalid, option[value=""] {
+        color: #9ca3af !important;
+      }
+
+      // Options du select — limité mais utile sur certains navigateurs
+      option {
+        background-color: #1f2937; // gray-800
+        color: #ffffff;
+      }
+
       &:focus {
-        border-color: #f05d23 !important; // orange
+        border-color: #f05d23 !important;
         box-shadow: 0 0 0 1px #f05d23 !important;
       }
     }
