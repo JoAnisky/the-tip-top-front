@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
 
     try {
+        // @ts-ignore — bug Nitro TS2321 excessive stack depth sur $fetch externe
         return await $fetch(`${config.apiBaseUrl}/api/user/me`, {
             method: 'PATCH',
             headers: {
