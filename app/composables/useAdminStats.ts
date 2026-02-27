@@ -1,24 +1,3 @@
-export interface GainStat {
-    gain_name: string
-    total: number
-}
-
-export interface AdminStats {
-    tickets: {
-        total: number
-        used: number
-        won: number
-        claimed: number
-        participation_rate: number
-        claim_rate: number
-    }
-    gains: GainStat[]
-    winners: {
-        gender: { gender: string, total: number }[]
-        age_groups: { label: string, total: number }[]
-    }
-}
-
 export const useAdminStats = () => {
     const stats = ref<AdminStats | null>(null)
     const loading = ref(false)

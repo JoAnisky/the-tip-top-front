@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { WinResult } from '~/types/game'
 import { useGifts } from '~/composables/useGifts'
 import confetti from 'canvas-confetti'
 

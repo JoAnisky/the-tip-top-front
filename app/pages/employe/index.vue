@@ -5,7 +5,6 @@ definePageMeta({
   middleware: ['auth', 'role'],
   role: 'ROLE_EMPLOYEE',
 })
-import type { Customer, CustomerCode } from '~/types/customer'
 
 const { apiFetch } = useApiFetch()
 

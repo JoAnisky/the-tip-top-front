@@ -32,3 +32,19 @@ export interface StatsResponse {
     gains: GainStat[]
     winners: WinnersStats
 }
+
+export interface AdminStats {
+    tickets: {
+        total: number
+        used: number
+        won: number
+        claimed: number
+        participation_rate: number
+        claim_rate: number
+    }
+    gains: GainStat[]
+    winners: {
+        gender: { gender: string, total: number }[]
+        age_groups: { label: string, total: number }[]
+    }
+}

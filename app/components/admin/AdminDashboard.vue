@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Chart, registerables } from 'chart.js'
-import type { AdminStats } from '~/composables/useAdminStats'
 
 Chart.register(...registerables)
 

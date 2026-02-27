@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useGifts } from '~/composables/useGifts'
-import type { UserGain } from '~/types/game'
 
 const props = defineProps<{
   gains: UserGain[]

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import WinModale from "~/components/modales/WinModale.vue";
 import { uniqueCodeSchema } from "~/utils/unique-code-schema";
-import type {ApiCodeResponse, WinResult} from '~/types/game'
 
 const { invalidate, fetchUser } = useAuth()
 const toast = useToast()
