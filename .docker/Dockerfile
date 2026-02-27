@@ -25,6 +25,9 @@ RUN HUSKY=0 npm install --frozen-lockfile
 
 # on copie le reste du code (le .dockerignore filtrera ici)
 COPY . .
+
+RUN npx nuxt prepare
+
 RUN npm run build
 
 # --- Stage PROD ---
