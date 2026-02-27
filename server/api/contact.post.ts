@@ -1,6 +1,6 @@
 import { contactSchema } from "~/utils/contact-schema";
 
-export default defineEventHandler(async (event: Event) => {
+export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
     const body = await readBody(event)
 
