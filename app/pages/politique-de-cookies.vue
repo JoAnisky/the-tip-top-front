@@ -86,6 +86,7 @@ const cookieTypes = [
           <li class="flex gap-2"><span class="text-ttt-orange">•</span> Mémoriser votre réponse au bandeau de consentement</li>
           <li class="flex gap-2"><span class="text-ttt-orange">•</span> Mesurer la fréquentation du site de façon anonyme (avec votre accord)</li>
           <li class="flex gap-2"><span class="text-ttt-orange">•</span> Permettre la connexion via Google ou Facebook si vous le souhaitez (avec votre accord)</li>
+          <li class="flex gap-2"><span class="text-ttt-orange">•</span> Gérer vos participations au jeu concours et vous informer de nos offres commerciales</li>
         </ul>
       </section>
 
@@ -173,7 +174,26 @@ const cookieTypes = [
           </a>
         </div>
       </section>
-
+      <!-- Utilisation de vos données -->
+      <section>
+        <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Utilisation de vos données personnelles</h2>
+        <UDivider class="mb-4" />
+        <div class="bg-white/5 rounded-xl p-6 border border-ttt-green-lighter/20">
+          <p class="mb-4">
+            Les informations que vous nous transmettez (notamment votre adresse email lors de votre inscription ou participation) sont utilisées par <strong>Thé Tip Top</strong> pour :
+          </p>
+          <ul class="list-disc list-inside space-y-2 mb-4 text-sm text-white/90">
+            <li>La gestion de votre compte et de vos gains au jeu concours.</li>
+            <li>L'envoi de communications sur nos produits, nouveautés et offres promotionnelles (Emailing).</li>
+          </ul>
+          <div class="flex items-center gap-3 p-3 bg-ttt-green-lighter/10 rounded-lg border border-ttt-green-lighter/30">
+            <UIcon name="i-heroicons-shield-check" class="w-6 h-6 text-ttt-green-lighter flex-shrink-0" />
+            <p class="text-sm font-medium">
+              <strong>Engagement de confidentialité :</strong> Vos données ne sont <u>jamais vendues, louées ou cédées</u> à des sociétés tierces à des fins commerciales ou publicitaires.
+            </p>
+          </div>
+        </div>
+      </section>
       <!-- Contact -->
       <section>
         <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Contact &amp; droits</h2>
