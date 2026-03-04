@@ -7,7 +7,7 @@ const isOpen = ref(false)
 
 const { playLink, profileLabel } = usePlayLink()
 
-const navLinks = [
+const navLinks: { label: string; to: string }[] = [
   { label: 'Accueil', to: '/' },
   { label: 'Comment jouer', to: '/#howto' },
   { label: 'Foire aux questions', to: '/#faq' },
