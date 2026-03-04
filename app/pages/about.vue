@@ -58,21 +58,21 @@ useSeoPage({
           <div class="bg-white/5 rounded-xl p-4 flex gap-4">
             <span class="text-2xl flex-shrink-0">🌿</span>
             <div>
-              <p class="text-white font-semibold mb-1">Le thé bio certifié</p>
+              <h3 class="text-white text-xl font-semibold mb-1">Le thé bio certifié</h3>
               <p class="text-white/80 text-sm">Tous nos thés sont issus de l'agriculture biologique, sans pesticide ni produits chimiques. Nous nous engageons pour votre santé et celle de la planète.</p>
             </div>
           </div>
           <div class="bg-white/5 rounded-xl p-4 flex gap-4">
             <span class="text-2xl flex-shrink-0">🤲</span>
             <div>
-              <p class="text-white font-semibold mb-1">Le fait main</p>
+              <p class="text-white text-xl font-semibold mb-1">Le fait main</p>
               <p class="text-white/80 text-sm">Nous privilégions les méthodes artisanales pour la préparation de nos mélanges. Ce processus minutieux garantit des arômes intenses et un goût d'une rare finesse.</p>
             </div>
           </div>
           <div class="bg-white/5 rounded-xl p-4 flex gap-4">
             <span class="text-2xl flex-shrink-0">⚖️</span>
             <div>
-              <p class="text-white font-semibold mb-1">L'éthique et la durabilité</p>
+              <p class="text-white text-xl font-semibold mb-1">L'éthique et la durabilité</p>
               <p class="text-white/80 text-sm">Nous travaillons en étroite collaboration avec des producteurs qui partagent nos valeurs de respect de la terre et des hommes, assurant une traçabilité et une équité à chaque étape.</p>
             </div>
           </div>
