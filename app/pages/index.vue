@@ -51,7 +51,7 @@ useHead({
       <div class="flex flex-wrap justify-center gap-8 my-10">
         <StepsList/>
       </div>
-      <p class="text-center mb-6">
+      <p class="text-center mb-6 text-white">
         Créez votre compte, saisissez le code figurant sur votre ticket de caisse et découvrez
         instantanément votre gain. Rendez-vous ensuite en boutique ou suivez les instructions
         en ligne pour récupérer votre lot.
@@ -88,13 +88,13 @@ useHead({
   <section class="bg-ttt-green-light">
     <div class="ttt-container">
       <h2>Le jeu-concours Thé Tip Top : 100% gagnant</h2>
-      <p class="mt-4 text-center max-w-6xl mx-auto">
+      <p class="mt-4 text-center max-w-6xl mx-auto text-white">
         Du 1er mars au 30 avril 2025, participez au grand jeu-concours organisé à l'occasion de
         l'ouverture de la 10ᵉ boutique Thé Tip Top à Nice. Chaque achat d'un montant minimum de
         49 € vous donne droit à un code unique de 10 caractères. Saisissez-le en ligne pour
         découvrir instantanément votre gain parmi nos 5 dotations exclusives.
       </p>
-      <p class="mt-4 text-center max-w-6xl mx-auto">
+      <p class="mt-4 text-center max-w-6xl mx-auto text-white">
         Un tirage au sort final désignera le grand gagnant d'un an de thé bio d'une valeur de
         360 €, supervisé par Maître Arnaud Rick, huissier de justice. Toutes les informations
         détaillées sont disponibles dans notre
