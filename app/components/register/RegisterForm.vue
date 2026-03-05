@@ -1,6 +1,9 @@
 <script setup lang="ts">
-
 import {registerSchema} from "#imports";
+import { useFormErrorAnnouncer } from "~/composables/useFormErrorAnnouncer";
+
+// Helper pour lecteur NVDA
+const { errorAnnouncer, onError } = useFormErrorAnnouncer()
 
 const emit = defineEmits(['switchForm']);
 const loading = ref(false);
@@ -8,7 +11,6 @@ const isPasswordVisible = ref(false);
 const isConfirmVisible = ref(false);
 
 const toast = useToast();
-const errorAnnouncer = ref<HTMLElement | null>(null)
 
 const state = reactive({
   gender: 'male',
@@ -29,19 +31,6 @@ const genderOptions = [
   { value: 'male', label: 'Un homme' },
   { value: 'female', label: 'Une femme' }
 ];
-
-function onError(errors: any) {
-  if (errorAnnouncer.value) {
-    const messages = errors.errors.map((e: any) => e.message).join('. ')
-    errorAnnouncer.value.textContent = ''
-    // Petit délai pour forcer NVDA à re-détecter le changement
-    nextTick(() => {
-      if (errorAnnouncer.value) {
-        errorAnnouncer.value.textContent = `Erreurs dans le formulaire : ${messages}`
-      }
-    })
-  }
-}
 
 async function onSubmit() {
   loading.value = true;

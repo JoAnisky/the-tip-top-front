@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { loginSchema } from "#imports";
+import { useFormErrorAnnouncer } from "~/composables/useFormErrorAnnouncer";
 const { login } = useAuth()
 const { allowsSocial } = useCookieConsent()
+
+// Helper pour lecteurs NVDA
+const { errorAnnouncer, onError } = useFormErrorAnnouncer()
 
 const loading = ref(false)
 const isPasswordVisible = ref(false)
@@ -42,6 +46,7 @@ watch(oauthError, (error) => {
     navigateTo('/login', { replace: true })
   }
 }, { immediate: true })
+
 
 async function onSubmit() {
   loading.value = true
@@ -121,14 +126,23 @@ function handleOAuthClick(url: string) {
         </div>
         <!-- Lien modifier préférences si cookies sociaux refusés -->
         <p v-if="!allowsSocial" class="text-sm text-center text-white/80 -mt-2 mb-4">
-          <button class="underline hover:text-white transition-colors" @click="emit('openCookieModal')">
+          <button class="underline hover:text-white transition-colors" @click="emit('openCookieModal')" aria-label="Pour activer la connexion avec Facebook ou Google, cliquez ici pour modifier les préférences de cookies">
             Modifier mes préférences de cookies
           </button>
           pour activer ces options.
         </p>
         <UDivider label="ou" class="ttt-divider mb-8"/>
 
-        <UForm :schema="loginSchema" :state="state" class="space-y-6 !ttt-form-no-blue" @submit="onSubmit">
+        <UForm :schema="loginSchema" :state="state" class="space-y-6 !ttt-form-no-blue" @submit="onSubmit" @error="onError">
+
+          <!-- Zone d'annonce live pour NVDA — invisible mais lue par les AT -->
+          <div
+              ref="errorAnnouncer"
+              aria-live="assertive"
+              aria-atomic="true"
+              class="sr-only"
+          ></div>
+
           <UFormGroup name="email">
             <template #label>
                 <span class="ttt-form-label">
