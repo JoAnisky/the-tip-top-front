@@ -36,8 +36,11 @@ export const registerSchema = z.object({
         .email('Email invalide'),
 
     // Pour la mise à jour, on rend les mots de passe optionnels
-    plainPassword: z.string().min(8, 'Minimum 8 caractères').optional().or(z.literal('')),
-    confirmPassword: z.string().optional().or(z.literal('')),
+    plainPassword: z.string({ required_error: 'Le mot de passe est requis' })
+        .min(1, 'Saisissez votre mot de passe')
+        .min(8, 'Minimum 8 caractères'),
+    confirmPassword: z.string({ required_error: 'Confirmez votre mot de passe' })
+        .min(1, 'Confirmez votre mot de passe'),
 
     city: z.string().max(150).nullable().optional(),
     postalCode: z.string()
@@ -51,7 +54,9 @@ export const registerSchema = z.object({
     newsletter: z.boolean().default(false),
 
     // On garde acceptTerms car requis à l'inscription
-    acceptTerms: z.boolean().optional(),
+    acceptTerms: z.literal(true, {
+        errorMap: () => ({ message: "Vous devez accepter les conditions générales" })
+    }),
 }).refine((data) => {
     // On ne valide la correspondance que si un nouveau mot de passe est saisi
     if (data.plainPassword) {

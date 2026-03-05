@@ -8,12 +8,13 @@ const isPasswordVisible = ref(false);
 const isConfirmVisible = ref(false);
 
 const toast = useToast();
+const errorAnnouncer = ref<HTMLElement | null>(null)
 
 const state = reactive({
   gender: 'male',
   firstName: '',
   lastName: '',
-  birthDate: '', // Format YYYY-MM-DD pour l'input type="date"
+  birthDate: '',
   email: '',
   plainPassword: '',
   confirmPassword: '',
@@ -29,14 +30,25 @@ const genderOptions = [
   { value: 'female', label: 'Une femme' }
 ];
 
+function onError(errors: any) {
+  if (errorAnnouncer.value) {
+    const messages = errors.errors.map((e: any) => e.message).join('. ')
+    errorAnnouncer.value.textContent = ''
+    // Petit délai pour forcer NVDA à re-détecter le changement
+    nextTick(() => {
+      if (errorAnnouncer.value) {
+        errorAnnouncer.value.textContent = `Erreurs dans le formulaire : ${messages}`
+      }
+    })
+  }
+}
 
 async function onSubmit() {
   loading.value = true;
   try {
-    // fetch API
     await $fetch('/api/auth/register', { method: 'POST', body: state });
     toast.add({ title: 'Compte créé !', color: 'green' });
-    emit('switchForm'); // Retour au login après succès
+    emit('switchForm');
   } catch (err) {
     toast.add({ title: 'Erreur', description: 'Une erreur est survenue', color: 'red' });
   } finally {
@@ -56,9 +68,20 @@ async function onSubmit() {
       <div class="p-2">
         <h2 class="md:text-2xl text-2xl text-left font-bold text-white mb-2">Créer mon compte</h2>
         <UDivider class="ttt-divider mb-8"/>
-        <p class="text-base text-gray-200 mb-6 italic font-bold">Les champs marqués d'un <span class="text-red-400">* </span> sont obligatoires</p>
+        <p class="text-base text-gray-200 mb-6 italic font-bold">
+          Les champs marqués d'un <span class="text-red-400" aria-hidden="true">* </span>
+          <span class="sr-only">astérisque</span> sont obligatoires
+        </p>
 
-        <UForm :schema="registerSchema" :state="state" class="space-y-4" @submit="onSubmit">
+        <UForm :schema="registerSchema" :state="state" class="space-y-4" @submit="onSubmit" @error="onError">
+
+          <!-- Zone d'annonce live pour NVDA — invisible mais lue par les AT -->
+          <div
+              ref="errorAnnouncer"
+              aria-live="assertive"
+              aria-atomic="true"
+              class="sr-only"
+          ></div>
 
           <UFormGroup name="gender" :ui="{ label: { base: 'ttt-form-label' } }">
             <URadioGroup
@@ -79,7 +102,7 @@ async function onSubmit() {
               <template #label>
                 <span class="ttt-form-label">
                   Prénom
-                  <span class="text-red-400">*</span>
+                  <span class="text-red-400" aria-hidden="true">*</span>
                   <span class="sr-only">(obligatoire)</span>
                 </span>
               </template>
@@ -89,7 +112,7 @@ async function onSubmit() {
               <template #label>
                 <span class="ttt-form-label">
                   Nom
-                  <span class="text-red-400">*</span>
+                  <span class="text-red-400" aria-hidden="true">*</span>
                   <span class="sr-only">(obligatoire)</span>
                 </span>
               </template>
@@ -101,7 +124,7 @@ async function onSubmit() {
             <template #label>
                 <span class="ttt-form-label">
                   Date de naissance
-                  <span class="text-red-400">*</span>
+                  <span class="text-red-400" aria-hidden="true">*</span>
                   <span class="sr-only">(obligatoire)</span>
                 </span>
             </template>
@@ -112,7 +135,7 @@ async function onSubmit() {
             <template #label>
                 <span class="ttt-form-label">
                   Adresse email
-                  <span class="text-red-400">*</span>
+                  <span class="text-red-400" aria-hidden="true">*</span>
                   <span class="sr-only">(obligatoire)</span>
                 </span>
             </template>
@@ -137,7 +160,7 @@ async function onSubmit() {
               <template #label>
                 <span class="ttt-form-label">
                   Mot de passe
-                  <span class="text-red-400">*</span>
+                  <span class="text-red-400" aria-hidden="true">*</span>
                   <span class="sr-only">(obligatoire)</span>
                 </span>
               </template>
@@ -151,6 +174,7 @@ async function onSubmit() {
                   variant="none"
                   class="ttt-input-dark"
                   :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
+                  aria-describedby="password-hint"
               >
                 <template #trailing>
                   <UButton
@@ -164,12 +188,15 @@ async function onSubmit() {
                   />
                 </template>
               </UInput>
+              <p id="password-hint" class="text-xs text-gray-400 mt-1">
+                Minimum 8 caractères, avec au moins une majuscule et un chiffre.
+              </p>
             </UFormGroup>
             <UFormGroup name="confirmPassword">
               <template #label>
                 <span class="ttt-form-label">
                   Confirmez votre mot de passe
-                  <span class="text-red-400">*</span>
+                  <span class="text-red-400" aria-hidden="true">*</span>
                   <span class="sr-only">(obligatoire)</span>
                 </span>
               </template>
@@ -183,19 +210,23 @@ async function onSubmit() {
                   variant="none"
                   class="ttt-input-dark"
                   :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
+                  aria-describedby="confirm-password-hint"
               >
                 <template #trailing>
                   <UButton
                       color="gray"
                       variant="ghost"
                       :icon="isConfirmVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-                      :aria-label="isPasswordVisible ? 'Masquer le mot de passe confirmé' : 'Afficher le mot de passe confirmé'"
+                      :aria-label="isConfirmVisible ? 'Masquer le mot de passe confirmé' : 'Afficher le mot de passe confirmé'"
                       :padded="false"
                       @click="isConfirmVisible = !isConfirmVisible"
                       class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
                   />
                 </template>
               </UInput>
+              <p id="confirm-password-hint" class="text-xs text-gray-400 mt-1">
+                Doit être identique au mot de passe saisi ci-dessus.
+              </p>
             </UFormGroup>
           </div>
 
@@ -203,14 +234,31 @@ async function onSubmit() {
             <UFormGroup name="acceptTerms">
               <UCheckbox v-model="state.acceptTerms" color="orange" :ui="{ label: 'text-base text-gray-300' }">
                 <template #label>
-                  <span>J’accepte les <NuxtLink to="/cgu" class="text-ttt-orange underline">conditions générales d’utilisation</NuxtLink> <span class="text-red-400">*</span></span>
+                  <span>
+                    J'accepte les
+                    <NuxtLink to="/cgu" class="text-ttt-orange underline">conditions générales d'utilisation</NuxtLink>
+                    <span class="text-red-400" aria-hidden="true"> *</span>
+                    <span class="sr-only">(obligatoire)</span>
+                  </span>
                 </template>
               </UCheckbox>
             </UFormGroup>
-            <UCheckbox v-model="state.newsletter" label="J’accepte de recevoir la newsletter Thé Tip Top" color="orange" :ui="{ label: 'text-base text-gray-300' }"/>
+            <UCheckbox
+                v-model="state.newsletter"
+                label="J'accepte de recevoir la newsletter Thé Tip Top"
+                color="orange"
+                :ui="{ label: 'text-base text-gray-300' }"
+            />
           </div>
 
-          <UButton type="submit" block size="xl" class="btn-primary mt-4" :ui="{base: '!text-ttt-white font-bold uppercase',font: '!font-bold'}" :loading="loading">
+          <UButton
+              type="submit"
+              block
+              size="xl"
+              class="btn-primary mt-4"
+              :ui="{base: '!text-ttt-white font-bold uppercase', font: '!font-bold'}"
+              :loading="loading"
+          >
             S'inscrire
           </UButton>
         </UForm>
@@ -227,5 +275,4 @@ async function onSubmit() {
 </template>
 
 <style scoped>
-
 </style>
