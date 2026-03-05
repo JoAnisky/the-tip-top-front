@@ -46,7 +46,7 @@
       </button>
 
       <div class="overflow-hidden transition-all duration-300 ease-in-out" :style="{ maxHeight: openIndex === index ? '200px' : '0px' }">
-        <div class="pb-6 text-white leading-relaxed italic text-justify">
+        <div class="pb-6 text-white leading-relaxed italic text-pretty">
           {{ faq.answer }}
         </div>
       </div>
