@@ -27,7 +27,7 @@ function formatDate(isoDate: string): string {
       <div v-for="gain in gains" :key="gain.id" class="table-row" :class="gain.isClaimed ? 'row-claimed' : ''">
         <!-- Colonne Gain/Date -->
         <div class="col-gain">
-          <img v-if="getGiftById(gain.gainId)" :src="getGiftById(gain.gainId)!.image" :alt="gain.gainName" class="gain-image"/>
+          <img v-if="getGiftById(gain.gainId)" :src="getGiftById(gain.gainId)!.image" alt="" class="gain-image"/>
           <div class="gain-info">
             <p class="gain-name">{{ gain.gainName }}</p>
             <p class="gain-date">{{ formatDate(gain.validatedOn) }}</p>

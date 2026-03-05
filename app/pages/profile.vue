@@ -23,6 +23,7 @@ const isParticipant = computed(() =>
 </script>
 
 <template>
+  <h1 class="sr-only">Mon espace personnel</h1>
   <template v-if="isParticipant">
     <GameSection/>
     <GainHistorySection/>
