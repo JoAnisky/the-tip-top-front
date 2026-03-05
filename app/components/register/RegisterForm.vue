@@ -54,21 +54,33 @@ async function onSubmit() {
       </div>
 
       <div class="p-2">
-        <p class="text-xl font-bold text-white mb-2">Créer mon compte</p>
+        <h2 class="md:text-2xl text-2xl text-left font-bold text-white mb-2">Créer mon compte</h2>
         <UDivider class="ttt-divider mb-8"/>
-        <p class="text-base text-gray-200 mb-6 italic font-bold">Les champs marqués d'un <span class="text-red-500">*</span> sont obligatoires</p>
+        <p class="text-base text-gray-200 mb-6 italic font-bold">Les champs marqués d'un <span class="text-red-400">* </span> sont obligatoires</p>
 
         <UForm :schema="registerSchema" :state="state" class="space-y-4" @submit="onSubmit">
 
-          <UFormGroup label="Vous êtes :" name="gender" :ui="{ label: { base: 'ttt-form-label' } }">
-            <URadioGroup v-model="state.gender" :options="genderOptions" color="orange" :ui="{wrapper: 'flex flex-row gap-6',fieldset: 'flex flex-row gap-8'}"/>
+          <UFormGroup name="gender" :ui="{ label: { base: 'ttt-form-label' } }">
+            <URadioGroup
+                v-model="state.gender"
+                :options="genderOptions"
+                color="orange"
+                legend="Vous êtes :"
+                :ui="{
+                  wrapper: 'flex flex-row gap-6',
+                  fieldset: 'flex flex-row gap-8',
+                  legend: 'ttt-form-label'
+                }"
+            />
           </UFormGroup>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <UFormGroup name="firstName">
               <template #label>
                 <span class="ttt-form-label">
-                  Prénom <span class="text-red-500">*</span>
+                  Prénom
+                  <span class="text-red-400">*</span>
+                  <span class="sr-only">(obligatoire)</span>
                 </span>
               </template>
               <UInput v-model="state.firstName" placeholder="Votre prénom" size="xl" variant="none" class="ttt-input-dark" />
@@ -76,7 +88,9 @@ async function onSubmit() {
             <UFormGroup name="lastName">
               <template #label>
                 <span class="ttt-form-label">
-                  Nom <span class="text-red-500">*</span>
+                  Nom
+                  <span class="text-red-400">*</span>
+                  <span class="sr-only">(obligatoire)</span>
                 </span>
               </template>
               <UInput v-model="state.lastName" placeholder="Votre nom" size="xl" variant="none" class="ttt-input-dark" />
@@ -86,7 +100,9 @@ async function onSubmit() {
           <UFormGroup name="birthDate">
             <template #label>
                 <span class="ttt-form-label">
-                  Date de naissance <span class="text-red-500">*</span>
+                  Date de naissance
+                  <span class="text-red-400">*</span>
+                  <span class="sr-only">(obligatoire)</span>
                 </span>
             </template>
             <UInput v-model="state.birthDate" type="date" size="xl" variant="none" class="ttt-input-dark custom-date-input"/>
@@ -95,7 +111,9 @@ async function onSubmit() {
           <UFormGroup name="email">
             <template #label>
                 <span class="ttt-form-label">
-                  Adresse email <span class="text-red-500">*</span>
+                  Adresse email
+                  <span class="text-red-400">*</span>
+                  <span class="sr-only">(obligatoire)</span>
                 </span>
             </template>
             <UInput v-model="state.email" placeholder="Saisir votre email" icon="i-heroicons-envelope" size="xl" variant="none" class="ttt-input-dark" />
@@ -118,7 +136,9 @@ async function onSubmit() {
             <UFormGroup name="plainPassword">
               <template #label>
                 <span class="ttt-form-label">
-                  Mot de passe <span class="text-red-500">*</span>
+                  Mot de passe
+                  <span class="text-red-400">*</span>
+                  <span class="sr-only">(obligatoire)</span>
                 </span>
               </template>
               <UInput
@@ -137,6 +157,7 @@ async function onSubmit() {
                       color="gray"
                       variant="ghost"
                       :icon="isPasswordVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                      :aria-label="isPasswordVisible ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
                       :padded="false"
                       @click="isPasswordVisible = !isPasswordVisible"
                       class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
@@ -147,7 +168,9 @@ async function onSubmit() {
             <UFormGroup name="confirmPassword">
               <template #label>
                 <span class="ttt-form-label">
-                  Confirmez votre mot de passe <span class="text-red-500">*</span>
+                  Confirmez votre mot de passe
+                  <span class="text-red-400">*</span>
+                  <span class="sr-only">(obligatoire)</span>
                 </span>
               </template>
               <UInput
@@ -166,6 +189,7 @@ async function onSubmit() {
                       color="gray"
                       variant="ghost"
                       :icon="isConfirmVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                      :aria-label="isPasswordVisible ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
                       :padded="false"
                       @click="isConfirmVisible = !isConfirmVisible"
                       class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
@@ -179,7 +203,7 @@ async function onSubmit() {
             <UFormGroup name="acceptTerms">
               <UCheckbox v-model="state.acceptTerms" color="orange" :ui="{ label: 'text-base text-gray-300' }">
                 <template #label>
-                  <span>J’accepte les <NuxtLink to="/cgu" class="text-ttt-orange underline">conditions générales d’utilisation</NuxtLink> <span class="text-red-500">*</span></span>
+                  <span>J’accepte les <NuxtLink to="/cgu" class="text-ttt-orange underline">conditions générales d’utilisation</NuxtLink> <span class="text-red-400">*</span></span>
                 </template>
               </UCheckbox>
             </UFormGroup>
