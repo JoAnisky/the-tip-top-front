@@ -129,7 +129,8 @@ async function onSubmit(event: FormSubmitEvent<any>) {
     <UForm :schema="profileSchema" :state="formState" class="space-y-6 lg:pb-[10rem]" @submit="onSubmit">
       <!-- Légende -->
       <p class="mt-8 text-sm italic bold">
-        Les champs marqués d'un <span class="text-red-500">*</span> sont obligatoires
+        Les champs marqués d'un 
+        <span class="text-red-400">*</span> sont obligatoires
       </p>
       <!-- Informations générales -->
       <section>
@@ -139,16 +140,15 @@ async function onSubmit(event: FormSubmitEvent<any>) {
         </h3>
         <!-- Genre -->
         <div class="mb-6">
-          <UFormGroup label="Vous êtes :" name="gender">
-            <template #label>
-                  <span class="block mb-2 text-sm text-gray-300">
-                    Vous êtes : <span class="text-red-500">*</span>
-                  </span>
-            </template>
-            <URadioGroup v-model="formState.gender" :options="genderOptions" color="orange" :ui="{
-                    wrapper: 'flex flex-row gap-8',
-                    fieldset: 'flex flex-row gap-8'
-                  }"/>
+          <UFormGroup name="gender">
+            <URadioGroup v-model="formState.gender" :options="genderOptions" color="orange"
+                         legend="Vous êtes :"
+                         :ui="{
+                            wrapper: 'flex flex-row gap-6',
+                            fieldset: 'flex flex-row gap-8',
+                            legend: 'ttt-form-label'
+                         }"
+            />
           </UFormGroup>
         </div>
 
@@ -157,7 +157,9 @@ async function onSubmit(event: FormSubmitEvent<any>) {
           <UFormGroup name="firstName">
             <template #label>
                   <span class="text-sm text-gray-300">
-                    Prénom <span class="text-red-500">*</span>
+                    Prénom
+                    <span class="text-red-400">*</span>
+                    <span class="sr-only">(obligatoire)</span>
                   </span>
             </template>
             <UInput v-model="formState.firstName" placeholder="Votre prénom" size="xl" variant="none" class="ttt-input-dark"/>
@@ -166,7 +168,9 @@ async function onSubmit(event: FormSubmitEvent<any>) {
           <UFormGroup name="lastName">
             <template #label>
                   <span class="text-sm text-gray-300">
-                    Nom <span class="text-red-500">*</span>
+                    Nom
+                    <span class="text-red-400">*</span>
+                    <span class="sr-only">(obligatoire)</span>
                   </span>
             </template>
             <UInput v-model="formState.lastName" placeholder="Votre nom" size="xl" variant="none" class="ttt-input-dark"/>
@@ -178,7 +182,9 @@ async function onSubmit(event: FormSubmitEvent<any>) {
           <UFormGroup name="birthDate">
             <template #label>
                   <span class="text-sm text-gray-300">
-                    Date de naissance <span class="text-red-500">*</span>
+                    Date de naissance
+                    <span class="text-red-400">*</span>
+                    <span class="sr-only">(obligatoire)</span>
                   </span>
             </template>
             <UInput
@@ -196,7 +202,9 @@ async function onSubmit(event: FormSubmitEvent<any>) {
           <UFormGroup name="email">
             <template #label>
                   <span class="text-sm text-gray-300">
-                    Adresse email <span class="text-red-500">*</span>
+                    Adresse email
+                    <span class="text-red-400">*</span>
+                    <span class="sr-only">(obligatoire)</span>
                   </span>
             </template>
             <UInput
@@ -311,6 +319,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
                         color="gray"
                         variant="ghost"
                         :icon="isCurrentVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                        :aria-label="isPasswordVisible ? 'Masquer le mot de passe actuel' : 'Afficher le mot de passe actuel'"
                         :padded="false"
                         @click="isCurrentVisible = !isCurrentVisible"
                         class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
@@ -342,6 +351,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
                         color="gray"
                         variant="ghost"
                         :icon="isPasswordVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                        :aria-label="isPasswordVisible ? 'Masquer le nouveau mot de passe' : 'Afficher le nouveau mot de passe'"
                         :padded="false"
                         @click="isPasswordVisible = !isPasswordVisible"
                         class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
@@ -373,6 +383,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
                         color="gray"
                         variant="ghost"
                         :icon="isConfirmVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                        :aria-label="isPasswordVisible ? 'Masquer le nouveau mot de passe confirmé' : 'Afficher le nouveau mot de passe confirmé'"
                         :padded="false"
                         @click="isConfirmVisible = !isConfirmVisible"
                         class="text-gray-400 hover:text-white hover:bg-transparent mr-2"

@@ -18,7 +18,7 @@ const fullName = computed(() => {
       <ClientOnly>
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-12 border-b border-gray-800 pb-6 gap-4">
           <div>
-            <p class="text-2xl font-bold">{{ fullName || 'Utilisateur' }}</p>
+            <h3 class="text-2xl font-bold">{{ fullName || 'Utilisateur' }}</h3>
             <UBadge v-if="user?.hasOAuthAccounts" color="blue" variant="subtle" size="xs" class="mt-1">
               <UIcon name="i-heroicons-shield-check" class="mr-1" /> Compte OAuth
             </UBadge>

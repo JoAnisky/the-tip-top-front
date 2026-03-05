@@ -189,7 +189,7 @@ async function onSubmit() {
                       color="gray"
                       variant="ghost"
                       :icon="isConfirmVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-                      :aria-label="isPasswordVisible ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+                      :aria-label="isPasswordVisible ? 'Masquer le mot de passe confirmé' : 'Afficher le mot de passe confirmé'"
                       :padded="false"
                       @click="isConfirmVisible = !isConfirmVisible"
                       class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
