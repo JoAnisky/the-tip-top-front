@@ -113,15 +113,22 @@ function fullName(customer: Customer) {
       </template>
     </UAlert>
     <!-- Barre de recherche -->
-    <UInput
-        v-model="search"
-        placeholder="Rechercher un client (nom, prénom, email)…"
-        icon="i-heroicons-magnifying-glass"
-        size="lg"
-        class="ttt-input-dark"
-        :loading="loadingSearch"
-    />
+    <UFormGroup name="client-search">
+      <template #label>
+                <span class="ttt-form-label">
+                  Rechercher un client (nom, prénom, email)…
+                </span>
+      </template>
 
+      <UInput
+          v-model="search"
+          placeholder="Jean Morris"
+          icon="i-heroicons-magnifying-glass"
+          size="lg"
+          class="ttt-input-dark"
+          :loading="loadingSearch"
+      />
+    </UFormGroup>
     <!-- Liste des résultats -->
     <div v-if="customers.length > 0 && !selectedCustomer" class="rounded-xl border border-white/20 divide-y divide-white/10 overflow-hidden">
       <button
@@ -145,6 +152,7 @@ function fullName(customer: Customer) {
         <UButton
             icon="i-heroicons-arrow-left"
             variant="ghost"
+            aria-label="Sortir du listing des gains de ce client"
             @click="selectedCustomer = null"
         />
         <h2 class="text-xl font-semibold m-0">{{ fullName(selectedCustomer) }}</h2>
@@ -172,7 +180,7 @@ function fullName(customer: Customer) {
             : 'bg-white/10 border-white/20'"
         >
           <div class="space-y-1 min-w-0">
-            <p class="font-semibold text-white">{{ code.gainName ?? 'Gain inconnu' }}</p>
+            <h3 class="text-xl font-semibold text-white">{{ code.gainName ?? 'Gain inconnu' }}</h3>
             <p class="text-sm text-gray-400">
               Code : <code class="font-mono text-gray-300">{{ code.code }}</code>
             </p>
