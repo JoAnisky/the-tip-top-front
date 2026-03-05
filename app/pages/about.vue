@@ -85,7 +85,7 @@ useSeoPage({
         <UDivider class="mb-4" />
         <p class="mb-3">
           Au fil des années, Thé Tip Top est devenue une communauté d'amateurs éclairés. Que ce soit dans nos
-          boutiques — dont notre toute nouvelle boutique de Nice — ou en ligne, nous aimons partager notre
+          boutiques - dont notre toute nouvelle boutique de Nice - ou en ligne, nous aimons partager notre
           expertise et vous guider dans le choix de votre thé bio idéal.
         </p>
         <p class="mt-3">
