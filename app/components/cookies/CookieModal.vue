@@ -58,6 +58,7 @@ function handleRejectAll() {
               color="black"
               variant="ghost"
               icon="i-heroicons-x-mark-20-solid"
+              aria-label="Fermer la gestion des cookies"
               class="-my-1 text-ttt-black hover:bg-ttt-black/5"
               @click="isOpen = false"
           />
@@ -77,8 +78,8 @@ function handleRejectAll() {
           <!-- Essentiels -->
           <div class="flex items-start justify-between gap-4">
             <div>
-              <p class="font-medium text-ttt-black">Cookies nécessaires</p>
-              <p class="text-xs text-ttt-black/50 mt-0.5">Connexion et participation au jeu. Indispensables.</p>
+              <h4 class="text-2xl text-ttt-black font-medium tracking-wide font-lato">Cookies nécessaires</h4>
+              <p class="text-xs text-ttt-black/70 mt-0.5">Connexion et participation au jeu. Indispensables.</p>
             </div>
             <UBadge color="white" variant="solid" class="text-xs uppercase flex-shrink-0 mt-0.5">Toujours actif</UBadge>
           </div>
@@ -88,10 +89,10 @@ function handleRejectAll() {
           <!-- Préférences -->
           <div class="flex items-start justify-between gap-4">
             <div>
-              <p class="font-medium text-ttt-black">Cookies de préférences</p>
-              <p class="text-xs text-ttt-black/50 mt-0.5">Mémorise vos choix sur le site.</p>
+              <h4 class="text-2xl text-ttt-black font-medium tracking-wide font-lato">Cookies de préférences</h4>
+              <p class="text-xs text-ttt-black/70 mt-0.5">Mémorise vos choix sur le site.</p>
             </div>
-            <UToggle v-model="localPreferences" color="lime" class="flex-shrink-0 mt-0.5" />
+            <UToggle v-model="localPreferences" color="lime" class="flex-shrink-0 mt-0.5" aria-label="Activer les cookies de préférences" />
           </div>
 
           <UDivider />
@@ -99,10 +100,11 @@ function handleRejectAll() {
           <!-- Mesure d'audience -->
           <div class="flex items-start justify-between gap-4">
             <div>
-              <p class="font-medium text-ttt-black">Mesure d'audience</p>
-              <p class="text-xs text-ttt-black/50 mt-0.5">Statistiques anonymes de fréquentation (Google Analytics).</p>
+              <h4 class="text-2xl text-ttt-black font-medium tracking-wide font-lato">Mesure d'audience</h4>
+              <p class="text-xs text-ttt-black/70 mt-0.5">Statistiques anonymes de fréquentation (Google Analytics).</p>
             </div>
-            <UToggle v-model="localAnalytics" color="lime" class="flex-shrink-0 mt-0.5" />
+            <UToggle v-model="localAnalytics" color="lime" class="flex-shrink-0 mt-0.5" aria-label="Activer les cookies de mesure d'audience"
+            />
           </div>
 
           <UDivider />
@@ -110,10 +112,10 @@ function handleRejectAll() {
           <!-- Connexion sociale -->
           <div class="flex items-start justify-between gap-4">
             <div>
-              <p class="font-medium text-ttt-black">Connexion sociale</p>
-              <p class="text-xs text-ttt-black/50 mt-0.5">Uniquement si vous vous connectez via Google ou Facebook.</p>
+              <h4 class="text-2xl text-ttt-black font-medium tracking-wide font-lato">Connexion sociale</h4>
+              <p class="text-xs text-ttt-black/70 mt-0.5">Uniquement si vous vous connectez via Google ou Facebook.</p>
             </div>
-            <UToggle v-model="localSocial" color="lime" class="flex-shrink-0 mt-0.5" />
+            <UToggle v-model="localSocial" color="lime" class="flex-shrink-0 mt-0.5" aria-label="Activer les cookies de connexion sociale"/>
           </div>
         </div>
       </div>
@@ -124,7 +126,7 @@ function handleRejectAll() {
               color="black"
               variant="ghost"
               label="Tout refuser"
-              class="text-ttt-black/60 hover:text-ttt-black hover:bg-gray-100"
+              class="text-ttt-black/70 hover:text-ttt-black hover:bg-gray-100"
               @click="handleRejectAll"
           />
           <div class="flex gap-2">
