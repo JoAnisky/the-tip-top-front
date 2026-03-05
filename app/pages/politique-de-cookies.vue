@@ -80,7 +80,7 @@ const cookieTypes = [
       <section>
         <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">À quoi servent nos cookies ?</h2>
         <UDivider class="mb-4" />
-        <p class="mb-3">Sur ce site, les cookies sont utilisés pour :</p>
+        <h3 class="text-xl mb-3">Sur ce site, les cookies sont utilisés pour :</h3>
         <ul class="space-y-2 text-sm">
           <li class="flex gap-2"><span class="text-ttt-orange">•</span> Vous maintenir connecté pendant votre navigation</li>
           <li class="flex gap-2"><span class="text-ttt-orange">•</span> Mémoriser votre réponse au bandeau de consentement</li>
@@ -189,7 +189,7 @@ const cookieTypes = [
           <div class="flex items-center gap-3 p-3 bg-ttt-green-lighter/10 rounded-lg border border-ttt-green-lighter/30">
             <UIcon name="i-heroicons-shield-check" class="w-6 h-6 text-ttt-green-lighter flex-shrink-0" />
             <p class="text-sm font-medium">
-              <strong>Engagement de confidentialité :</strong> Vos données ne sont <u>jamais vendues, louées ou cédées</u> à des sociétés tierces à des fins commerciales ou publicitaires.
+              <strong>Engagement de confidentialité :</strong> Vos données ne sont jamais vendues, louées ou cédées à des sociétés tierces à des fins commerciales ou publicitaires.
             </p>
           </div>
         </div>
@@ -202,11 +202,13 @@ const cookieTypes = [
           Pour toute question sur l'utilisation de vos données ou sur cette politique,
           vous pouvez contacter notre responsable de la protection des données :
         </p>
-        <div class="bg-white/5 rounded-xl p-4 space-y-1 text-sm">
-          <p class="text-white font-medium">Thé Tip Top — Protection des données</p>
-          <p>📍 18 rue Léon Frot, 75011 Paris</p>
-          <p>✉️ <a href="mailto:webmaster@thetiptop.fr" class="text-ttt-orange hover:underline">webmaster@thetiptop.fr</a></p>
-        </div>
+        <address class="bg-white/5 rounded-xl p-4 space-y-1 not-italic">
+          <h3 class="text-xl text-white font-medium">Thé Tip Top — Protection des données</h3>
+          <ul class="space-y-1 pt-2 text-base">
+            <li>📍 18 rue Léon Frot, 75011 Paris</li>
+            <li>✉️ <a href="mailto:webmaster@thetiptop.fr" class="text-ttt-orange hover:underline">webmaster@thetiptop.fr</a></li>
+          </ul>
+        </address>
         <p class="mt-3 text-sm text-white/80">
           Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit
           d'accès, de rectification, d'effacement et de portabilité de vos données personnelles. Vous pouvez
@@ -238,8 +240,8 @@ const cookieTypes = [
       <!-- Nav liens -->
       <div class="pt-6 border-t border-white/10 flex flex-col gap-4 items-center">
         <h3 class="text-lg font-bold text-ttt-green-lighter mb-1">Pour en savoir plus</h3>
-        <NuxtLink to="/mentions-legales" class="text-ttt-orange hover:underline">→ Mentions légales</NuxtLink>
-        <NuxtLink to="/reglement" class="text-ttt-orange hover:underline">→ Règlement du jeu</NuxtLink>
+        <NuxtLink to="/mentions-legales" class="text-ttt-orange hover:underline" aria-label="Mentions légales et conditions générales d'utilisation">→ Mentions légales</NuxtLink>
+        <NuxtLink to="/reglement" class="text-ttt-orange hover:underline" aria-label="Règlement du jeu concours">→ Règlement du jeu concours</NuxtLink>
       </div>
     </div>
   </div>
