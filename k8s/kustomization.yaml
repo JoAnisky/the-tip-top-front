@@ -9,6 +9,7 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
+  - middleware-security.yaml
 
 images:
   - name: joanisky/the-tip-top-front
