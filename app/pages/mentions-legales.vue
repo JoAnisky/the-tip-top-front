@@ -35,11 +35,13 @@ useSeoPage({
           <span class="text-white">150 000 €</span>, immatriculée sous le numéro
           <span class="text-white">341 123 321</span> au RCS de Paris.
         </p>
-        <div class="bg-white/5 rounded-xl p-4 space-y-1 text-sm">
-          <p>📍 18 rue Léon Frot, 75011 Paris</p>
-          <p>📞 01 43 72 25 88</p>
-          <p>✉️ c.durand@thetiptop.fr</p>
-        </div>
+        <address class="bg-white/5 rounded-xl p-4 space-y-1 not-italic">
+          <ul class="space-y-1 text-base">
+            <li>📍 18 rue Léon Frot, 75011 Paris</li>
+            <li>📞 01 43 72 25 88</li>
+            <li>✉️ c.durand@thetiptop.fr</li>
+          </ul>
+        </address>
       </section>
 
       <!-- Section 2 -->
@@ -58,25 +60,30 @@ useSeoPage({
       <section>
         <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Hébergement</h2>
         <UDivider class="mb-4" />
-        <p class="mb-3">Le site est hébergé par :</p>
-        <div class="bg-white/5 rounded-xl p-4 space-y-1 text-sm">
-          <p class="text-white font-medium">Infomaniak Network SA</p>
-          <p>🌐 www.infomaniak.com</p>
-          <p>📍 Rue Eugène Marziano 25, 1227 Les Acacias, Genève (Suisse)</p>
-          <p>📞 +41 22 820 35 40</p>
-        </div>
+        <h3 class="text-xl mb-3">Le site est hébergé par :</h3>
+        <address class="bg-white/5 rounded-xl p-4 space-y-1 not-italic">
+          <h3 class="text-xl text-white font-medium">Infomaniak Network SA</h3>
+          <ul class="space-y-1 pt-2 text-base">
+            <li>🌐 www.infomaniak.com</li>
+            <li>📍 Rue Eugène Marziano 25, 1227 Les Acacias, Genève (Suisse)</li>
+            <li>📞 +41 22 820 35 40</li>
+          </ul>
+        </address>
       </section>
 
       <!-- Section 4 -->
       <section>
         <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Conception et réalisation</h2>
         <UDivider class="mb-4" />
-        <div class="bg-white/5 rounded-xl p-4 space-y-1 text-sm">
-          <p class="text-white font-medium">Agence Furious Duck</p>
-          <p>🌐 www.furiousduck.fr</p>
-          <p>📍 42 rue Fictive, 25000 Besançon</p>
-          <p>📞 03 81 00 12 34</p>
-        </div>
+        <h3 class="text-xl mb-3">Réalisation du site internet :</h3>
+        <address class="bg-white/5 rounded-xl p-4 space-y-1 not-italic">
+          <h3 class="text-xl text-white font-medium">Agence Furious Duck</h3>
+          <ul class="space-y-1 pt-2 text-base">
+            <li>🌐 www.furiousduck.fr</li>
+            <li>📍 42 rue Fictive, 25000 Besançon</li>
+            <li>📞 03 81 00 12 34</li>
+          </ul>
+        </address>
       </section>
 
       <!-- Section 5 -->
@@ -118,11 +125,13 @@ useSeoPage({
           protection des données personnelles. Vous bénéficiez d'un droit d'accès, de rectification, d'effacement
           et d'opposition.
         </p>
-        <div class="bg-white/5 rounded-xl p-4 space-y-1 text-sm mb-3">
-          <p class="text-white font-medium">Thé Tip Top — Service client</p>
-          <p>📍 18 rue Léon Frot, 75011 Paris</p>
-          <p>✉️ webmaster@thetiptop.fr</p>
-        </div>
+        <address class="bg-white/5 rounded-xl p-4 space-y-1 mb-3 not-italic">
+          <h3 class="text-xl text-white font-medium">Thé Tip Top — Service client</h3>
+          <ul class="space-y-1 pt-2 text-base">
+            <li>📍 18 rue Léon Frot, 75011 Paris</li>
+            <li>✉️ webmaster@thetiptop.fr</li>
+          </ul>
+        </address>
         <p class="text-sm text-gray-200">
           Déclaration CNIL : numéros <span class="text-white">1081234</span> et <span class="text-white">1084321</span>.
         </p>

@@ -73,7 +73,7 @@ const prizes = [
       <section>
         <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 3 — Modalités d'inscription</h2>
         <UDivider class="mb-4" />
-        <p class="mb-4">Pour participer, l'utilisateur doit :</p>
+        <h3 class="text-xl mb-3">Pour participer, l'utilisateur doit :</h3>
         <ol class="space-y-2 list-none">
           <li class="flex gap-3">
             <span class="flex-shrink-0 w-6 h-6 rounded-full bg-ttt-orange/20 text-ttt-orange text-xs flex items-center justify-center font-bold">1</span>
@@ -155,14 +155,14 @@ const prizes = [
       <section>
         <h2 class="text-xl font-bold text-ttt-green-lighter mb-1">Article 7 — Retrait des gains</h2>
         <UDivider class="mb-4" />
-        <p class="mb-3">Les gains peuvent être retirés de deux manières :</p>
+        <h3 class="text-xl mb-3">Les gains peuvent être retirés de deux manières :</h3>
         <div class="grid sm:grid-cols-2 gap-4">
           <div class="bg-white/5 rounded-xl p-4">
-            <p class="text-white font-semibold mb-1">🏪 En boutique</p>
+            <h4 class="text-xl text-white font-semibold mb-1">🏪 En boutique</h4>
             <p class="text-sm text-white/80">Sur présentation du code gagnant et d'une pièce d'identité valide.</p>
           </div>
           <div class="bg-white/5 rounded-xl p-4">
-            <p class="text-white font-semibold mb-1">💻 En ligne</p>
+            <h4 class="text-xl text-white font-semibold mb-1">💻 En ligne</h4>
             <p class="text-sm text-white/80">Selon les modalités précisées après la révélation du gain sur le site.</p>
           </div>
         </div>
