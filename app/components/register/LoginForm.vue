@@ -89,7 +89,7 @@ function handleOAuthClick(url: string) {
       </div>
 
       <div class="p-4">
-        <p>Se connecter</p>
+        <h2 class="md:text-2xl text-left">Se connecter</h2>
         <div class="flex gap-5 my-4">
           <!-- Bouton Facebook -->
           <UTooltip :text="allowsSocial ? '' : 'Activez les cookies de connexion sociale pour utiliser cette option'" :prevent="allowsSocial" class="flex-1">
@@ -100,8 +100,8 @@ function handleOAuthClick(url: string) {
                 :disabled="!allowsSocial"
                 @click="handleOAuthClick(facebookOAuthUrl)"
             >
-              <img src="/images/facebook-logo.svg" alt="Facebook" class="w-5 h-5 mr-2" />
-              <span class="hidden sm:inline">Facebook</span>
+              <img src="/images/facebook-logo.svg" alt="" class="w-5 h-5 mr-2" />
+              <span class="hidden sm:inline text-white !opacity-100 bold">Facebook</span>
             </UButton>
           </UTooltip>
 
@@ -114,13 +114,13 @@ function handleOAuthClick(url: string) {
                 :disabled="!allowsSocial"
                 @click="handleOAuthClick(googleOAuthUrl)"
             >
-              <img src="/images/google-logo.svg" alt="Google" class="w-5 h-5 mr-2" />
+              <img src="/images/google-logo.svg" alt="" class="w-5 h-5 mr-2" />
               <span class="hidden sm:inline">Google</span>
             </UButton>
           </UTooltip>
         </div>
         <!-- Lien modifier préférences si cookies sociaux refusés -->
-        <p v-if="!allowsSocial" class="text-xs text-center text-white/70 -mt-2 mb-4">
+        <p v-if="!allowsSocial" class="text-sm text-center text-white/80 -mt-2 mb-4">
           <button class="underline hover:text-white transition-colors" @click="emit('openCookieModal')">
             Modifier mes préférences de cookies
           </button>
@@ -132,7 +132,9 @@ function handleOAuthClick(url: string) {
           <UFormGroup name="email">
             <template #label>
                 <span class="ttt-form-label">
-                  Adresse email <span class="text-red-500">*</span>
+                  Adresse email
+                    <span class="text-red-400"> *</span>
+                    <span class="sr-only">(obligatoire)</span>
                 </span>
             </template>
             <UInput
@@ -151,7 +153,9 @@ function handleOAuthClick(url: string) {
           <UFormGroup name="password">
             <template #label>
                 <span class="ttt-form-label">
-                  Mot de passe <span class="text-red-500">*</span>
+                  Mot de passe
+                    <span class="text-red-400"> *</span>
+                    <span class="sr-only">(obligatoire)</span>
                 </span>
             </template>
             <UInput
@@ -166,10 +170,12 @@ function handleOAuthClick(url: string) {
                 :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }"
             >
               <template #trailing>
+                <!-- Comme il n'y a pas de texte sur le bouton, on ajoute un aria label pour le rendre accessible -->
                 <UButton
                     color="gray"
                     variant="ghost"
                     :icon="isPasswordVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+                    :aria-label="isPasswordVisible ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
                     :padded="false"
                     @click="isPasswordVisible = !isPasswordVisible"
                     class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
