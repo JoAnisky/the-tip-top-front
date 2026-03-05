@@ -51,6 +51,7 @@ function launchConfetti() {
               color="black"
               variant="ghost"
               icon="i-heroicons-x-mark-20-solid"
+              aria-label="Fermer la modale"
               class="-my-1 text-ttt-white hover:bg-ttt-white/5"
               @click="isOpen = false"
           />
@@ -58,20 +59,20 @@ function launchConfetti() {
       </template>
 
       <div class="py-1 flex flex-col items-center text-center">
-        <p class="text-ttt-white/80 mb-1 leading-relaxed">Vous avez gagné le lot </p>
+        <h3 class="text-xl font-bold text-ttt-white uppercase font-lato text-center">Vous avez gagné le lot </h3>
 
         <!-- Image avec effet hover identique à GiftList -->
         <div v-if="matchedGift" class="group flex flex-col items-center mb-2">
           <img
               :src="matchedGift.image"
-              :alt="matchedGift.name"
+              alt=""
               class="w-56 h-56 object-contain transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.6)]"
               loading="lazy"
           />
         </div>
 
         <div class="space-y-2 mb-4">
-          <p class="text-3xl font-bold text-ttt-orange">{{ winResult?.gainLabel }}</p>
+          <h4 class="text-3xl font-bold text-ttt-orange">{{ winResult?.gainLabel }}</h4>
           <p class="text-sm text-gray-200">
             Présentez votre ticket de caisse comportant le code en boutique pour récupérer votre lot.
           </p>
