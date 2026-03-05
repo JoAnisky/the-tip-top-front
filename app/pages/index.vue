@@ -70,8 +70,8 @@ useHead({
         <h3 class="italic mt-5 lg:my-10 font-normal">En participant, vous rejoignez une communauté d’amateurs de thé bio de qualité.</h3>
       </div>
       <div class="flex flex-wrap justify-center gap-6 lg:gap-12 my-8 lg:my-10">
-        <img src="/images/agriculture-bio.webp" alt="Logo Agriculture bio France" width="41" height="49"/>
-        <img src="/images/europe-bio.webp" alt="Logo Europe bio France" width="87" height="58"/>
+        <img src="/images/agriculture-bio.webp" alt="Logo Agriculture bio France" width="41" height="49" class="w-[41px] h-[49px]"/>
+        <img src="/images/europe-bio.webp" alt="Logo Europe bio France" width="87" height="58" />
         <img src="/images/rse.webp" alt="Logo responsabilité sociétale des entreprises" width="58" height="59"/>
       </div>
       <div class="flex flex-wrap justify-center gap-8 mb-10 w-[80vw] lg:w-[60vw] pb-5 lg:pb-[12.5rem]">
