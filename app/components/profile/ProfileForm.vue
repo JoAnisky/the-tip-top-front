@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { profileSchema } from "#imports";
 import type { FormSubmitEvent } from '#ui/types'
+const { errorAnnouncer, onError } = useFormErrorAnnouncer()
+const { fetchUser, invalidate } = useAuth()
+const toast = useToast()
 
 const props = defineProps<{
   user: any
 }>()
 
 const emit = defineEmits(['updated'])
-const { fetchUser, invalidate } = useAuth()
-const toast = useToast()
 
 const oAuthAccounts = computed(() => props.user?.oAuthAccounts ?? { google: false, facebook: false })
 const hasOAuthAccounts = computed(() => oAuthAccounts.value.google || oAuthAccounts.value.facebook)
@@ -18,7 +19,6 @@ const isSaving = ref(false)
 const isCurrentVisible = ref(false)
 const isPasswordVisible = ref(false)
 const isConfirmVisible = ref(false)
-
 
 const genderOptions = [
   { value: 'male', label: 'Un homme' },
@@ -119,14 +119,19 @@ async function onSubmit(event: FormSubmitEvent<any>) {
 
 <template>
   <div>
-    <div v-if="hasChanges" class="mb-6 p-4 bg-orange-900/20 border border-orange-800 rounded-lg">
-      <div class="flex items-center gap-3">
-        <UIcon name="i-heroicons-exclamation-triangle" class="text-orange-400 flex-shrink-0" />
-        <p class="text-sm text-orange-300">Enregistrez les modifications pour qu'elles soient prises en compte</p>
+    <div role="status" aria-live="polite" aria-atomic="true" class="mb-6">
+      <div v-if="hasChanges" class="p-4 bg-orange-900/20 border border-orange-800 rounded-lg">
+        <div class="flex items-center gap-3">
+          <UIcon name="i-heroicons-exclamation-triangle" class="text-orange-400 flex-shrink-0" aria-hidden="true" />
+          <p class="text-sm text-orange-300">Enregistrez les modifications pour qu'elles soient prises en compte</p>
+        </div>
       </div>
     </div>
 
-    <UForm :schema="profileSchema" :state="formState" class="space-y-6 lg:pb-[10rem]" @submit="onSubmit">
+    <UForm :schema="profileSchema" :state="formState" class="space-y-6 lg:pb-[10rem]" @submit="onSubmit" @error="onError">
+      <!-- Pour que les lecteurs d'écrans annoncent les erreurs -->
+      <div ref="errorAnnouncer" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
       <!-- Légende -->
       <p class="mt-8 text-sm italic bold">
         Les champs marqués d'un 
@@ -290,16 +295,18 @@ async function onSubmit(event: FormSubmitEvent<any>) {
 
         <!-- Changement de mot de passe -->
         <template v-if="!hasOAuthAccounts">
-          <div class="space-y-6 p-6 bg-gray-900/50 rounded-lg border border-gray-800">
-            <h4 class="text-sm font-medium">
+          <div class="space-y-6 p-6 bg-gray-900/50 rounded-lg border border-gray-800" aria-labelledby="password-section-title">
+            <h4 id="password-section-title" class="text-1xl font-medium">
               Changer le mot de passe (optionnel)
             </h4>
-
+            <p id="password-section-hint" class="text-base text-gray-300 italic">
+              Laissez ces champs vides si vous ne souhaitez pas modifier votre mot de passe.
+            </p>
             <div class="grid grid-cols-1 gap-6">
               <!-- Mot de passe actuel -->
               <UFormGroup name="currentPassword">
                 <template #label>
-                      <span class="text-sm text-gray-300">
+                      <span class="text-sm text-white">
                         Mot de passe actuel
                       </span>
                 </template>
@@ -308,6 +315,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
                     :type="isCurrentVisible ? 'text' : 'password'"
                     autocomplete="current-password"
                     placeholder="Saisir votre mot de passe actuel"
+                    aria-describedby="password-section-hint"
                     icon="i-heroicons-lock-closed"
                     size="xl"
                     variant="none"
@@ -319,7 +327,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
                         color="gray"
                         variant="ghost"
                         :icon="isCurrentVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-                        :aria-label="isPasswordVisible ? 'Masquer le mot de passe actuel' : 'Afficher le mot de passe actuel'"
+                        :aria-label="isCurrentVisible ? 'Masquer le mot de passe actuel' : 'Afficher le mot de passe actuel'"
                         :padded="false"
                         @click="isCurrentVisible = !isCurrentVisible"
                         class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
@@ -331,7 +339,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
               <!-- Nouveau mot de passe -->
               <UFormGroup name="newPassword">
                 <template #label>
-                      <span class="text-sm text-gray-300">
+                      <span class="text-sm text-white">
                         Nouveau mot de passe
                       </span>
                 </template>
@@ -339,6 +347,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
                     v-model="formState.newPassword"
                     :type="isPasswordVisible ? 'text' : 'password'"
                     placeholder="8 caractères minimum"
+                    aria-describedby="password-section-hint"
                     autocomplete="new-password"
                     icon="i-heroicons-key"
                     size="xl"
@@ -363,7 +372,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
               <!-- Confirmation -->
               <UFormGroup name="confirmPassword">
                 <template #label>
-                      <span class="text-sm text-gray-300">
+                      <span class="text-sm text-white">
                         Confirmer le mot de passe
                       </span>
                 </template>
@@ -371,6 +380,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
                     v-model="formState.confirmPassword"
                     :type="isConfirmVisible ? 'text' : 'password'"
                     placeholder="Confirmer votre nouveau mot de passe"
+                    aria-describedby="password-section-hint"
                     autocomplete="new-password"
                     icon="i-heroicons-key"
                     size="xl"
@@ -383,7 +393,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
                         color="gray"
                         variant="ghost"
                         :icon="isConfirmVisible ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-                        :aria-label="isPasswordVisible ? 'Masquer le nouveau mot de passe confirmé' : 'Afficher le nouveau mot de passe confirmé'"
+                        :aria-label="isConfirmVisible ? 'Masquer le nouveau mot de passe confirmé' : 'Afficher le nouveau mot de passe confirmé'"
                         :padded="false"
                         @click="isConfirmVisible = !isConfirmVisible"
                         class="text-gray-400 hover:text-white hover:bg-transparent mr-2"
