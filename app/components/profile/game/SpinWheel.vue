@@ -5,6 +5,11 @@ import { uniqueCodeSchema } from "~/utils/unique-code-schema";
 const { invalidate, fetchUser } = useAuth()
 const toast = useToast()
 
+const { errorAnnouncer, onError } = useFormErrorAnnouncer()
+
+// Annonce dédiée pour l'état de la roue
+const wheelAnnouncer = ref<HTMLElement | null>(null)
+
 const hasError = ref(false)
 const errorMessage = ref('')
 
@@ -57,17 +62,22 @@ async function onSubmit() {
       gainId: response.gain.id,
       codeId: response.id
     }
+    announceWheel('La roue tourne, veuillez patienter...')
 
     isSpinning.value = true
     await spinToRandom()
     // Invalide et recharge les données user AVANT d'ouvrir la modale (recharge le tableau des gains)
     invalidate()
     await fetchUser()
+    announceWheel(`Félicitations ! Vous avez gagné : ${winResult.value?.gainLabel}`)
+
     isModalOpen.value = true
 
   } catch (err: any) {
     hasError.value = true
     errorMessage.value = err.data?.message || 'Ce code est invalide ou déjà utilisé.'
+
+    announceWheel(errorMessage.value)
 
     cooldownActive.value = true
     setTimeout(() => {
@@ -87,10 +97,32 @@ async function onSubmit() {
     isSpinning.value = false
   }
 }
+
+/**
+ * Annonce des messages vocaux pour lecteurs d'écran
+ * @param message
+ */
+function announceWheel(message: string) {
+  if (wheelAnnouncer.value) {
+    wheelAnnouncer.value.textContent = ''
+    nextTick(() => {
+      if (wheelAnnouncer.value) {
+        wheelAnnouncer.value.textContent = message
+      }
+    })
+  }
+}
+
 </script>
 
 <template>
   <div class="relative flex justify-center mt-6">
+    <!-- Zone erreurs formulaire -->
+    <div ref="errorAnnouncer" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+    <!-- Zone état roue — polite car pas urgent -->
+    <div ref="wheelAnnouncer" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
     <!-- Image jeu-concours positionnée par rapport à la roue -->
     <div class="absolute -top-[4rem] -right-4 lg:top-[-2rem] lg:right-[-6rem] w-24 lg:w-32 z-10">
       <img :src="wheelImages.game" alt="Grand Jeu 100% gagnant" class="rotate-12" />
@@ -110,7 +142,7 @@ async function onSubmit() {
   </div>
 </div>
   <div class="form-container">
-    <UForm :schema="uniqueCodeSchema" :state="state" class="space-y-6 !ttt-form-no-blue" @submit="onSubmit">
+    <UForm :schema="uniqueCodeSchema" :state="state" class="space-y-6 !ttt-form-no-blue" @submit="onSubmit" @error="onError">
       <UFormGroup name="code">
         <template #label>
           <span class="ttt-form-label">
