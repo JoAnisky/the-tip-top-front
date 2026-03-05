@@ -72,14 +72,20 @@ async function onSubmit(event: FormSubmitEvent<ContactForm>) {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <UFormGroup name="firstName">
               <template #label>
-                <span class="ttt-form-label">Prénom <span class="text-red-500">*</span></span>
+                <span class="ttt-form-label">Prénom 
+                  <span class="text-red-400">*</span>
+                  <span class="sr-only">(obligatoire)</span>
+                </span>
               </template>
               <UInput v-model="formState.firstName" placeholder="Votre prénom" size="xl" variant="none" class="ttt-input-dark" />
             </UFormGroup>
 
             <UFormGroup name="lastName">
               <template #label>
-                <span class="ttt-form-label">Nom <span class="text-red-500">*</span></span>
+                <span class="ttt-form-label">Nom
+                  <span class="text-red-400">*</span>
+                  <span class="sr-only">(obligatoire)</span>
+                </span>
               </template>
               <UInput v-model="formState.lastName" placeholder="Votre nom" size="xl" variant="none" class="ttt-input-dark" />
             </UFormGroup>
@@ -88,7 +94,10 @@ async function onSubmit(event: FormSubmitEvent<ContactForm>) {
           <!-- Email -->
           <UFormGroup name="email">
             <template #label>
-              <span class="ttt-form-label">Adresse email <span class="text-red-500">*</span></span>
+              <span class="ttt-form-label">Adresse email
+                <span class="text-red-400">*</span>
+                <span class="sr-only">(obligatoire)</span>
+              </span>
             </template>
             <UInput v-model="formState.email" type="email" placeholder="votre@email.com" icon="i-heroicons-envelope" size="xl" variant="none" class="ttt-input-dark" />
           </UFormGroup>
@@ -96,7 +105,10 @@ async function onSubmit(event: FormSubmitEvent<ContactForm>) {
           <!-- Objet -->
           <UFormGroup name="subject">
             <template #label>
-              <span class="ttt-form-label">Objet <span class="text-red-500">*</span></span>
+              <span class="ttt-form-label">Objet
+                <span class="text-red-400">*</span>
+                <span class="sr-only">(obligatoire)</span>
+              </span>
             </template>
             <USelect
                 v-model="formState.subject"
@@ -107,19 +119,23 @@ async function onSubmit(event: FormSubmitEvent<ContactForm>) {
                 size="xl"
                 variant="none"
                 class="ttt-input-dark"
+                :ui="{ placeholder: 'text-gray-300' }"
             />
           </UFormGroup>
 
           <!-- Message -->
           <UFormGroup name="message">
             <template #label>
-              <span class="ttt-form-label">Message <span class="text-red-500">*</span></span>
+              <span class="ttt-form-label">Message
+                <span class="text-red-400">*</span>
+                <span class="sr-only">(obligatoire)</span>
+              </span>
             </template>
             <UTextarea v-model="formState.message" placeholder="Votre message..." :rows="6" size="xl" variant="none" class="ttt-input-dark" />
           </UFormGroup>
 
           <p class="text-sm italic text-gray-400">
-            Les champs marqués d'un <span class="text-red-500">*</span> sont obligatoires
+            Les champs marqués d'un <span class="text-red-400">*</span> sont obligatoires
           </p>
 
           <div class="flex justify-end">
@@ -141,7 +157,15 @@ async function onSubmit(event: FormSubmitEvent<ContactForm>) {
 
   </div>
 </template>
-
 <style scoped>
+/* Placeholder du select quand aucune valeur n'est sélectionnée */
+:deep(select option[value=""]),
+:deep(select:invalid) {
+  color: rgb(209 213 219); /* gray-300 */
+}
 
+/* La valeur placeholder affichée dans le select natif */
+:deep(.ttt-input-dark select) {
+  color: rgb(209 213 219); /* gray-300 quand placeholder */
+}
 </style>
