@@ -1,10 +1,10 @@
 export const usePlayLink = () => {
     const { loggedIn } = useAuth()
 
-    const playLink = computed(() => loggedIn.value ? '/profile' : '/login')
-    const profileLabel = computed(() => loggedIn.value ? 'Mon profil' : 'Mon compte')
+    const playLink : string = computed(() => loggedIn.value ? '/profile' : '/login')
+    const profileLabel : string = computed(() => loggedIn.value ? 'Mon profil' : 'Mon compte')
 
-    const goToPlay = () => {
+    const goToPlay = () : void => {
         navigateTo(playLink.value)
     }
 
