@@ -1,3 +1,10 @@
+
+import { ref, nextTick } from 'vue'
+// Nuxt injecte ref au moment du build, mais le composable n'est pas autonome, il dépend de son environnement d'exécution pour fonctionner.
+// En ajoutant import { ref, nextTick }, le composable est explicitement autonome
+// sans cet import, les tests fonctionnels échouent car ref et nexTick sont injectés au moment du build
+
+
 /**
  * Annoncer aux lecteurs NVDA que des champs de formulaire requis sont manquants
  */
