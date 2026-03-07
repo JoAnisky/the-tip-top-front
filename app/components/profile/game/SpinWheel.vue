@@ -2,22 +2,13 @@
 import WinModale from "~/components/modales/WinModale.vue";
 import { uniqueCodeSchema } from "~/utils/unique-code-schema";
 
-const { invalidate, fetchUser } = useAuth()
-const toast = useToast()
-
 const { errorAnnouncer, onError } = useFormErrorAnnouncer()
-
-// Annonce dédiée pour l'état de la roue
+// Annonce dédiée pour l'état de la roue (lecteurs d'écran)
 const wheelAnnouncer = ref<HTMLElement | null>(null)
 
-const hasError = ref(false)
-const errorMessage = ref('')
+const { loading, isSpinning, hasError, errorMessage, isModalOpen, currentRotation, winResult, cooldownActive, onSubmit: submitCode } = useSpinWheel()
 
-const loading = ref(false)
-const isSpinning = ref(false)
-const isModalOpen = ref(false)
-const currentRotation = ref(0)
-const winResult = ref<WinResult | null>(null)
+const state = reactive({ code: '' })
 
 const wheelImages = {
   structure: '/images/wheel/structure.webp',
@@ -26,76 +17,8 @@ const wheelImages = {
   game: '/images/jeu-concours.webp',
 } as const
 
-const state = reactive({ code: '' })
-
-const SPIN_DURATION_MS = 4000
-const MIN_TURNS = 5
-const MAX_TURNS = 8
-// anti spam "Lancer la roue"
-const cooldownActive = ref(false)
-const COOLDOWN_MS = 3000
-
-function spinToRandom(): Promise<void> {
-  return new Promise((resolve) => {
-    const extraTurns = MIN_TURNS + Math.floor(Math.random() * (MAX_TURNS - MIN_TURNS))
-    const randomAngle = Math.floor(Math.random() * 360)
-    currentRotation.value += extraTurns * 360 + randomAngle
-    setTimeout(resolve, SPIN_DURATION_MS)
-  })
-}
-
 async function onSubmit() {
-  if (isSpinning.value || loading.value || cooldownActive.value) return
-
-  loading.value = true
-  hasError.value = false
-  errorMessage.value = ''
-
-  try {
-    const response= await $fetch<ApiCodeResponse>('/api/auth/code', {
-      method: 'POST',
-      body: { code: state.code }
-    })
-
-    winResult.value = {
-      gainLabel: response.gain.name,
-      gainId: response.gain.id,
-      codeId: response.id
-    }
-    announceWheel('La roue tourne, veuillez patienter...')
-
-    isSpinning.value = true
-    await spinToRandom()
-    // Invalide et recharge les données user AVANT d'ouvrir la modale (recharge le tableau des gains)
-    invalidate()
-    await fetchUser()
-    announceWheel(`Félicitations ! Vous avez gagné : ${winResult.value?.gainLabel}`)
-
-    isModalOpen.value = true
-
-  } catch (err: any) {
-    hasError.value = true
-    errorMessage.value = err.data?.message || 'Ce code est invalide ou déjà utilisé.'
-
-    announceWheel(errorMessage.value)
-
-    cooldownActive.value = true
-    setTimeout(() => {
-      cooldownActive.value = false
-    }, COOLDOWN_MS)
-
-    toast.add({
-      title: 'Code invalide',
-      description: errorMessage.value,
-      color: 'red',
-      timeout: 5000
-    })
-
-    loading.value = false
-  } finally {
-    loading.value = false
-    isSpinning.value = false
-  }
+  await submitCode(state.code)
 }
 
 /**
