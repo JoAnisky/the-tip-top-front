@@ -55,9 +55,7 @@ export const useAuth = () => {
             console.error('Erreur logout:', error)
         } finally {
             // vide l'état local quoi qu'il arrive
-            loggedInRef.value = false
-            userRef.value = null
-            initializedRef.value = false
+            reset()
             // On redirige vers l'accueil ou le login après déconnexion
             await navigateTo('/login')
         }
@@ -82,6 +80,12 @@ export const useAuth = () => {
         initializedRef.value = false
     }
 
+    const reset = () => {
+        userRef.value = null
+        loggedInRef.value = false
+        initializedRef.value = false
+    }
+
     return {
         user: userRef,
         loggedIn: readonly(loggedInRef),
@@ -92,5 +96,6 @@ export const useAuth = () => {
         logout,
         refresh,
         invalidate,
+        reset
     }
 }
