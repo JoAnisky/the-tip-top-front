@@ -39,6 +39,15 @@ export default defineConfig({
                     name: 'nuxt',
                     include: ['tests/nuxt/**/*.spec.ts'],
                     environment: 'nuxt',
+                    environmentOptions: {
+                        nuxt: {
+                            overrides: {
+                                experimental: {
+                                    appManifest: false
+                                }
+                            }
+                        }
+                    }
                 },
             }),
         ],
