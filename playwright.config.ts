@@ -13,6 +13,9 @@ export default defineConfig({
         baseURL: process.env.BASE_URL || 'http://the-tip-top.front.dev.local',
         launchOptions: {
             executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
-        }
+        },
+        // On peut prendre un screenshot de l'endroit ou le test a échoué
+        // screenshot: 'only-on-failure',
+        // trace: 'on-first-retry',
     }
 })

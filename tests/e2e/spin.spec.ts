@@ -38,9 +38,9 @@ test('login puis soumission d\'un code gagnant', async ({ page }) => {
     await page.waitForURL('/profile', { timeout: 8000 })
 
     // 4 : Soumettre un code gagnant
-    await page.getByPlaceHolder('Code unique à 10 caractères').fill(process.env.TEST_WIN_CODE)
+    await page.getByPlaceholder('Code unique à 10 caractères').fill(process.env.TEST_WIN_CODE)
     await page.getByRole('button', { name: 'Lancer la roue' }).click()
 
-    // 5 : on attend que la modale s'ouvre (après la roue)
-    await expect(page.getByRole('dialog')).toBeVisible({ timeout: 10000 })
+    // 5 Attendre la modale de victoire spécifiquement, grâce à son "Heading"
+    await expect(page.getByRole('heading', { name: 'Félicitations' })).toBeVisible({ timeout: 10000 })
 })
