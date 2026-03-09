@@ -30,7 +30,8 @@ pipeline {
                     string(credentialsId: 'e2e-test-win-code', variable: 'TEST_WIN_CODE'),
                 ]) {
                     sh '''
-                        HUSKY=0 npm install --ignore-scripts
+                        HUSKY=0 npm install
+                        npx nuxt prepare
                         npm run test:report || true
                         BASE_URL=https://the-tip-top.jonathanlore.fr \
                         TEST_USER_EMAIL=$TEST_USER_EMAIL \
@@ -48,8 +49,12 @@ pipeline {
         }
 		stage('Publish Reports') {
 			agent any
+			options {
+				skipDefaultCheckout true
+			}
 			steps {
 				unstash 'test-reports'
+				sh 'find . -name "*.xml" || echo "pas de xml"'
 				junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
 				publishHTML(target: [
 					allowMissing: true,
