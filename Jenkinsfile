@@ -33,6 +33,8 @@ pipeline {
                         HUSKY=0 npm install
                         npx nuxt prepare
                         npm run test:report || true
+						echo "=== Après test:report ==="
+						find test-results/ -type f 2>/dev/null || echo "test-results/ inexistant"
                         BASE_URL=https://the-tip-top.jonathanlore.fr \
                         TEST_USER_EMAIL=$TEST_USER_EMAIL \
                         TEST_USER_PASSWORD=$TEST_USER_PASSWORD \

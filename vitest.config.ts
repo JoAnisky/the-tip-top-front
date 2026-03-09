@@ -13,6 +13,10 @@ import { defineVitestProject } from '@nuxt/test-utils/config'
  */
 export default defineConfig({
     test: {
+        reporters: ['verbose', 'junit'],
+        outputFile: {
+            junit: 'test-results/vitest/junit.xml',
+        },
         projects: [
             // --- Tests unitaires purs (Node, sans Nuxt) ---
             {
