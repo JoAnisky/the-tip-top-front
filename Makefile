@@ -7,7 +7,7 @@ up-prod:
 	docker compose --env-file .docker/.env.docker.prod up -d --build
 
 # Entrer dans le conteneur
-bash-front:
+bash:
 	docker exec -it ttt-front bash
 
 # Stopper et nettoyer en dev
