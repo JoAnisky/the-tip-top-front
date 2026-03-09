@@ -32,8 +32,6 @@ pipeline {
                         HUSKY=0 npm install
                         npx nuxt prepare
                         npm run test:report || true
-						echo "=== Après test:report ==="
-						find test-results/ -type f 2>/dev/null || echo "test-results/ inexistant"
                         BASE_URL=https://the-tip-top.jonathanlore.fr \
                         TEST_USER_EMAIL=$TEST_USER_EMAIL \
                         TEST_USER_PASSWORD=$TEST_USER_PASSWORD \
@@ -43,10 +41,6 @@ pipeline {
             }
             post {
 			   always {
-				   sh '''
-					   echo "=== Contenu avant stash ==="
-					   find test-results/ playwright-report/ -type f 2>/dev/null || echo "dossiers manquants"
-				   '''
 				   stash includes: 'test-results/**/*,playwright-report/**/*', name: 'test-reports', allowEmpty: true
 			   }
             }
@@ -58,7 +52,6 @@ pipeline {
 			}
 			steps {
 				unstash 'test-reports'
-				sh 'find . -name "*.xml" || echo "pas de xml"'
 				junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
 				publishHTML(target: [
 					allowMissing: true,
