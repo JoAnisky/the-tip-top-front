@@ -42,15 +42,6 @@ pipeline {
             post {
                 always {
 					stash includes: 'test-results/**/*', name: 'test-reports', allowEmpty: true
-					junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
-                    publishHTML(target: [
-						   allowMissing: true,
-						   alwaysLinkToLastBuild: false,
-						   keepAll: true,
-						   reportDir: 'test-results/playwright/html',
-						   reportFiles: 'index.html',
-						   reportName: 'Playwright Report'
-                    ])
                 }
             }
         }
@@ -70,6 +61,7 @@ pipeline {
                         reportFiles: 'index.html',
                         reportName: 'Playwright Report'
                     ])
+                    cleanWs()
                 }
             }
         }
@@ -182,7 +174,6 @@ pipeline {
 		always {
 			// Supprime les images locales pour ne pas saturer le disque du VPS Jenkins
 			sh "docker rmi ${DOCKER_IMAGE}:${DOCKER_TAG} || true"
-			cleanWs()
 		}
 		success {
 			echo "✅ ${APP_NAME} déployé avec succès !"
