@@ -1,7 +1,17 @@
 FROM node:20-alpine AS base
 WORKDIR /var/www/html
 
-RUN apk add --no-cache bash curl git
+RUN apk add --no-cache bash curl git \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont
+
+# Indique à Playwright d'utiliser le Chromium système au lieu de télécharger le sien
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+ENV PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # --- Stage DEV ---
 FROM base AS dev
