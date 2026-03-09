@@ -26,8 +26,7 @@ pipeline {
             steps {
                 withCredentials([
                     string(credentialsId: 'e2e-test-user-email', variable: 'TEST_USER_EMAIL'),
-                    string(credentialsId: 'e2e-test-user-password', variable: 'TEST_USER_PASSWORD'),
-                    string(credentialsId: 'e2e-test-win-code', variable: 'TEST_WIN_CODE'),
+                    string(credentialsId: 'e2e-test-user-password', variable: 'TEST_USER_PASSWORD')
                 ]) {
                     sh '''
                         HUSKY=0 npm install
@@ -38,7 +37,6 @@ pipeline {
                         BASE_URL=https://the-tip-top.jonathanlore.fr \
                         TEST_USER_EMAIL=$TEST_USER_EMAIL \
                         TEST_USER_PASSWORD=$TEST_USER_PASSWORD \
-                        TEST_WIN_CODE=$TEST_WIN_CODE \
                         npm run test:e2e:ci || true
                     '''
                 }

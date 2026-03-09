@@ -19,6 +19,21 @@ test('login puis soumission d\'un code gagnant', async ({ page }) => {
     //     }
     // })
 
+    // Mock de l'API de validation de code
+    await page.route('**/api/auth/code', async route => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({
+                id: 1,
+                gain: {
+                    id: 1,
+                    name: 'Infuseur à thé'
+                }
+            })
+        })
+    })
+
     // Etape 1 : aller sur la page login
     await page.goto('/login')
 
@@ -38,7 +53,7 @@ test('login puis soumission d\'un code gagnant', async ({ page }) => {
     await page.waitForURL('/profile', { timeout: 8000 })
 
     // 4 : Soumettre un code gagnant
-    await page.getByPlaceholder('Code unique à 10 caractères').fill(process.env.TEST_WIN_CODE)
+    await page.getByPlaceholder('Code unique à 10 caractères').fill('TESTCODE01')
     await page.getByRole('button', { name: 'Lancer la roue' }).click()
 
     // 5 Attendre la modale de victoire spécifiquement, grâce à son "Heading"
