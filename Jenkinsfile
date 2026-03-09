@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
 
     environment {
         APP_NAME = "the-tip-top-front"
@@ -11,6 +11,7 @@ pipeline {
 
     stages {
         stage('Checkout') {
+        	agent any
             steps {
                 checkout scm
             }
@@ -66,6 +67,7 @@ pipeline {
             }
         }
         stage('Build & Push Docker') {
+        	agent any
             steps {
                 withCredentials([usernamePassword(credentialsId: 'jenkins-dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
@@ -83,6 +85,7 @@ pipeline {
             }
         }
         stage('Create/Update Kubernetes Secrets') {
+        	agent any
             when {
                 expression { env.GIT_BRANCH == 'origin/main' }
             }
@@ -111,6 +114,7 @@ pipeline {
             }
         }
         stage('Deploy to Kubernetes') {
+			agent any
             when {
                 expression { env.GIT_BRANCH == 'origin/main' }
             }
@@ -135,6 +139,7 @@ pipeline {
             }
         }
 		stage('Verify Deployment') {
+		agent any
 			when {
 				expression { env.GIT_BRANCH == 'origin/main' }
 			}
@@ -173,7 +178,9 @@ pipeline {
 	post {
 		always {
 			// Supprime les images locales pour ne pas saturer le disque du VPS Jenkins
-			sh "docker rmi ${DOCKER_IMAGE}:${DOCKER_TAG} || true"
+			node('built-in') {
+				sh "docker rmi ${DOCKER_IMAGE}:${DOCKER_TAG} || true"
+			}
 		}
 		success {
 			echo "✅ ${APP_NAME} déployé avec succès !"
