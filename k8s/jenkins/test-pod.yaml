@@ -3,14 +3,14 @@ kind: Pod
 spec:
   containers:
     - name: node
-      image: node:20-alpine
+      image: mcr.microsoft.com/playwright:v1.50.0-noble
       command:
         - sleep
       args:
         - infinity
       env:
-        - name: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD
-          value: "1"
+        - name: PLAYWRIGHT_BROWSERS_PATH
+          value: "/ms-playwright"
       resources:
         requests:
           memory: "512Mi"
