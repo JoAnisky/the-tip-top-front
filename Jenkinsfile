@@ -41,7 +41,8 @@ pipeline {
             }
             post {
                 always {
-                    junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
+					archiveArtifacts artifacts: 'test-results/**/*', allowEmptyArchive: true
+					junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
                     publishHTML(target: [
 						   allowMissing: true,
 						   alwaysLinkToLastBuild: false,

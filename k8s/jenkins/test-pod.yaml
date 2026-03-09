@@ -3,7 +3,7 @@ kind: Pod
 spec:
   containers:
     - name: node
-      image: mcr.microsoft.com/playwright:v1.50.0-noble
+      image: mcr.microsoft.com/playwright:v1.58.2-noble
       command:
         - sleep
       args:
