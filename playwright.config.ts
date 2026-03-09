@@ -11,7 +11,7 @@ export default defineConfig({
     testDir: './tests/e2e',
     reporter: [
         ['junit', { outputFile: 'test-results/playwright/junit.xml' }],
-        ['html', { outputFolder: 'test-results/playwright/html', open: 'never' }],
+        ['html', { open: 'never' }],
     ],
     use: {
         baseURL: process.env.BASE_URL || 'http://the-tip-top.front.dev.local:3000',

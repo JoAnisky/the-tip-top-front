@@ -42,7 +42,7 @@ pipeline {
             }
             post {
                 always {
-					stash includes: 'test-results/**/*', name: 'test-reports', allowEmpty: true
+					stash includes: 'test-results/**/*,playwright-report/**/*', name: 'test-reports', allowEmpty: true
                 }
             }
         }
@@ -55,7 +55,7 @@ pipeline {
 					allowMissing: true,
 					alwaysLinkToLastBuild: false,
 					keepAll: true,
-					reportDir: 'test-results/playwright/html',
+					reportDir: 'playwright-report',
 					reportFiles: 'index.html',
 					reportName: 'Playwright Report'
 				])
