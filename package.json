@@ -9,7 +9,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:e2e": "playwright test",
+    "test:e2e:prod": "BASE_URL=https://the-tip-top.jonathanlore.fr playwright test"
   },
   "dependencies": {
     "@nuxt/fonts": "^0.12.1",
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "@nuxt/test-utils": "^4.0.0",
+    "@playwright/test": "^1.58.2",
     "@types/canvas-confetti": "^1.9.0",
     "@vue/test-utils": "^2.4.6",
     "happy-dom": "^20.8.3",
