@@ -42,9 +42,13 @@ pipeline {
                 }
             }
             post {
-                always {
-					stash includes: 'test-results/**/*,playwright-report/**/*', name: 'test-reports', allowEmpty: true
-                }
+			   always {
+				   sh '''
+					   echo "=== Contenu avant stash ==="
+					   find test-results/ playwright-report/ -type f 2>/dev/null || echo "dossiers manquants"
+				   '''
+				   stash includes: 'test-results/**/*,playwright-report/**/*', name: 'test-reports', allowEmpty: true
+			   }
             }
         }
 		stage('Publish Reports') {
