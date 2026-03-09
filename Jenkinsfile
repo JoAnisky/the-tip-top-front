@@ -15,6 +15,46 @@ pipeline {
                 checkout scm
             }
         }
+		stage('Tests') {
+			steps {
+				withCredentials([
+					string(credentialsId: 'e2e-test-user-email', variable: 'TEST_USER_EMAIL'),
+					string(credentialsId: 'e2e-test-user-password', variable: 'TEST_USER_PASSWORD'),
+					string(credentialsId: 'e2e-test-win-code', variable: 'TEST_WIN_CODE'),
+				]) {
+					sh '''
+						# Installation des dépendances
+						HUSKY=0 npm ci
+
+						# Tests unitaires + intégration (Vitest)
+						npm run test:report
+
+						# Tests E2E (Playwright) contre la prod
+						BASE_URL=https://the-tip-top.jonathanlore.fr \
+						TEST_USER_EMAIL=$TEST_USER_EMAIL \
+						TEST_USER_PASSWORD=$TEST_USER_PASSWORD \
+						TEST_WIN_CODE=$TEST_WIN_CODE \
+						npm run test:e2e:ci
+					'''
+				}
+			}
+			post {
+				always {
+					// Archive les rapports JUnit (lisibles par Jenkins)
+					junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
+
+					// Archive les rapports HTML Playwright
+					publishHTML(target: [
+						allowMissing: true,
+						alwaysLinkToLastBuild: true,
+						keepAll: true,
+						reportDir: 'test-results/playwright/html',
+						reportFiles: 'index.html',
+						reportName: 'Playwright Report'
+					])
+				}
+			}
+		}
         stage('Build & Push Docker') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'jenkins-dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {

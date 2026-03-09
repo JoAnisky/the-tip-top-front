@@ -9,13 +9,15 @@ dotenv.config({ path: resolve(__dirname, '.env.test') })
 
 export default defineConfig({
     testDir: './tests/e2e',
+    reporter: [
+        ['junit', { outputFile: 'test-results/playwright/junit.xml' }],
+        ['html', { outputFolder: 'test-results/playwright/html', open: 'never' }],
+    ],
     use: {
-        baseURL: process.env.BASE_URL || 'http://the-tip-top.front.dev.local',
+        baseURL: process.env.BASE_URL || 'http://the-tip-top.front.dev.local:3000',
+        screenshot: 'only-on-failure',
         launchOptions: {
             executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
-        },
-        // On peut prendre un screenshot de l'endroit ou le test a échoué
-        // screenshot: 'only-on-failure',
-        // trace: 'on-first-retry',
+        }
     }
 })
