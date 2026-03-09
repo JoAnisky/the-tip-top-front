@@ -9,6 +9,7 @@ dotenv.config({ path: resolve(__dirname, '.env.test') })
 
 export default defineConfig({
     testDir: './tests/e2e',
+    outputDir: 'test-results/playwright/artifacts',
     reporter: [
         ['junit', { outputFile: 'test-results/playwright/junit.xml' }],
         ['html', { open: 'never' }],
