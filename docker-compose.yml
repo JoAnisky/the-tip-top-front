@@ -23,6 +23,8 @@ services:
             - "traefik.enable=true"
             - "traefik.http.routers.ttt-front.rule=Host(`${DOMAIN:-localhost}`)"
             - "traefik.http.services.ttt-front.loadbalancer.server.port=3000"
+        extra_hosts:
+            - "the-tip-top.front.dev.local:127.0.0.1"
 
 networks:
     web:
