@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: node
+      image: node:20-alpine
+      command:
+        - sleep
+      args:
+        - infinity
+      env:
+        - name: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD
+          value: "1"
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "250m"
+        limits:
+          memory: "1Gi"
+          cpu: "500m"
