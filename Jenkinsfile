@@ -46,26 +46,26 @@ pipeline {
                 }
             }
         }
-        stage('Publish Reports') {
-            agent any
-            steps {
-                unstash 'test-reports'
-            }
-            post {
-                always {
-                    junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
-                    publishHTML(target: [
-                        allowMissing: true,
-                        alwaysLinkToLastBuild: false,
-                        keepAll: true,
-                        reportDir: 'test-results/playwright/html',
-                        reportFiles: 'index.html',
-                        reportName: 'Playwright Report'
-                    ])
-                    cleanWs()
-                }
-            }
-        }
+		stage('Publish Reports') {
+			agent any
+			steps {
+				unstash 'test-reports'
+				junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
+				publishHTML(target: [
+					allowMissing: true,
+					alwaysLinkToLastBuild: false,
+					keepAll: true,
+					reportDir: 'test-results/playwright/html',
+					reportFiles: 'index.html',
+					reportName: 'Playwright Report'
+				])
+			}
+			post {
+				always {
+					cleanWs()
+				}
+			}
+		}
         stage('Build & Push Docker') {
         	agent any
             steps {
