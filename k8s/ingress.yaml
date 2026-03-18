@@ -12,9 +12,20 @@ spec:
   tls:
     - hosts:
         - the-tip-top.jonathanlore.fr
+        - www.the-tip-top.jonathanlore.fr
       secretName: front-the-tip-top-tls
   rules:
     - host: the-tip-top.jonathanlore.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nuxt-front-service
+                port:
+                  number: 80
+    - host: www.the-tip-top.jonathanlore.fr
       http:
         paths:
           - path: /
