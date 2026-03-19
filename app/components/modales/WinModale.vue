@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useGifts } from '~/composables/useGifts'
 import JSConfetti from 'js-confetti'
-import type { WinResult } from '~/types/game'
+import type { WinResult } from '~/shared/types/game'
 
 const isOpen = defineModel<boolean>({ default: false })
 
