@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useGifts } from '~/composables/useGifts'
-import confetti from 'canvas-confetti'
+import JSConfetti from 'js-confetti'
+import type { WinResult } from '~/types/game'
 
 const isOpen = defineModel<boolean>({ default: false })
 
@@ -20,17 +21,35 @@ const matchedGift = computed(() => {
   return getGiftByName(props.winResult.gainLabel)
 })
 
+// Initialise JSConfetti une seule fois
+let jsConfetti: JSConfetti | null = null
+
+onMounted(() => {
+  jsConfetti = new JSConfetti()
+})
+
 // Surveille l'ouverture de la modale pour lancer les confettis
 watch(() => props.modelValue, (isNowOpen) => {
-  if (isNowOpen) {
+  if (isNowOpen && jsConfetti) {
     launchConfetti()
   }
 })
 
 function launchConfetti() {
-  confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#f05d23', '#FFD700', '#ffffff'] })
-  setTimeout(() => confetti({ particleCount: 60, angle: 60, spread: 55, origin: { x: 0, y: 0.65 }, colors: ['#f05d23', '#FFD700', '#ffffff'] }), 200)
-  setTimeout(() => confetti({ particleCount: 60, angle: 120, spread: 55, origin: { x: 1, y: 0.65 }, colors: ['#f05d23', '#FFD700', '#ffffff'] }), 400)
+  if (!jsConfetti) return
+
+  // Première salve — centre
+  jsConfetti.addConfetti({confettiColors: ['#f05d23', '#f08300', '#FFD700', '#ffffff'], confettiNumber: 120,})
+
+  // Deuxième salve — décalée
+  setTimeout(() => {
+    jsConfetti?.addConfetti({confettiColors: ['#f05d23', '#FFD700', '#ffffff'], confettiNumber: 60,})
+  }, 200)
+
+  // Troisième salve
+  setTimeout(() => {
+    jsConfetti?.addConfetti({confettiColors: ['#f05d23', '#FFD700', '#ffffff'], confettiNumber: 60,})
+  }, 400)
 }
 </script>
 
