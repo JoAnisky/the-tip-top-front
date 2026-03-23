@@ -14,3 +14,6 @@ data:
 
   # Communication externe (navigateur → API)
   NUXT_PUBLIC_API_BASE_URL: "https://api.the-tip-top.jonathanlore.fr"
+
+  # Google Analytics
+  NUXT_GTAG_ID: "G-P08SY3L9VW"

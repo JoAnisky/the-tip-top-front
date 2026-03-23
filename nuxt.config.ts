@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ['~/assets/scss/main.scss'],
-    modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image', '@nuxtjs/sitemap'],
+    modules: ['@nuxt/fonts', '@nuxt/ui', 'nuxt-og-image', '@nuxtjs/sitemap', 'nuxt-gtag'],
     typescript: {
         typeCheck: true,
         strict: true
@@ -34,8 +34,8 @@ export default defineNuxtConfig({
     },
     app: {
         head: {
-            titleTemplate: '%s — Thé Tip Top',
-            title: 'Grand jeu concours — Gagnez 1 an de thé bio premium', // fallback homepage
+            titleTemplate: '%s - Thé Tip Top',
+            title: 'Grand jeu concours - Gagnez 1 an de thé bio premium', // fallback homepage
             htmlAttrs: { lang: 'fr' },
             meta: [
                 { name: 'robots', content: 'index, follow' }, // défaut global
@@ -51,6 +51,18 @@ export default defineNuxtConfig({
             '/employe',
             '/profile',
             'login'
+        ]
+    },
+    gtag: {
+        id: process.env.NUXT_GTAG_ID,
+        config: {
+            debug_mode: true,
+        },
+        initCommands: [
+            ['consent', 'default', {
+                analytics_storage: 'denied', // refusé par défaut
+                ad_storage: 'denied',
+            }]
         ]
     }
 })

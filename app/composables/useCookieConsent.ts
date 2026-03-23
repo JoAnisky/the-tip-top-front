@@ -28,8 +28,10 @@ export const useCookieConsent = () => {
         path: '/',
         sameSite: 'lax'
     })
-    // On ne le passe pas ce cookie en httpOnly pour qu'il soit lisible côté JS pour l'UI
 
+    const { gtag } = useGtag()
+
+    // On ne le passe pas ce cookie en httpOnly pour qu'il soit lisible côté JS pour l'UI
     const consent = computed<CookieConsent>(() => consentCookie.value ?? {
         decided: false,
         preferences: false,
@@ -44,6 +46,17 @@ export const useCookieConsent = () => {
     const allowsSocial = computed(() => consent.value.social)
 
     /**
+     * Informe GA du consentement analytics (granted/denied).
+     * Ne fait rien côté serveur (gtag est client-only).
+     */
+    function updateGtagConsent(analyticsGranted: boolean) {
+        if (import.meta.server) return
+        gtag('consent', 'update', {
+            analytics_storage: analyticsGranted ? 'granted' : 'denied',
+        })
+    }
+
+    /**
      * Enregistre les préférences choisies par l'utilisateur.
      */
     function saveConsent(choices: Omit<CookieConsent, 'decided'>) {
@@ -51,6 +64,7 @@ export const useCookieConsent = () => {
             decided: true,
             ...choices,
         }
+        updateGtagConsent(choices.analytics)
     }
 
     /**
@@ -72,6 +86,16 @@ export const useCookieConsent = () => {
      */
     function resetConsent() {
         consentCookie.value = null
+        updateGtagConsent(false)
+    }
+
+    /**
+     * À appeler une fois au montage du app.vue pour synchroniser GA
+     * avec le cookie existant (cas où l'utilisateur a déjà décidé).
+     */
+    function initGtagConsent() {
+        if (import.meta.server) return
+        updateGtagConsent(consent.value.analytics)
     }
 
     return {
@@ -84,5 +108,6 @@ export const useCookieConsent = () => {
         acceptAll,
         rejectAll,
         resetConsent,
+        initGtagConsent,
     }
 }
