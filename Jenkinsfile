@@ -82,6 +82,7 @@ pipeline {
 						docker build \
 							-f .docker/Dockerfile \
 							--target prod \
+							--build-arg NUXT_GTAG_ID=G-P08SY3L9VW \
 							-t ${DOCKER_IMAGE}:${DOCKER_TAG} .
 
 						docker push ${DOCKER_IMAGE}:${DOCKER_TAG}

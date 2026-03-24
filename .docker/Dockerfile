@@ -38,6 +38,10 @@ COPY . .
 
 RUN npx nuxt prepare
 
+# Google Analytics — doit être déclaré avant le build
+ARG NUXT_GTAG_ID
+ENV NUXT_GTAG_ID=$NUXT_GTAG_ID
+
 RUN npm run build
 
 # --- Stage PROD ---
