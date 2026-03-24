@@ -11,4 +11,4 @@ spec:
     customResponseHeaders:
       X-Frame-Options: "SAMEORIGIN"
       Cross-Origin-Opener-Policy: "same-origin"
-      Content-Security-Policy: "default-src 'self'; connect-src 'self' https://api.the-tip-top.jonathanlore.fr https://accounts.google.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; form-action 'self' https://accounts.google.com https://www.facebook.com;"
+      Content-Security-Policy: "default-src 'self'; connect-src 'self' https://api.the-tip-top.jonathanlore.fr https://accounts.google.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; script-src 'self' 'unsafe-inline' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self' https://fonts.gstatic.com; form-action 'self' https://accounts.google.com https://www.facebook.com;"
